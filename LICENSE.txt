@@ -3,11 +3,12 @@ License
 
 GrinPy is distributed with the 3-clause BSD license. As an extension of the
 NetworkX package, we list the pertinent copyright information as requested
-but the NetworkX authors.
+by the NetworkX authors.
 
 ::
 
    GrinPy
+   ------
    Copyright (C) 2017, GrinPy Developers
    David Amos <somacdivad@gmail.com>
    Randy Davila <davilar@uhd.edu>
