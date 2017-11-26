@@ -1,2 +1,2 @@
-# grinpy
-A NetworkX extension for calculating graph parameters.
+# GrinPy
+A NetworkX extension for calculating graph invariants.
