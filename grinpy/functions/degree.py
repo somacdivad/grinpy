@@ -140,7 +140,7 @@ def number_of_nodes_of_degree_k(G, k):
     """
     return sum(1 for v in nodes(G) if degree(G, v) == k)
 
-def number_of_leaves(G):
+def number_of_degree_one_nodes(G):
     """Return the number of nodes of the graph with degree equal to 1.
 
     A vertex with degree equal to 1 is also called a *leaf*.
