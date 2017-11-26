@@ -11,6 +11,19 @@
 """
 
 from grinpy import degree, nodes, number_of_nodes
+from grinpy.functions.neighborhoods import closed_neighborhood, neighborhood
+
+__all__ = ['degree_sequence',
+           'min_degree',
+           'max_degree',
+           'average_degree',
+           'number_of_nodes_of_degree_k',
+           'number_of_degree_one_nodes',
+           'number_of_min_degree_nodes',
+           'number_of_max_degree_nodes',
+           'neighborhood_degree_list',
+           'closed_neighborhood_degree_list'
+          ]
 
 def degree_sequence(G):
     """Return the degree sequence of G.
@@ -223,3 +236,11 @@ def number_of_max_degree_nodes(G):
     1
     """
     return number_of_nodes_of_degree_k(G, max_degree(G))
+
+def neighborhood_degree_list(G, nbunch):
+    # TODO: Add documentation
+    return [degree(G, u) for u in neighborhood(G, nbunch)]
+
+def closed_neighborhood_degree_list(G, nbunch):
+    # TODO: Add documentation
+    return [degree(G, u) for u in closed_neighborhood(G, nbunch)]
