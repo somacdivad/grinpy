@@ -238,7 +238,7 @@ def number_of_max_degree_nodes(G):
     return number_of_nodes_of_degree_k(G, max_degree(G))
 
 def neighborhood_degree_list(G, nbunch):
-    """Return a list of the degrees of all neighbors of nodes in nbunch
+    """Return a list of the unique degrees of all neighbors of nodes in nbunch
 
     Parameters
     ----------
@@ -264,11 +264,11 @@ def neighborhood_degree_list(G, nbunch):
     >>> gp.neighborhood_degree_list(G, 1)
     [1, 2]
     """
-    return [degree(G, u) for u in neighborhood(G, nbunch)]
+    return list(set(degree(G, u) for u in neighborhood(G, nbunch)))
 
 def closed_neighborhood_degree_list(G, nbunch):
-    """Return a list of the degrees of all nodes in the closed neighborhood
-    of the nodes in nbunch.
+    """Return a list of the unique degrees of all nodes in the closed
+    neighborhood of the nodes in nbunch.
 
     Parameters
     ----------
@@ -294,4 +294,4 @@ def closed_neighborhood_degree_list(G, nbunch):
     >>> gp.closed_neighborhood_degree_list(G, 1)
     [1, 2, 2]
     """
-    return [degree(G, u) for u in closed_neighborhood(G, nbunch)]
+    return list(set(degree(G, u) for u in closed_neighborhood(G, nbunch)))
