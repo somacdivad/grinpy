@@ -19,7 +19,22 @@ __all__ = ['is_power_dominating_set',
            ]
 
 def is_power_dominating_set(G, nbunch):
-    # TODO: Add documentation
+    """Return whether or not the nodes in nbunch comprise a power dominating
+    set.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    nbunch : a single node or iterable container of nodes.
+
+    Returns
+    -------
+    isPowerDominating : bool
+        True if the nodes in nbunch comprise a power dominating set, False
+        otherwise.
+    """
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)
@@ -28,7 +43,20 @@ def is_power_dominating_set(G, nbunch):
     return is_zero_forcing_set(G, closed_neighborhood(G, nbunch))
 
 def min_power_dominating_set(G):
-    # TODO: Add documentation
+    """Return a smallest power dominating set of nodes in *G*.
+
+    The method used to compute the set is brute force.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    Returns
+    -------
+    minPowerDominatingSet : list
+        A smallest power dominating set in *G*.
+    """
     for i in range(1, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_power_dominating_set(G, S):
@@ -37,5 +65,16 @@ def min_power_dominating_set(G):
     return None
 
 def power_domination_number(G):
-    # TODO: Add documentation
+    """Return the power domination number of *G*.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    Returns
+    -------
+    powerDominationNumber : int
+        The power domination number of *G*.
+    """
     return len(min_power_dominating_set(G))
