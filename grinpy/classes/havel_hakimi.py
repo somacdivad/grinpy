@@ -13,43 +13,102 @@ Process on a sequence."""
 from grinpy.utils import contains_only_zeros
 
 class HavelHakimi:
+    """Class for performing and keeping track of the Havel Hakimi process on a
+    sequence of positive integers.
 
-    def __init__(self, lSequence):
-        lSequence.sort(reverse = True)
-        process_sequence = [list(lSequence)] # keeps track of resulting sequences at each step
+    Parameters
+    ----------
+    sequence : input sequence
+        The sequence of integers to initialize the Havel Hakimi process.
+    """
+
+    def __init__(self, sequence):
+        # check that sequence is an iterable type
+        try:
+            _ = x for x in sequence
+        except:
+            raise TypeError('Expected an iterable container')
+        # TODO: check that the sequence contains only integers
+        sequence.sort(reverse = True)
+        process_sequence = [list(sequence)] # keeps track of resulting sequences at each step
         elim_sequence = [] # keeps track of the elements eliminated at each step
-        while lSequence[0] > 0 and lSequence[0] < len(lSequence):
+        while sequence[0] > 0 and sequence[0] < len(sequence):
             # so long as the largest element d of the sequence is positive, remove d from the sequence and subtract 1 from the next d elements
-            d = lSequence.pop(0)
+            d = sequence.pop(0)
             for i in range(d):
-                lSequence[i] = lSequence[i] - 1
-            lSequence.sort(reverse = True)
+                sequence[i] = sequence[i] - 1
+            sequence.sort(reverse = True)
             # append the resulting sequence to the process sequence
-            process_sequence.append(list(lSequence))
+            process_sequence.append(list(sequence))
             # append the removed element to the elimination sequence
             elim_sequence.append(d)
         # finally, append the 0s in the last step of the Havel Hakimi process to the elimination sequence
         if contains_only_zeros(process_sequence[-1]):
-            elim_sequence.extend(lSequence)
+            elim_sequence.extend(sequence)
         # set class attributes
         self.process = process_sequence
         self.eliminationSequence =  elim_sequence
 
     def depth(self):
+        """Return the depth of the Havel Hakimi process.
+
+        Returns
+        -------
+        depth : int
+            The depth of the Havel Hakimi process.
+        """
         return len(self.process) - 1
 
     def get_elimination_sequence(self):
+        """Return the elimination sequence of the Havel Hakimi process.
+
+        Returns
+        -------
+        elimSequence : list
+            The elimination sequence of the Havel Hakimi process.
+        """
         return self.eliminationSequence
 
     def get_initial_sequence(self):
+        """Return the initial sequence passed to the Havel Hakimi class for
+        initialization.
+
+        Returns
+        -------
+        initSequence : list
+            The initial sequence passed to the Havel Hakimi class.
+        """
         return self.process[0]
 
     def is_graphic(self):
+        """Return whether or not the initial sequence is graphic.
+
+        Returns
+        -------
+        isGraphic : bool
+            True if the initial sequence is graphic. False otherwise.
+        """
         return contains_only_zeros(self.process[-1])
 
     def get_process(self):
+        """Return the list of sequence produced during the Havel Hakimi process.
+        The first element in the list is the initial sequence.
+
+        Returns
+        -------
+        process : list
+            The list of sequences produced by the Havel Hakimi process.
+        """
         return self.process
 
     def residue(self):
+        """Return the residue of the sequence.
+
+        Returns
+        -------
+        residue : int
+            The residue of the initial sequence. If the sequence is not graphic,
+            this will be 0.
+        """
         return len(self.process[-1]) if self.is_graphic() else 0
         # TODO: May be better to return False or None?
