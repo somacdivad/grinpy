@@ -299,9 +299,9 @@ def closed_k_disparity(G, k):
     The *closed k-disparity* of a graph is defined as:
 
     .. math::
-        \frac{2}{k(k+1)}\sum_{i=0}^{k-i}(k-i)f(i)
+        \frac{2}{k(k+1)}\sum_{i=0}^{k-1}(k-i)d_i
 
-    where *k* is a positive integer and *f(i)* is the frequency of i in the
+    where *k* is a positive integer and *d_i* is the frequency of i in the
     closed disparity sequence.
 
     Parameters
@@ -319,7 +319,8 @@ def closed_k_disparity(G, k):
     k_disparity
     """
     D = closed_disparity_sequence(G)
-    s = sum((k - i) * D.count(i) for i in range(k))
+    D.sort(reverse = True)
+    s = sum((k - i) * D[i] for i in range(k))
     return (2 * s) / (k * (k + 1))
 
 def irregularity(G):
