@@ -25,7 +25,28 @@ __all__ = ['is_independent_set',
 
 # methods
 def is_independent_set(G, nbunch):
-    # TODO: Add documentation
+    """Return whether or not the nodes in nbunch comprise an independent set.
+
+    An set *S* of nodes in *G* is called an *independent set* if no two nodes in
+    S are neighbors of one another.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    nbunch : a single node or iterable container of nodes.
+
+    Returns
+    -------
+    isIndependent : bool
+        True if the nodes in nbunch comprise an independent set, False
+        otherwise.
+
+    See Also
+    --------
+    is_k_independent_set
+    """
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)
@@ -35,7 +56,33 @@ def is_independent_set(G, nbunch):
     return set(neighborhood(G, S)).intersection(S) == set()
 
 def is_k_independent_set(G, nbunch, k):
-    # TODO: Add documentation
+    """Return whether or not the nodes in nbunch comprise an a k-independent
+    set.
+
+    A set *S* of nodes in *G* is called a *k-independent set* it every node
+    in S has at most *k*-1 neighbors in S. Notice that a 1-independent set
+    is equivalent to an independent set.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    nbunch : a single node or iterable container of nodes.
+
+    k : int
+        A positive integer.
+
+    Returns
+    -------
+    isKIndependent : bool
+        True if the nodes in nbunch comprise a k-independent set, False
+        otherwise.
+
+    See Also
+    --------
+    is_independent_set
+    """
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)
@@ -51,7 +98,31 @@ def is_k_independent_set(G, nbunch, k):
         return True
 
 def max_k_independent_set(G, k):
-    # TODO: Add documentation
+    """Return a largest k-independent set of nodes in *G*.
+
+    The method used is brute force, except when *k*=1. In this case, the search
+    starts with subsets of *G* with cardinality equal to the annihilation
+    number of *G*, which was shown by Pepper to be an upper bound for the
+    independence number of a graph, and then continues checking smaller subsets
+    until a maximum independent set is found.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    k : int
+        A positive integer.
+
+    Returns
+    -------
+    maxKIndependentSet : list
+        A list of nodes comprising a largest k-independent set in *G*.
+
+    See Also
+    --------
+    max_independent_set
+    """
     # set the maximum for the loop range
     rangeMax = number_of_nodes(G) + 1
     if k == 1:
@@ -68,13 +139,73 @@ def max_k_independent_set(G, k):
     return None
 
 def max_independent_set(G):
-    # TODO: Add documentation
+    """Return a largest independent set of nodes in *G*.
+
+    The method used is a modified brute force search. The search
+    starts with subsets of *G* with cardinality equal to the annihilation
+    number of *G*, which was shown by Pepper to be an upper bound for the
+    independence number of a graph, and then continues checking smaller subsets
+    until a maximum independent set is found.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    Returns
+    -------
+    maxIndependentSet : list
+        A list of nodes comprising a largest independent set in *G*.
+
+    See Also
+    --------
+    max_independent_set
+    """
     return max_k_independent_set(G, 1)
 
 def independence_number(G):
-    # TODO: Add documentation
+    """Return a the independence number of G.
+
+    The *independence number* of a graph is the cardinality of a largest
+    independent set of nodes in the graph.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    Returns
+    -------
+    independenceNumber : int
+        The independence number of *G*.
+
+    See Also
+    --------
+    k_independence_number
+    """
     return len(max_independent_set(G))
 
 def k_independence_number(G, k):
-    # TODO: Add documentation
+    """Return a the k-independence number of G.
+
+    The *k-independence number* of a graph is the cardinality of a largest
+    k-independent set of nodes in the graph.
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    k : int
+        A positive integer.
+
+    Returns
+    -------
+    kIndependenceNumber : int
+        The k-independence number of *G*.
+
+    See Also
+    --------
+    independence_number
+    """
     return len(max_k_independent_set(G, k))

@@ -17,12 +17,46 @@ __all__ = ['is_graphic',
            'elimination_sequence'
           ]
 
-def is_graphic(lSequence):
-    hh = gp.HavelHakimi(lSequence)
+def is_graphic(sequence):
+    """Return whether or not the input sequence is graphic.
+
+    A sequence of positive integers is said to be a *graphic sequence* if there
+    exist a graph whose degree sequence is equal to the input sequence, up to
+    ordering.
+
+    Returns
+    -------
+    isGraphic : bool
+        True if the input sequence is graphic. False otherwise.
+    """
+    hh = gp.HavelHakimi(sequence)
     return hh.is_graphic()
 
-def havel_hakimi_process(nxGraph):
-    return gp.HavelHakimi(degree_sequence(nxGraph))
+def havel_hakimi_process(G):
+    """Return an instance of the HavelHakimi class initialized with the degree
+    sequence of the graph.
 
-def elimination_sequence(nxGraph):
-    return havel_hakimi_process(nxGraph).get_elimination_sequence()
+    Returns
+    -------
+    process : object
+        An instance of the HavelHakimi class initialized with the degree
+        sequence of the graph.
+
+    See Also
+    --------
+    HavelHakimi
+    """
+    return gp.HavelHakimi(degree_sequence(G))
+
+def elimination_sequence(G):
+    """Return the elimination sequence of the graph.
+
+    The *elimination sequence* of a graph is the elimination sequence generated
+    by the Havel Hakimi process performed on the degree sequence of the graph.
+
+    Returns
+    -------
+    elimSequence : list
+        The elimination sequence of the graph.
+    """
+    return havel_hakimi_process(G).get_elimination_sequence()
