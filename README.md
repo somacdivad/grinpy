@@ -14,6 +14,8 @@ Grinpy is still in development. We are working hard to finish the first build. O
 4
 ```
 
-## Why does it exist?
+Full documentation will be released soon.
+
+### Why does it exist?
 The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database a relatively small (no more than 16 - 20 vertices) and in the interest of speed we have written brute
-force algorithms for finding many of the NP-hard invariants. This will change in the future when more efficient algorithms will be implemented.
+force algorithms for finding many of the NP-hard invariants. After beginning to work on this problem, we decided to go ahead and work on a working of GrinPy. After the first build, we will work on improving our algorithms.
