@@ -7,4 +7,5 @@ install:
 script:
   - pytest
 after_success:
+  - coverage run --source=grinpy setup.py
   - coveralls
