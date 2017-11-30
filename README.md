@@ -23,6 +23,6 @@ The motivation for this project is to filter a database of graphs into an ordere
 ### License
 Released under the 3-Clause BSD license (see `LICENSE.txt`)::
 
-   Copyright (C) 2017 GrinPy Developers
-   David Amos <amosd2@tamu.edu>
-   Randy Davila <davilar@uhd.edu>
+    Copyright (C) 2017 GrinPy Developers
+    David Amos <amosd2@tamu.edu>
+    Randy Davila <davilar@uhd.edu>
