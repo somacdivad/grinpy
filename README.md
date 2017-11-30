@@ -18,7 +18,7 @@ Full documentation will be released soon. For now, here's a sample:
 GrinPy automatically imports NetworkX and provides all of the NetworkX classes and methods in the same interface.
 
 ### Why does it exist?
-The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database are relatively small (no more than 16 - 20 vertices) and thus, in the interest of quickly creating our database, we have written brute force algorithms for finding many of the NP-hard invariants. After the first build we will work on improving our algorithms.
+The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database are relatively small (no more than 16 - 20 vertices) and thus, in the interest of quickly creating our database, we have written brute force algorithms for finding many of the NP-hard invariants. After the first release we will work on improving our algorithms.
 
 ### License
 Released under the 3-Clause BSD license (see `LICENSE.txt`):
