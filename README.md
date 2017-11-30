@@ -4,7 +4,7 @@
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
-GrinPy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension of NetworkX for computing all kinds of graph invariants. GrinPy is being released with the 3-clause BSD liscence -- the same license as NetworkX.
+GrinPy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension of NetworkX for computing all kinds of graph invariants.
 
 ### How do I use it?
 Full documentation will be released soon. For now, here's a sample:
@@ -19,3 +19,10 @@ GrinPy automatically imports NetworkX and provides all of the NetworkX classes a
 
 ### Why does it exist?
 The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database a relatively small (no more than 16 - 20 vertices) and in the interest of quickly creating our database, we have written brute force algorithms for finding many of the NP-hard invariants. After the first build we will work on improving our algorithms.
+
+### License
+Released under the 3-Clause BSD license (see `LICENSE.txt`)::
+
+   Copyright (C) 2017 GrinPy Developers
+   David Amos <amosd2@tamu.edu>
+   Randy Davila <davilar@uhd.edu>
