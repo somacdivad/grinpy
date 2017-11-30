@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/somacdivad/grinpy.svg?branch=master)](https://travis-ci.org/somacdivad/grinpy) [![BCH compliance](https://bettercodehub.com/edge/badge/somacdivad/grinpy?branch=master)](https://bettercodehub.com/) [![Coverage Status](https://coveralls.io/repos/github/somacdivad/grinpy/badge.svg?branch=master)](https://coveralls.io/github/somacdivad/grinpy?branch=master)
+[![Build Status](https://travis-ci.org/somacdivad/grinpy.svg?branch=master)](https://travis-ci.org/somacdivad/grinpy) [![Build status](https://ci.appveyor.com/api/projects/status/aqqnfhlce26f09xn/branch/master?svg=true)](https://ci.appveyor.com/project/somacdivad/grinpy/branch/master) [![BCH compliance](https://bettercodehub.com/edge/badge/somacdivad/grinpy?branch=master)](https://bettercodehub.com/) [![Coverage Status](https://coveralls.io/repos/github/somacdivad/grinpy/badge.svg?branch=master)](https://coveralls.io/github/somacdivad/grinpy?branch=master)
 
 # GrinPy
 *A NetworkX extension for calculating graph invariants.*
