@@ -1,2 +1,14 @@
 # test file
 test.py
+
+# Packages
+*.egg
+*.eggs
+*.egg-info
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+.cache
+eggs
