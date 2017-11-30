@@ -11,8 +11,8 @@
 # check Python version
 # TODO: determine actual minimum version required. Here, the development version is used.
 import sys
-if sys.version_info[:2] < (3, 6):
-    m = "Python 3.6 or later is required for GrinPy (%d.%d detected)."
+if sys.version_info[:2] < (3, 4):
+    m = "Python 3.4 or later is required for GrinPy (%d.%d detected)."
     raise ImportError(m % sys.version_info[:2])
 del sys
 
