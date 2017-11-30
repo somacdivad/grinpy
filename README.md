@@ -7,10 +7,12 @@
 Grinpy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension for NetworkX for computing all kinds of graph invariants.
 
 ## How do I use it?
->>> import grinpy as gp
->>> G = gp.peterson_graph()
->>> print(gp.zero_forcing_number(G))
+'''python
+> import grinpy as gp
+> G = gp.peterson_graph()
+> print(gp.zero_forcing_number(G))
 5
+'''
 
 ## Why does it exist?
 The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database a relatively small (no more than 16 - 20 vertices) and in the interest of speed we have written brute
