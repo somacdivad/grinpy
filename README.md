@@ -8,10 +8,10 @@ Grinpy is still in development. We are working hard to finish the first build. O
 
 ### How do I use it?
 ```python
->>> absimport grinpy as gp
->>> G = gp.peterson_graph()
->>> gp.zero_forcing_number(G))
-5
+>>> import grinpy as gp
+>>> G = gp.petersen_graph()
+>>> gp.independence_number(G)
+4
 ```
 
 ## Why does it exist?
