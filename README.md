@@ -6,11 +6,11 @@
 ### What is it?
 Grinpy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension for NetworkX for computing all kinds of graph invariants.
 
-## How do I use it?
+### How do I use it?
 ```python
-$ import grinpy as gp
-$ G = gp.peterson_graph()
-$ gp.zero_forcing_number(G))
+>>> absimport grinpy as gp
+>>> G = gp.peterson_graph()
+>>> gp.zero_forcing_number(G))
 5
 ```
 
