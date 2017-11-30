@@ -4,9 +4,10 @@
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
-Grinpy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension for NetworkX for computing all kinds of graph invariants.
+GrinPy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension for NetworkX for computing all kinds of graph invariants.
 
 ### How do I use it?
+Full documentation will be released soon. For now, here's a sample:
 ```python
 >>> import grinpy as gp
 >>> G = gp.petersen_graph()
@@ -14,8 +15,7 @@ Grinpy is still in development. We are working hard to finish the first build. O
 4
 ```
 
-Full documentation will be released soon.
+GrinPy automatically imports NetworkX and provides all of the NetworkX casses and methods in the same interface as the GrinPy methods.
 
 ### Why does it exist?
-The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database a relatively small (no more than 16 - 20 vertices) and in the interest of speed we have written brute
-force algorithms for finding many of the NP-hard invariants. After beginning to work on this problem, we decided to go ahead and work on a working of GrinPy. After the first build, we will work on improving our algorithms.
+The motivation for this project is to filter a database of graphs into an ordered tree of subsets. The graphs in this database a relatively small (no more than 16 - 20 vertices) and in the interest of quickly creating our database, we have written brute force algorithms for finding many of the NP-hard invariants. After the first build we will work on improving our algorithms.
