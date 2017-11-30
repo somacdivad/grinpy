@@ -25,7 +25,7 @@ class HavelHakimi:
     def __init__(self, sequence):
         # check that sequence is an iterable type
         try:
-            _ = x for x in sequence
+            _ = [x for x in sequence]
         except:
             raise TypeError('Expected an iterable container')
         # TODO: check that the sequence contains only integers
