@@ -20,8 +20,7 @@ description = readme[1]
 long_description = ''.join(readme)
 
 reqs = [
-        'networkx>=2.0',
-        'coverage==4.0.3',
+        'networkx>=2.0'
         ]
 
 if sys.version_info < (2, 7):

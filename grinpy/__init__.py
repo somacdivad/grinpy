@@ -19,17 +19,14 @@ del sys
 __author__ = 'David Amos <amosd2@tamu.edu>, Randy Davila <davilar@uhd.edu>'
 __version__ = '0.1.0'
 __classifiers__ = [
-    'Development Status :: 5 - Production/Stable',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: Apache Software License',
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: Education',
+    'License :: OSI Approved :: BSD License',
     'Operating System :: OS Independent',
-    'Programming Language :: Python :: 2.6',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.3',
-    'Programming Language :: Python :: 3.4',
-    'Programming Language :: Python :: 3.5',
-    'Topic :: Internet :: WWW/HTTP',
-    'Topic :: Software Development :: Libraries',
+    'Programming Language :: Python :: 3.6',
+    'Topic :: Scientific/Engineering :: Mathematics',
+    'Topic :: Software Development :: Libraries :: Python Modules',
 ]
 __copyright__ = "2017, %s " % __author__
 __license__ = """
