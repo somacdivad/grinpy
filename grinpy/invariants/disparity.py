@@ -47,6 +47,9 @@ def vertex_disparity(G, v):
     --------
     closed_vertex_disparity
     """
+    if v not in nodes(G):
+        raise(ValueError)
+
     return len(neighborhood_degree_list(G, v))
 
 def closed_vertex_disparity(G, v):
@@ -70,6 +73,9 @@ def closed_vertex_disparity(G, v):
     --------
     vertex_disparity
     """
+    if v not in nodes(G):
+        raise(ValueError)
+    
     return len(closed_neighborhood_degree_list(G, v))
 
 def disparity_sequence(G):

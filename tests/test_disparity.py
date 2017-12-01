@@ -1,5 +1,5 @@
 from grinpy import grinpy as gp
-
+import pytest
 
 class TestDisparity():
     def setup_class(self):
@@ -21,6 +21,11 @@ class TestDisparity():
         assert(gp.vertex_disparity(G, 4) == 1)
         assert(gp.vertex_disparity(G, 5) == 1)
 
+    def test_vertex_disparity_of_vertex_not_in_graph(self):
+        G = self.G
+        with pytest.raises(ValueError, message="Expected ValueError"):
+            gp.vertex_disparity(G, 6)
+
     def test_closed_vertex_disparity(self):
         G = self.G
         assert(gp.closed_vertex_disparity(G, 0) == 2)
@@ -29,6 +34,11 @@ class TestDisparity():
         assert(gp.closed_vertex_disparity(G, 3) == 2)
         assert(gp.closed_vertex_disparity(G, 4) == 2)
         assert(gp.closed_vertex_disparity(G, 5) == 2)
+
+    def test_closed_vertex_disparity_of_vertex_not_in_graph(self):
+        G = self.G
+        with pytest.raises(ValueError, message="Expected ValueError"):
+            gp.closed_vertex_disparity(G, 6)
 
     def test_disparity_sequence(self):
         G = self.G
