@@ -3,6 +3,9 @@ import pytest
 
 class TestDisparity():
     def setup_class(self):
+        # The test graph for these functions is the simple graph obtained from
+        # the disjoint union of K_3 and P_3 by joining one vertex of K_3 with
+        # the degree two vertex of P_3.
         G = gp.Graph()
         G.add_edge(0, 1)
         G.add_edge(0, 2)
@@ -80,3 +83,22 @@ class TestDisparity():
         assert(gp.k_disparity(G, 4) == 2.0)
         assert(gp.k_disparity(G, 5) == 29 / 15)
         assert(gp.k_disparity(G, 6) == 39 / 21)
+
+    def test_closed_k_disparity(self):
+        G = self.G
+        assert(gp.closed_k_disparity(G, 1) == 2.0)
+        assert(gp.closed_k_disparity(G, 2) == 2.0)
+        assert(gp.closed_k_disparity(G, 3) == 2.0)
+        assert(gp.closed_k_disparity(G, 4) == 2.0)
+        assert(gp.closed_k_disparity(G, 5) == 2.0)
+        assert(gp.closed_k_disparity(G, 6) == 2.0)
+
+    def test_irregularity_complete_graph(self):
+        for i in range(2, 10):
+            G = gp.complete_graph(i)
+            assert(gp.irregularity(G) == 1.0)
+
+    def test_irregularity_star(self):
+        for i in range(2, 10):
+            G = gp.star_graph(i)
+            assert(gp.irregularity(G) == 2.0)
