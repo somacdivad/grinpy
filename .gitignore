@@ -13,3 +13,7 @@ test.py
 nosetests.xml
 .cache
 eggs
+
+# pycache
+__pychache__
+*.pyc
