@@ -5,6 +5,7 @@ test.py
 *.egg
 *.eggs
 *.egg-info
+*.cache
 
 # Unit test / coverage reports
 .coverage
