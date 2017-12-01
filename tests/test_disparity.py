@@ -102,3 +102,18 @@ class TestDisparity():
         for i in range(2, 10):
             G = gp.star_graph(i)
             assert(gp.irregularity(G) == 2.0)
+
+    def test_domination_number_of_star_is_1(self):
+        for i in range(1, 9):
+            G = gp.star_graph(i)
+            assert(gp.domination_number(G) == 1)
+
+    def test_2_domination_number_of_star_is_order_minus_1(self):
+        for i in range(2, 9):
+            G = gp.star_graph(i)
+            assert(gp.k_domination_number(G, 2) == G.order() - 1)
+
+    def test_total_domination_number_of_star_is_2(self):
+        for i in range(1, 9):
+            G = gp.star_graph(i)
+            assert(gp.total_domination_number(G) == 2)

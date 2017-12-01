@@ -59,7 +59,8 @@ def is_k_dominating_set(G, nbunch, k):
     if k == 1:
         return is_dominating_set(G, nbunch)
     else:
-        S = set(nbunch)
+        # exclude any nodes that aren't in G
+        S = set(n for n in nbunch if n in G)
         # loop through the nodes in the complement of S and determine if they are adjacent to atleast k nodes in S
         others = set(nodes(G)).difference(S)
         for v in others:
@@ -93,6 +94,8 @@ def is_total_dominating_set(G, nbunch):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
+    # exclude any nodes that aren't in G
+    S = set(n for n in nbunch if n in G)
     return set(neighborhood(G, nbunch)) == set(nodes(G))
 
 def min_k_dominating_set(G, k):
