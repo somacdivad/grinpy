@@ -7,5 +7,5 @@ install:
 script:
   - pytest
 after_success:
-  - coverage run --source=grinpy setup.py test
+  - py.test --cov-config .coveragerc --cov=grinpy tests/
   - coveralls

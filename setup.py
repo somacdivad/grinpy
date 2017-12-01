@@ -20,12 +20,26 @@ description = readme[1]
 long_description = ''.join(readme)
 
 reqs = [
-        'networkx>=2.0'
+        'networkx>=2.0',
         ]
 
 if sys.version_info < (2, 7):
     reqs.append('argparse')
     reqs.append('subprocess32')
+
+if sys.argv[-1] == 'test':
+    test_requirements = [
+        'pytest',
+        'coverage'
+    ]
+    try:
+        modules = map(__import__, test_requirements)
+    except ImportError as e:
+        err_msg = e.message.replace("No module named ", "")
+        msg = "%s is not installed. Install your test requirments." % err_msg
+        raise ImportError(msg)
+    os.system('py.test --cov-config .coveragerc --cov=grinpy')
+    sys.exit()
 
 setup(
     name=name,
