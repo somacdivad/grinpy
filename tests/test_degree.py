@@ -1,4 +1,4 @@
-import grinpy as gp
+from grinpy import grinpy as gp
 
 class TestDegree():
     def setup_class(self):

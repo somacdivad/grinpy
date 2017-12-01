@@ -222,7 +222,7 @@ def closed_inverse_disparity(G):
     --------
     CW_disparity, closed_CW_disparity, inverse_disparity
     """
-    return (1 / x for x in closed_disparity_sequence(G))
+    return sum(1 / x for x in closed_disparity_sequence(G))
 
 def average_vertex_disparity(G):
     """Return the average vertex disparity of the graph.
@@ -290,7 +290,8 @@ def k_disparity(G, k):
     closed_k_disparity
     """
     D = disparity_sequence(G)
-    s = sum((k - i) * D.count(i) for i in range(k))
+    D.sort(reverse = True)
+    s = sum((k - i) * D[i] for i in range(k))
     return (2 * s) / (k * (k+1))
 
 def closed_k_disparity(G, k):
