@@ -1,5 +1,4 @@
 from grinpy import grinpy as gp
-from math import floor
 
 class TestIndependence():
     def test_set_of_leaves_of_star_is_independent_set(self):
@@ -53,3 +52,8 @@ class TestIndependence():
     def test_2_independence_number_of_C5_is_3(self):
         G = gp.cycle_graph(5)
         assert(gp.k_independence_number(G, 2) == 3)
+        
+    def test_max_independent_set_of_empty_graph_is_all_nodes(self):
+        for i in range(1, 11):
+            G = gp.empty_graph(i)
+            assert(gp.max_independent_set(G) == list(gp.nodes(G)))
