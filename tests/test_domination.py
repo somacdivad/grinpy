@@ -1,5 +1,4 @@
 from grinpy import grinpy as gp
-import pytest
 
 class TestDomination():
     def test_max_degree_vertex_is_dominating_set_of_star(self):

@@ -77,8 +77,8 @@ def sub_k_domination_number(G, k):
 def slater(G):
     """Return the Slater invariant for the graph.
 
-    The Slater invariant is a lower bound for the domination number of a graph
-    defined by:
+    The Slater invariant of a graph G is a lower bound for the domination
+    number of a graph defined by:
 
     .. math::
         sl(G) = \min{t : t + \sum_{i=0}^t d_i \geq n}
@@ -88,9 +88,10 @@ def slater(G):
     .. math::
         {d_1 \geq d_2 \geq \cdots \geq \d_n}
 
-    is the degree sequence of the graph ordered in non-increasing order.
+    is the degree sequence of the graph ordered in non-increasing order and *n*
+    is the order of G.
 
-    Amos et al. rediscovered this invariant an generalized it into what is
+    Amos et al. rediscovered this invariant and generalized it into what is
     now known as the sub-domination number.
 
     Parameters
@@ -133,7 +134,8 @@ def sub_total_domination_number(G):
     .. math::
         {d_1 \geq d_2 \geq \cdots \geq \d_n}
 
-    is the degree sequence of the graph ordered in non-increasing order.
+    is the degree sequence of the graph ordered in non-increasing order and *n*
+    is the order of the graph.
 
     This invariant was defined and investigated by Randy Davila.
 
@@ -164,17 +166,18 @@ def sub_total_domination_number(G):
 def annihilation_number(G):
     """Return the annihilation number of the graph.
 
-    The annihilation number is defined as:
+    The annihilation number of a graph G is defined as:
 
     .. math::
-        a(G) = \max{t : \sum_{i=0}^t d_i \leq n}
+        a(G) = \max{t : \sum_{i=0}^t d_i \leq m}
 
     where
 
     .. math::
         {d_1 \leq d_2 \leq \cdots \leq \d_n}
 
-    is the degree sequence of the graph ordered in non-decreasing order.
+    is the degree sequence of the graph ordered in non-decreasing order and m
+    is the number of edges in G.
 
     Parameters
     ----------
@@ -192,6 +195,8 @@ def annihilation_number(G):
     # sum over degrees in the sequence until the sum is larger than the number of edges in the graph
     S = [D[0]]
     while(sum(S) <= m):
+        if sum(S) == m:
+            return len(S)
         S.append(D[len(S)])
     return len(S) - 1
 
