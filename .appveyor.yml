@@ -46,11 +46,7 @@ install:
 
   # Install the build and runtime dependencies of the project.
   # - "%CMD_IN_ENV% pip install --timeout=60 -r requirements.txt"
-  - "pip install networkx"
-
-  - "pip install ."
-
-  - "pip install pytest"
+  - "pip install -r requirements.txt"
 
 # Not a .NET project, we build grinpy in the install step instead
 build: false
@@ -59,4 +55,3 @@ test_script:
   # Change to a non-source folder to make sure we run the tests on the
   # installed library.
   - "python setup.py test"
-  - "codecov"
