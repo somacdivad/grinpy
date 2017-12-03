@@ -52,7 +52,7 @@ def is_k_forcing_vertex(G, v, nbunch, k):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    S = set(nbunch)
+    S = set( n for n in nbunch if n in G)
     n = len(set(neighborhood(G, v)).difference(S))
     return v in S and n >= 1 and n <= k
 
@@ -80,7 +80,7 @@ def is_k_forcing_active_set(G, nbunch, k):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    S = set(nbunch)
+    S = set(n for n in nbunch if n in G)
     for v in S:
         if is_k_forcing_vertex(G, v, S, k):
             return True
@@ -111,7 +111,7 @@ def is_k_forcing_set(G, nbunch, k):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    Z = set(nbunch)
+    Z = set(n for n in nbunch if n in G)
     while is_k_forcing_active_set(G, Z, k):
         Z_temp = Z.copy()
         for v in Z:
