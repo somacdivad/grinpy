@@ -108,7 +108,6 @@ class HavelHakimi:
         -------
         residue : int
             The residue of the initial sequence. If the sequence is not graphic,
-            this will be 0.
+            this will be None.
         """
-        return len(self.process[-1]) if self.is_graphic() else 0
-        # TODO: May be better to return False or None?
+        return len(self.process[-1]) if self.is_graphic() else None

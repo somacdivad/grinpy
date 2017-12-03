@@ -1,5 +1,4 @@
 from grinpy import grinpy as gp
-from math import floor
 
 class TestIndependence():
     def test_set_of_leaves_of_star_is_independent_set(self):
