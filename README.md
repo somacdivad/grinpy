@@ -4,7 +4,7 @@
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
-GrinPy is still in development. We are working hard to finish the first build. Our aim is to create an easy-to-use extension of NetworkX for computing all kinds of graph invariants.
+GrinPy is still in development. We are working hard to finish the first release. Our aim is to create an easy-to-use extension of NetworkX for computing all kinds of graph invariants.
 
 ### How do I use it?
 Full documentation will be released soon. For now, here's a sample:
