@@ -1,7 +1,7 @@
 from grinpy import grinpy as gp
 from math import floor
 
-class TestDomination():
+class TestIndependence():
     def test_set_of_leaves_of_star_is_independent_set(self):
         for i in range(2, 10):
             G = gp.star_graph(i)
@@ -49,3 +49,7 @@ class TestDomination():
         for i in range(2, 11):
             G = gp.complete_graph(i)
             assert(gp.k_independence_number(G, 2) == 2)
+
+    def test_2_independence_number_of_C5_is_3(self):
+        G = gp.cycle_graph(5)
+        assert(gp.k_independence_number(G, 2) == 3)
