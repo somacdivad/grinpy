@@ -7,5 +7,5 @@ install:
 script:
   - pytest
 after_success:
-  - py.test --cov-config .coveragerc --cov=grinpy tests/
-  - coveralls
+  - python setup.pt test
+  - codecov
