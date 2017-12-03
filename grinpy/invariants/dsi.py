@@ -71,7 +71,7 @@ def sub_k_domination_number(G, k):
     for i in range(n + 1):
         if i + (sum(D[:i]) / k) >= n:
             return i
-    # if above loop completes, return None (should not occur)
+    # if above loop completes, return None
     return None
 
 def slater(G):
@@ -160,7 +160,7 @@ def sub_total_domination_number(G):
     for i in range(n + 1):
         if sum(D[:i]) >= n:
             return i
-    # if above loop completes, return None (should not occur)
+    # if above loop completes, return None
     return None
 
 def annihilation_number(G):

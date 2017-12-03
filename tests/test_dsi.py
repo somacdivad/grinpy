@@ -29,9 +29,10 @@ class TestDSI():
             G = gp.complete_graph(i)
             assert(gp.sub_total_domination_number(G) == 2)
 
-    def test_sub_total_domination_number_of_trivial_graph_is_None(self):
-        G = gp.trivial_graph()
-        assert(gp.sub_total_domination_number(G) == None)
+    def test_sub_total_domination_number_of_empty_graph_is_None(self):
+        for i in range(1, 9):
+            G = gp.empty_graph(i)
+            assert(gp.sub_total_domination_number(G) == None)
 
     def test_sub_total_domination_number_of_cycle_is_half_of_nodes(self):
         for i in range(3, 13):
