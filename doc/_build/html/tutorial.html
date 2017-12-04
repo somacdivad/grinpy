@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial &mdash; GrinPy 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="GrinPy 0.1 documentation" href="index.html"/>
+        <link rel="next" title="Reference" href="reference/index.html"/>
+        <link rel="prev" title="Welcome to GrinPy" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GrinPy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calculating-the-independence-number">Calculating the Independence Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-a-maximum-independent-set">Get a Maximum Independent Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#determine-if-a-given-set-is-independent">Determine if a Given Set is Independent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-notes">General Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GrinPy</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This guide can help you start working with GrinPy. We assume basic knowledge
+of NetworkX. For more information on how to use NetworkX, see the <a class="reference external" href="https://https://networkx.github.io/documentation/stable/">NetworkX
+Documentation</a>.</p>
+<div class="section" id="calculating-the-independence-number">
+<h2>Calculating the Independence Number<a class="headerlink" href="#calculating-the-independence-number" title="Permalink to this headline">¶</a></h2>
+<p>For this example we will create a cycle of order 5.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">grinpy</span> <span class="k">as</span> <span class="nn">gp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">cycle_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In order to compute the independence number of the cycle, we simply call the <cite>independence_number</cite> method on the graph:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gp</span><span class="o">.</span><span class="n">independence_number</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>It’s that simple!</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this release (version 0.1), all methods are defined only for simple graphs. In future releases, we will expand to digraphs and multigraphs.</p>
+</div>
+</div>
+<div class="section" id="get-a-maximum-independent-set">
+<h2>Get a Maximum Independent Set<a class="headerlink" href="#get-a-maximum-independent-set" title="Permalink to this headline">¶</a></h2>
+<p>If we are interested in finding a maximum independent set in the graph:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gp</span><span class="o">.</span><span class="n">max_independent_set</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="go">[0, 2]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="determine-if-a-given-set-is-independent">
+<h2>Determine if a Given Set is Independent<a class="headerlink" href="#determine-if-a-given-set-is-independent" title="Permalink to this headline">¶</a></h2>
+<p>We may check whether or not a given set is independent:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gp</span><span class="o">.</span><span class="n">is_independent_set</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gp</span><span class="o">.</span><span class="n">is_independent_set</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="general-notes">
+<h2>General Notes<a class="headerlink" href="#general-notes" title="Permalink to this headline">¶</a></h2>
+<p>The vast majority of NP-hard invariants will include three methods
+corresponding to the above examples. That is, for each invariant, there will
+be three methods:</p>
+<ul class="simple">
+<li>Calculate the invariant</li>
+<li>Get a set of nodes realizing the invariant</li>
+<li>Determine whether or not a given set of nodes meets some necessary
+condition for the invariant.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reference/index.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to GrinPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, David Amos, Randy Davila.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
