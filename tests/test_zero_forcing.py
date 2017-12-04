@@ -1,6 +1,16 @@
 from grinpy import grinpy as gp
+import pytest
 
 class TestZeroForcing():
+    def test_non_integral_value_for_k_raises_TypeError(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.is_k_forcing_vertex(G, 1, 1, 1.5)
+
+    def test_integral_float_for_k_works(self):
+        G = gp.star_graph(2)
+        assert(gp.is_k_forcing_vertex(G, 1, 1, 1.0) == True)
+
     def test_leaf_is_zero_forcing_vertex_for_star(self):
         G = gp.star_graph(2)
         assert(gp.is_zero_forcing_vertex(G, 1, 1) == True)

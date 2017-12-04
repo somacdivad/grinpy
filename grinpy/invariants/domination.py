@@ -50,7 +50,12 @@ def is_k_dominating_set(G, nbunch, k):
         True if the nodes in nbunch comprise a k-dominating set, and False
         otherwise.
     """
-    # TODO: add check that k >= 1 and throw error if not
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)
