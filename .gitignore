@@ -21,3 +21,9 @@ __pychache__
 # docs
 doc/build
 doc/ghpages_build
+doc/auto_examples
+doc/modules
+doc/reference/generated
+doc/reference/classes/generated
+doc/reference/functions/generated
+doc/reference/invariants/generated
