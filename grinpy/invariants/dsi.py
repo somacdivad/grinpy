@@ -64,7 +64,12 @@ def sub_k_domination_number(G, k):
     of a graph with applications to k-domination, *arXiv preprint
     arXiv:1611.02379*, (2016)
     """
-    # TODO: add check that k >= 1 and throw error if not
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
     D = degree_sequence(G)
     D.sort(reverse = True)
     n = len(D)
@@ -191,13 +196,11 @@ def annihilation_number(G):
     """
     D = degree_sequence(G)
     D.sort() # sort in non-decreasing order
+    n = len(D)
     m = number_of_edges(G)
     # sum over degrees in the sequence until the sum is larger than the number of edges in the graph
-    S = [D[0]]
-    while(sum(S) <= m):
-        if sum(S) == m:
-            return len(S)
-        S.append(D[len(S)])
-    return len(S) - 1
-
-# TODO: add more DSI invariants (such as upper and lower annihilation numbers)
+    for i in reversed(range(n+1)):
+        if sum(D[:i]) <= m:
+            return i
+    # if the above loop completes, return None
+    return None

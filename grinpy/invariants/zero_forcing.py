@@ -46,13 +46,18 @@ def is_k_forcing_vertex(G, v, nbunch, k):
         True if *v* can *k*-force relative to the nodes in nbunch. False
         otherwise.
     """
-    # TODO: add check that k >= 1
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    S = set(nbunch)
+    S = set( n for n in nbunch if n in G)
     n = len(set(neighborhood(G, v)).difference(S))
     return v in S and n >= 1 and n <= k
 
@@ -80,7 +85,7 @@ def is_k_forcing_active_set(G, nbunch, k):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    S = set(nbunch)
+    S = set(n for n in nbunch if n in G)
     for v in S:
         if is_k_forcing_vertex(G, v, S, k):
             return True
@@ -111,7 +116,7 @@ def is_k_forcing_set(G, nbunch, k):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    Z = set(nbunch)
+    Z = set(n for n in nbunch if n in G)
     while is_k_forcing_active_set(G, Z, k):
         Z_temp = Z.copy()
         for v in Z:

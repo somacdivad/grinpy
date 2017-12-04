@@ -1,7 +1,17 @@
 from grinpy import grinpy as gp
 from math import ceil, floor
+import pytest
 
 class TestDSI():
+    def test_non_integral_value_for_k_raises_TypeError(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.sub_k_domination_number(G, 1.5)
+
+    def test_integral_float_for_k_works(self):
+        G = gp.star_graph(2)
+        assert(gp.sub_k_domination_number(G, 1.0) == 1)
+
     def test_slater_of_complete_graph_is_1(self):
         for i in range(1, 10):
             G = gp.complete_graph(i)
