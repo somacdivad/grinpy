@@ -20,7 +20,7 @@ classifiers = [
     'Topic :: Scientific/Engineering :: Mathematics',
     'Topic :: Software Development :: Libraries :: Python Modules',
 ]
-copyright = "2017, %s " % __author__
+copyright = "2017, %s " % author
 license = """
    Copyright %s.
 
