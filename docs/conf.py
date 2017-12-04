@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # GrinPy documentation build configuration file, created by
-# sphinx-quickstart on Sun Dec  3 20:56:57 2017.
+# sphinx-quickstart on Mon Dec  4 00:23:28 2017.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -20,9 +20,6 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import os
-import sys
-sys.path.insert(0, os.path.abspath('..'))
 
 
 # -- General configuration ------------------------------------------------
@@ -34,17 +31,10 @@ sys.path.insert(0, os.path.abspath('..'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-    'sphinx.ext.autosummary',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.coverage',
+extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.doctest',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.githubpages',
-    "nb2plots"]
-
-# generate autosummary pages
-autosummary_generate = True
+    'sphinx.ext.coverage',
+    'sphinx.ext.mathjax']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -96,9 +86,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-import sphinx_rtd_theme
-html_theme = "sphinx_rtd_theme"
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -182,3 +170,6 @@ texinfo_documents = [
      author, 'GrinPy', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+
+
