@@ -1,6 +1,15 @@
 from grinpy import grinpy as gp
+import pytest
 
 class TestHavelHakimi():
+    def test_non_integer_values_raises_TypeError(self):
+        with pytest.raises(TypeError, message="Expected TypeError when passes non-integral values in sequence to HavelHakimi class"):
+            hh = gp.HavelHakimi([3, 3, 1.5, 1])
+
+    def test_havel_hakimi_with_integral_floats(self):
+        hh = gp.HavelHakimi([1.0, 1.0])
+        assert(hh.residue() == 1)
+
     def test_descending_sequence_of_integers_is_not_graphic(self):
         hh = gp.HavelHakimi([5, 4, 3, 2, 1])
         assert(hh.is_graphic() == False)

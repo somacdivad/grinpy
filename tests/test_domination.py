@@ -1,6 +1,16 @@
 from grinpy import grinpy as gp
+import pytest
 
 class TestDomination():
+    def test_non_integral_value_for_k_raises_TypeError(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.is_k_dominating_set(G, 0, 1.5)
+
+    def test_integral_float_for_k_works(self):
+        G = gp.star_graph(2)
+        assert(gp.is_k_dominating_set(G, 0, 1.0) == True)
+
     def test_max_degree_vertex_is_dominating_set_of_star(self):
         for i in range(1, 9):
             G = gp.star_graph(i)

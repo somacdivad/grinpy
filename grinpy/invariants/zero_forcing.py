@@ -46,7 +46,12 @@ def is_k_forcing_vertex(G, v, nbunch, k):
         True if *v* can *k*-force relative to the nodes in nbunch. False
         otherwise.
     """
-    # TODO: add check that k >= 1
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)

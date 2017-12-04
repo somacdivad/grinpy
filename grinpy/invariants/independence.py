@@ -127,7 +127,6 @@ def max_k_independent_set(G, k):
     rangeMax = number_of_nodes(G) + 1
     if k == 1:
         rangeMax = annihilation_number(G) + 1
-    # TODO: can the above range be improved with some general upper bound for the k-independence number?
     # loop through subsets of nodes of G in decreasing order of size until a k-independent set is found
     for i in reversed(range(rangeMax)):
         for S in combinations(nodes(G), i):
