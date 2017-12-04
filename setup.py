@@ -41,6 +41,8 @@ if sys.argv[-1] == 'test':
     os.system('py.test --cov-config .coveragerc --cov=grinpy')
     sys.exit()
 
+install_requires = ['networkx>=2.0']
+
 setup(
     name=name,
     version=version,
