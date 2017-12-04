@@ -63,7 +63,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'GrinPy'
-copyright = '2017-{}, David Amos, Randy Davila'.format(date.tody().year)
+copyright = '2017-{}, David Amos, Randy Davila'.format(date.today().year)
 author = 'David Amos, Randy Davila'
 
 # The version info for the project you're documenting, acts as replacement for
