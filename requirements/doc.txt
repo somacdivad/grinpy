@@ -1,0 +1,3 @@
+sphinx>=1.6.3
+sphinx_rtd_theme>=0.2.4
+nb2plots>=0.5.2

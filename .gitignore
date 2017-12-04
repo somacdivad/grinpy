@@ -17,3 +17,7 @@ eggs
 # pycache
 __pychache__
 *.pyc
+
+# docs
+doc/build
+doc/ghpages_build
