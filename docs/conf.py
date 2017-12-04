@@ -22,6 +22,7 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import os
 import sys
+from datetime import date
 sys.path.insert(0, os.path.abspath('..'))
 
 # Environment variable to know if the docs are being built on rtd.
