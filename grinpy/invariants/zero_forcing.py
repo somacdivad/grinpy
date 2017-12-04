@@ -33,7 +33,7 @@ def is_k_forcing_vertex(G, v, nbunch, k):
     G : graph
         A Networkx graph.
 
-    v: a single node in *G*
+    v : a single node in *G*
 
     nbunch: a single node or iterable container of nodes in *G*.
 

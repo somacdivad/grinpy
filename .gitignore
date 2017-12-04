@@ -19,10 +19,9 @@ __pychache__
 *.pyc
 
 # docs
-docs/build
-docs/ghpages_build
-docs/auto_examples
-docs/modules
+docs/_build
+docs/_static
+docs/_templates
 docs/reference/generated
 docs/reference/classes/generated
 docs/reference/functions/generated
