@@ -43,7 +43,7 @@ def is_k_power_dominating_set(G, nbunch, k):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    return is_k_forcing_vertex(G, closed_neighborhood(G, nbunch), k)
+    return is_k_forcing_set(G, closed_neighborhood(G, nbunch), k)
 
 def min_k_power_dominating_set(G, k):
     """Return a smallest k-power dominating set of nodes in *G*.
