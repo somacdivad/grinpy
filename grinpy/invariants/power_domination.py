@@ -10,12 +10,15 @@
 """Functions for computing power domination related invariants of a graph."""
 
 from grinpy import closed_neighborhood, nodes, number_of_nodes
-from grinpy.invariants.zero_forcing import is_zero_forcing_set
+from grinpy.invariants.zero_forcing import is_zero_forcing_set, is_k_forcing_set
 from itertools import combinations
 
 __all__ = ['is_power_dominating_set',
            'min_power_dominating_set',
-           'power_domination_number'
+           'power_domination_number',
+           'is_k_power_dominating_set',
+           'min_k_power_dominating_set',
+           'power_k_dominating_number'
            ]
 
 def is_power_dominating_set(G, nbunch):
