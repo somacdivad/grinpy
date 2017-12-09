@@ -321,7 +321,7 @@ def min_total_zero_forcing_set(G):
     # if the above loop completes, return None (should not occur)
     return None
 
-def zero_forcing_number(G):
+def total_zero_forcing_number(G):
     """Return the total zero forcing number of *G*.
 
     The *total zero forcing number* of a graph is the cardinality of a smallest
