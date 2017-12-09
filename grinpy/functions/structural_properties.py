@@ -9,108 +9,113 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing various structural properites."""
 
-import networkx as nx
+import grinpy as gp
 import itertools
 
 def is_triangle_free(G):
-    """Returns a boolean value according to G containing an induced triangle.
+    """Returns True if *G* is triangle-free, and False otherwise.
+
+    A graph is *triangle-free* if it contains no induced subgraph isomorphic to
+    the complete graph on 3 vertices.
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    is_triangle_free : boolean
-                       True if G containes no induced triangle. False if G contains at least one induced triangle.
+    boolean
+        True if G is triangle-free, False otherwise.
 
     Examples
     --------
-    >>> G = nx.Graph([(0,1),(0,2),(0,3),(1,2),(1,3),(2,3)]) # The complete graph K_4
-    >>> nx.is_triangle_free(G)
+    >>> G = gp.complete_graph(4)
+    >>> gp.is_triangle_free(G)
     False
+    >>> G = gp.cycle_graph(5)
+    >> gp.is_triangle_free(G)
+    True
     """
     # define a triangle graph, also known as the complete graph K_3
-    triangle = nx.Graph([(0,1),(1,2),(2,0)])
-    
-    # assume first that G is triangle-free
-    triangle_free = True
-    
+    triangle = gp.complte_graph(3)
+
     # enumerate over all possible combinations of 3 vertices contained in G
-    for s in set(itertools.combinations(G.nodes(), 3)):
-          H = G.subgraph(list(s))
-          if nx.is_isomorphic(H,triangle):
+    for S in set(itertools.combinations(G.nodes(), 3)):
+          H = G.subgraph(list(S))
+          if gp.is_isomorphic(H, triangle):
               return False
-    return triange_free
-  
-    
-   
+    # if the above loop completes, the graph is triangle free
+    return True
 
 def is_bull_free(G):
-    """Returns a boolean value according to G containing an induced triangle.
+    """Returns True if *G* is bull-free, and False otherwise.
+
+    A graph is *bull-free* if it contains no induced subgraph isomorphic to the
+    bull graph, where the bull graph is the complete graph on 3 vertices with
+    two pendants added to two of its vertices.
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    is_bull_free : boolean
-                       True if G containes no induced bull. False if G contains at least one induced bull.
-                       Recall that a bull is a triangle with two pendants added to two vertices of the triangle.
+    boolean
+        True if *G* is bull-free, false otherwise.
 
     Examples
     --------
-    >>> G = nx.Graph([(0,1),(0,2),(0,3),(1,2),(1,3),(2,3)]) # The complete graph K_4
-    >>> nx.is_bull_free(G)
+    >>> G = gp.complete_graph(4)
+    >>> gp.is_bull_free(G)
     True
     """
     # define a bull graph, also known as the graph obtained from the complete graph K_3 by addiing two pendants
-    bull = nx.Graph([(0,1), (0,2),(1,2),(1,3), (2,4)])
-    
-    # assume first that G is bull-free
-    bull_free = True
-    
+    bull = gp.Graph([(0,1), (0,2), (1,2), (1,3), (2,4)])
+
     # enumerate over all possible combinations of 5 vertices contained in G
-    for s in set(itertools.combinations(G.nodes(), 5)):
-          H = G.subgraph(list(s))
-          if nx.is_isomorphic(H,bull):
+    for S in set(itertools.combinations(G.nodes(), 5)):
+          H = G.subgraph(list(S))
+          if gp.is_isomorphic(H, bull):
               return False
-    return bull_free
-  
-  
-  
+    # if the above loop completes, the graph is bull-free
+    return True
+
+
+
 def is_claw_free(G):
-    """Returns a boolean value according to G containing an induced claw.
+    """Returns True if *G* is claw-free, and False otherwise.
+
+    A graph is *claw-free* if it contains no induce subgraph isomorphic to the
+    star on four vertices.
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    is_claw_free : boolean
-                       True if G containes no induced claw. False if G contains at least one induced claw.
-                       Recall that a claw is the complete bipartite graph K_1,3
+    boolean
+        True if *G* is claw-free, and False otherwise.
 
     Examples
     --------
-    >>> G = nx.Graph([(0,1),(0,2),(0,3),(1,2),(1,3),(2,3)]) # The complete graph K_4
-    >>> nx.is_bull_free(G)
+    >>> G = gp.complete_graph(4)
+    >>> gp.is_claw_free(G)
     True
+    >>> G = gp.star_graph(4)
+    >> gp.is_claw_free(G)
+    False
     """
     # define a claw graph, also known as the complete bipartite graph K_1,3
-    claw = nx.Graph([(0,1), (0,2), (0,3)])
-    
-    # assume first that G is claw-free
-    claw_free = True
-    
+    claw = gp.star_graph(3)
+
     # enumerate over all possible combinations of 4 vertices contained in G
-    for s in set(itertools.combinations(G.nodes(), 4)):
-          H = G.subgraph(list(s))
-          if nx.is_isomorphic(H,claw):
+    for S in set(itertools.combinations(G.nodes(), 4)):
+          H = G.subgraph(list(S))
+          if gp.is_isomorphic(H, claw):
               return False
-    return claw_free
+    # if the above loop completes, the graph is claw-free
+    return True
