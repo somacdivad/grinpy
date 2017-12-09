@@ -10,9 +10,11 @@
 """Functions for computing the residue and related invariants."""
 
 from grinpy import havel_hakimi_process, elimination_sequence
+from grinpy.invariants.independence import independence_number
 
 __all__ = ['residue',
-           'k_residue'
+           'k_residue',
+           'k_residual_index'
           ]
 
 def residue(G):
@@ -23,8 +25,8 @@ def residue(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
@@ -51,8 +53,8 @@ def k_residue(G, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
@@ -65,3 +67,37 @@ def k_residue(G, k):
     """
     E = elimination_sequence(G)
     return sum((k - i) * E.count(i) for i in range(k)) / k
+
+def k_residual_index(G):
+    """Return the k-residual_index of G.
+
+    The *k-residual index* of a graph *G* is the smallest integer k such that
+    the k-residue of *G* is greathe than or equal to the independence number of
+    *G*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    k_residual_index : int
+        The smallest integer k such that k_residue(G,k)>= independence_number(G).
+
+    See Also
+    --------
+    k_independence_number, k_residue
+
+    Notes
+    -----
+    It should be noted that the k-residual index was originally conjectured to
+    be an upper bound on the independence number by Siemion Faijtlowizc and
+    his original conjecturing program Graffiti. This was told to Davila by
+    personal communication with Ryan Pepper, a former PhD student of
+    Faijtlowicz.
+    """
+    k = 1
+    while k_residue(G, k) < independence_number(G):
+           k += 1
+    return k

@@ -31,7 +31,7 @@ class TestIndependence():
         assert(gp.is_independent_set(G, [0, 1, 2]) == False)
 
     def test_independence_number_of_complete_graph_is_1(self):
-        for i in range(1, 10):
+        for i in range(1, 13):
             G = gp.complete_graph(i)
             assert(gp.independence_number(G) == 1)
 
@@ -52,7 +52,7 @@ class TestIndependence():
     def test_2_independence_number_of_C5_is_3(self):
         G = gp.cycle_graph(5)
         assert(gp.k_independence_number(G, 2) == 3)
-        
+
     def test_max_independent_set_of_empty_graph_is_all_nodes(self):
         for i in range(1, 11):
             G = gp.empty_graph(i)

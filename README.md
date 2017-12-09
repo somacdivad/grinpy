@@ -4,28 +4,39 @@
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
-GrinPy is still in development. We have released version 0.1.0 which includes
+GrinPy is still in development. We have released version 0.1 which includes
 several well-known graph invariants. However, the algorithms used to calculate
 NP-hard invariants are simple brute force. We will be updating these to more
 efficient algorithms over the next several months in our build-up to version
-1.0.
+1.0. The `master` branch is the latest version and now includes more invariants
+than version 0.1
 
-NP-hard invariants in version 0.1 include:
+NP-hard invariants in the latest version include:
 
 * Independence number
-* *k*-Independence number
 * Domination number
-* *k*-Domination number
+* Power domination number
+* Total domination number
+* Connected domination number
+* Independent domination number
 * Zero forcing number
-* *k*-Forcing number
+* Total zero forcing number
+* Connected zero forcing number
+* Generalized *k* versions of almost all of the above invariants
 
 Other invariants included are:
 
 * Residue
-* *k*-Residue
 * Slater number
-* Sub-*k*-domination number
+* Sub-domination number
 * Annihilation number
+
+In addition to the graph invariants listed above, we have now included some
+simple checks for structural properties of a graph:
+
+* `is_triangle_free`
+* `is_bull_free`
+* `is_claw_free`
 
 ### How do I use it?
 Full documentation is available at [https://grinpy.rtfd.io](https://grinpy.rtfd.io). Here is a sample of how to

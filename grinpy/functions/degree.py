@@ -22,7 +22,11 @@ __all__ = ['degree_sequence',
            'number_of_min_degree_nodes',
            'number_of_max_degree_nodes',
            'neighborhood_degree_list',
-           'closed_neighborhood_degree_list'
+           'closed_neighborhood_degree_list',
+           'is_regular',
+           'is_k_regular',
+           'is_sub_cubic',
+           'is_cubic'
           ]
 
 def degree_sequence(G):
@@ -295,3 +299,80 @@ def closed_neighborhood_degree_list(G, nbunch):
     [1, 2, 2]
     """
     return list(set(degree(G, u) for u in closed_neighborhood(G, nbunch)))
+
+def is_regular(G):
+    """ Return True if G is regular, and False otherwise.
+
+    A graph is *regular* if each node has the same degree.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph
+
+    Returns
+    -------
+    boolean
+        True if regular, false otherwise.
+    """
+    return min_degree(G) == max_degree(G)
+
+def is_k_regular(G, k):
+    """ Return True if the graph is regular of degree k and False otherwise.
+
+    A graph is *regular of degree k* if all nodes have degree equal to *k*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph
+
+    k : int
+        An integer
+
+    Returns
+    -------
+    boolean
+        True if all nodes have degree equal to *k*, False otherwise.
+    """
+    # check that k is an integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    for v in nodes(G):
+        if not degree(G, v) == k:
+            return False
+    return True
+
+def is_sub_cubic(G):
+    """ Return True if *G* sub-cubic, and False otherwise.
+
+    A graph is *sub-cubic* if its maximum degree is at most 3.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+
+    Returns
+    -------
+    boolean
+        True if *G* is sub-cubic, False otherwise.
+    """
+    return max_degree(G) <= 3
+
+def is_cubic(G):
+    """ Return True if *G* is cubic, and False otherwise.
+
+    A graph is *cubic* if it is regular of degree 3.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph
+
+    Returns
+    -------
+    boolean
+        True if *G* is cubic, False otherwise.
+    """
+    return is_k_regular(G, 3)
