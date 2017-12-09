@@ -22,7 +22,11 @@ __all__ = ['degree_sequence',
            'number_of_min_degree_nodes',
            'number_of_max_degree_nodes',
            'neighborhood_degree_list',
-           'closed_neighborhood_degree_list'
+           'closed_neighborhood_degree_list',
+           'is_regular',
+           'is_k_regular',
+           'is_sub_cubic',
+           'is_cubic'
           ]
 
 def degree_sequence(G):

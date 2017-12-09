@@ -42,3 +42,34 @@ class TestDegree():
     def test_number_of_max_degree_nodes(self):
         numNodes = gp.number_of_max_degree_nodes(self.G)
         assert(numNodes == 2)
+
+    def test_complete_graph_is_regular(self):
+        G = gp.complete_graph(4)
+        assert(gp.is_regular(G) == True)
+
+    def test_star_is_not_regular(self):
+        G = gp.star_graph(2)
+        assert(gp.is_regular(G) == False)
+
+    def test_K5_is_4_regular(self):
+        G = gp.complete_graph(5)
+        assert(gp.is_k_regular(G, 4) == True)
+
+    def test_star_is_not_2_regular(self):
+        G = gp.star_graph(2)
+        assert(gp.is_k_regular(G, 2) == False)
+
+    def test_K4_is_cubic(self):
+        G = gp.complete_graph(4)
+        assert(gp.is_cubic(G) == True)
+
+    def test_K4_is_not_cubic(self):
+        G = gp.complte_graph(5)
+        assert(gp.is_cubic(G) == False)
+
+    def test_sub_cubic(self):
+        assert(gp.is_sub_cubic(self.G) == True)
+
+    def test_K5_is_not_sub_cubic(self):
+        G = gp.complete_graph(5)
+        assert(gp.is_sub_cubic(G) == False)
