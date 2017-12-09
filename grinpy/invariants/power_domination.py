@@ -18,11 +18,11 @@ __all__ = ['is_power_dominating_set',
            'power_domination_number',
            'is_k_power_dominating_set',
            'min_k_power_dominating_set',
-           'power_k_dominating_number'
+           'k_power_dominating_number'
            ]
 
-def is_power_dominating_set(G, nbunch):
-    """Return whether or not the nodes in nbunch comprise a power dominating
+def is_k_power_dominating_set(G, nbunch, k):
+    """Return whether or not the nodes in nbunch comprise a k-power dominating
     set.
 
     Parameters
@@ -43,10 +43,10 @@ def is_power_dominating_set(G, nbunch):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
-    return is_zero_forcing_set(G, closed_neighborhood(G, nbunch))
+    return is_k_forcing_vertex(G, closed_neighborhood(G, nbunch), k)
 
-def min_power_dominating_set(G):
-    """Return a smallest power dominating set of nodes in *G*.
+def min_k_power_dominating_set(G, k):
+    """Return a smallest k-power dominating set of nodes in *G*.
 
     The method used to compute the set is brute force.
 
@@ -57,18 +57,18 @@ def min_power_dominating_set(G):
 
     Returns
     -------
-    minPowerDominatingSet : list
+    minkPowerDominatingSet : list
         A smallest power dominating set in *G*.
     """
     for i in range(1, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
-            if is_power_dominating_set(G, S):
+            if is_k_power_dominating_set(G, S,k):
                 return list(S)
     # if above loop completes, return None (should not occur)
     return None
 
-def power_domination_number(G):
-    """Return the power domination number of *G*.
+def k_power_domination_number(G, k):
+    """Return the k-power domination number of *G*.
 
     Parameters
     ----------
@@ -77,7 +77,22 @@ def power_domination_number(G):
 
     Returns
     -------
-    powerDominationNumber : int
-        The power domination number of *G*.
+    kpowerDominationNumber : int
+        The k-power domination number of *G*.
     """
-    return len(min_power_dominating_set(G))
+    return len(min_k_power_dominating_set(G, k))
+
+""" The following functions compute the special cases of k-power domination when k = 1 """
+
+def is_power_dominating_set(G, nbunch):
+    return is_k_power_dominating_set(G, nbunch, 1)
+
+def min_power_dominating_set(G)
+    return min_k-power_dominating_set(G,1):
+
+def power_domination_number(G)
+    return k_power_domination_number(G,1)
+
+
+
+          
