@@ -21,7 +21,8 @@ __all__ = ['is_k_forcing_vertex',
            'is_zero_forcing_active_set',
            'is_zero_forcing_set',
            'min_zero_forcing_set',
-           'zero_forcing_number'
+           'zero_forcing_number',
+           'is_total_zero_forcing_set'
            ]
 
 def is_k_forcing_vertex(G, v, nbunch, k):
@@ -30,8 +31,8 @@ def is_k_forcing_vertex(G, v, nbunch, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     v : a single node in *G*
 
@@ -42,7 +43,7 @@ def is_k_forcing_vertex(G, v, nbunch, k):
 
     Returns
     -------
-    isForcing : bool
+    boolean
         True if *v* can *k*-force relative to the nodes in nbunch. False
         otherwise.
     """
@@ -66,8 +67,8 @@ def is_k_forcing_active_set(G, nbunch, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch: a single node or iterable container of nodes in *G*
 
@@ -76,7 +77,7 @@ def is_k_forcing_active_set(G, nbunch, k):
 
     Returns
     -------
-    isActive : bool
+    boolean
         True if at least one of the nodes in nbunch can *k*-force. False
         otherwise.
     """
@@ -97,8 +98,8 @@ def is_k_forcing_set(G, nbunch, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch: a single node or iterable container of nodes in *G*.
 
@@ -107,7 +108,7 @@ def is_k_forcing_set(G, nbunch, k):
 
     Returns
     -------
-    isForcingSet : bool
+    boolean
         True if the nodes in nbunch comprise a *k*-forcing set in *G*. False
         otherwise.
     """
@@ -132,16 +133,16 @@ def min_k_forcing_set(G, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    minForcingSet : list
-        A smallest *k*-forcing set in *G*.
+    list
+        A list of nodes in a smallest *k*-forcing set in *G*.
     """
     # use naive lower bound to compute a starting point for the search range
     rangeMin = min_degree(G) if k == 1 else 1
@@ -161,15 +162,15 @@ def k_forcing_number(G, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    kForcingNum : int
+    int
         The *k*-forcing number of *G*.
     """
     return len(min_k_forcing_set(G, k))
@@ -180,8 +181,8 @@ def is_zero_forcing_vertex(G, v, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     v: a single node in *G*
 
@@ -189,7 +190,7 @@ def is_zero_forcing_vertex(G, v, nbunch):
 
     Returns
     -------
-    isForcing : bool
+    boolean
         True if *v* can force relative to the nodes in nbunch. False
         otherwise.
     """
@@ -200,14 +201,14 @@ def is_zero_forcing_active_set(G, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch: a single node or iterable container of nodes in *G*
 
     Returns
     -------
-    isActive : bool
+    boolean
         True if at least one of the nodes in nbunch can force. False
         otherwise.
     """
@@ -219,28 +220,18 @@ def is_zero_forcing_set(G, S):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch: a single node or iterable container of nodes in *G*.
 
     Returns
     -------
-    isForcingSet : bool
+    boolean
         True if the nodes in nbunch comprise a zero forcing set in *G*. False
         otherwise.
     """
     return is_k_forcing_set(G, S, 1)
-
-def is_total_forcing_set(G, S):
-    # TODO: Add documentation
-    no_isolates = True
-    for v in S:
-        if neighborhood(G, v).intersection(S) == {}:
-           no_isolates = False
-           return False
-    return is_zero_forcing_set(G, S)
-       
 
 def min_zero_forcing_set(G):
     """Return a smallest zero forcing set in *G*.
@@ -249,13 +240,13 @@ def min_zero_forcing_set(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    minForcingSet : list
-        A smallest zero forcing set in *G*.
+    list
+        A list of nodes in a smallest zero forcing set in *G*.
     """
     return min_k_forcing_set(G, 1)
 
@@ -267,12 +258,83 @@ def zero_forcing_number(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    zeroForcingNum : int
+    int
         The zero forcing number of *G*.
     """
     return len(min_zero_forcing_set(G))
+
+def is_total_zero_forcing_set(G, nbunch):
+    """Return whether or not the nodes in nbunch comprise a total zero forcing
+    set in *G*.
+
+    A *total zero forcing set* in a graph *G* is a zero forcing set that does
+    not induce any isolated vertices.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    nbunch: a single node or iterable container of nodes in *G*.
+
+    Returns
+    -------
+    boolean
+        True if the nodes in nbunch comprise a total zero forcing set in *G*.
+        False otherwise.
+    """
+    try:
+      _ = (v for v in S)
+    except:
+      nbunch = [nbunch]
+    S = set(n for n in nbunch if n in G)
+    for v in S:
+      if set(neighborhood(G, v)).intersection(S) == {}:
+        return False
+    return is_zero_forcing_set(G, S)
+
+def min_total_zero_forcing_set(G):
+    """Return a smallest total zero forcing set in *G*.
+
+    The method used to compute the set is brute force.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    list
+        A list of nodes in a smallest zero forcing set in *G*.
+    """
+    # loop through subsets of nodes of G in increasing order of size until a zero forcing set is found
+    for i in range(1, number_of_nodes(G) + 1):
+        for S in combinations(nodes(G), i):
+            if is_total_zero_forcing_set(G, S):
+                return list(S)
+    # if the above loop completes, return None (should not occur)
+    return None
+
+def zero_forcing_number(G):
+    """Return the total zero forcing number of *G*.
+
+    The *total zero forcing number* of a graph is the cardinality of a smallest
+    total zero forcing set in the graph.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    int
+        The total zero forcing number of *G*.
+    """
+    return len(min_total_zero_forcing_set(G))
