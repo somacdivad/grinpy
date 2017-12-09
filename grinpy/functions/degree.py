@@ -101,6 +101,23 @@ def max_degree(G):
     D.sort(reverse = True)
     return D[0]
 
+def is_regular(G):
+    """ Return boolean value of True if G is regular, and False if G is not regular """
+    return min_degree(G) == max_degree(G)
+
+def is_subcubic(G):
+    """ Return boolean value of True if G has maximum degree at most 3, and False if G has 
+        maximum degree greater than 3"""
+    return max_degree(G) <= 3
+
+def is_cubic(G):
+    """ Return boolean value of True if G has min_degree(G)=max_degree(G)=3, and false otherwise"""
+    return is_regular(G) and max_degree(G) == 3
+
+
+
+
+
 def average_degree(G):
     """Return the average degree of G.
 
