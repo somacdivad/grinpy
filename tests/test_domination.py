@@ -2,10 +2,35 @@ from grinpy import grinpy as gp
 import pytest
 
 class TestDomination():
-    def test_non_integral_value_for_k_raises_TypeError(self):
+    def test_non_integral_value_for_k_raises_error_in_is_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
             G = gp.star_graph(2)
             gp.is_k_dominating_set(G, 0, 1.5)
+
+    def test_0_value_for_k_raises_error_in_is_k_dom_set(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.is_k_dominating_set(G, 0, 0)
+
+    def test_non_int_value_for_k_raises_error_in_min_k_dom_set(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.min_k_dominating_set(G, 1.5)
+
+    def test_0_value_for_k_raises_error_in_min_k_dom_set(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.min_k_dominating_set(G, 0)
+
+    def test_non_int_value_for_k_raises_error_in_k_dom_num(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.k_domination_number(G, 1.5)
+
+    def test_0_value_for_k_raises_error_in_k_dom_num(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.k_domination_number(G, 0)
 
     def test_integral_float_for_k_works(self):
         G = gp.star_graph(2)
@@ -86,3 +111,78 @@ class TestDomination():
     def test_connected_domination_number_of_P5_is_3(self):
         G = gp.path_graph(5)
         assert(gp.connected_domination_number(G) == 3)
+
+    def leaves_of_star_is_independent_dominating_set(self):
+        G = gp.star_graph(3)
+        D = [1, 2, 3]
+        assert(gp.is_independent_dominating_set(G, D) == True)
+
+    def center_node_and_leaf_is_not_ind_dom_set_of_star(self):
+        G = gp.star_graph(3)
+        assert(gp.is_independent_dominating_set(G, [0, 1]) == False)
+
+    def test_independent_domination_num_of_monster_is_3(self):
+        G = gp.star_graph(3)
+        G.add_edge(3, 4)
+        G.add_edge(3, 5)
+        assert(gp.independent_domination_number(G) == 3)
+
+    def test_non_int_value_for_k_raises_error_in_connected_k_dom_set(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.is_connected_k_dominating_set(G, 0, 1.5)
+
+    def test_0_value_for_k_raises_error_in_connected_k_dom_set(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.is_connected_k_dominating_set(G, 0, 0)
+
+    def test_non_int_value_for_k_raises_error_in_min_connected_k_dom_set(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.min_connected_k_dominating_set(G, 1.5)
+
+    def test_0_value_for_k_raises_error_in_min_connected_k_dom_set(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.min_connected_k_dominating_set(G, 0)
+
+    def test_non_int_value_for_k_raises_error_in_connected_k_dom_num(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.connected_k_domination_number(G, 1.5)
+
+    def test_0_value_for_k_raises_error_in_connected_k_dom_num(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.connected_k_domination_number(G, 0)
+
+    def test_non_int_value_for_k_raises_error_in_ind_k_dom_set(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.is_independent_k_dominating_set(G, 0, 1.5)
+
+    def test_0_value_for_k_raises_error_in_ind_k_dom_set(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.is_independent_k_dominating_set(G, 0, 0)
+
+    def test_non_int_value_for_k_raises_error_in_min_ind_k_dom_set(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.min_independent_k_dominating_set(G, 1.5)
+
+    def test_0_value_for_k_raises_error_in_min_ind_k_dom_set(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.min_independent_k_dominating_set(G, 0)
+
+    def test_non_int_value_for_k_raises_error_in_ind_k_dom_num(self):
+        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+            G = gp.star_graph(2)
+            gp.independent_k_domination_number(G, 1.5)
+
+    def test_0_value_for_k_raises_error_in_ind_k_dom_num(self):
+        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.independent_k_domination_number(G, 0)

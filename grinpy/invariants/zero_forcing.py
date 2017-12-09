@@ -10,7 +10,7 @@
 """Functions for computing zero forcing related invariants of a graph."""
 
 from itertools import combinations
-from grinpy import min_degree, neighborhood, nodes, number_of_nodes
+from grinpy import is_connected, min_degree, neighborhood, nodes, number_of_nodes
 
 __all__ = ['is_k_forcing_vertex',
            'is_k_forcing_active_set',
@@ -24,7 +24,13 @@ __all__ = ['is_k_forcing_vertex',
            'zero_forcing_number',
            'is_total_zero_forcing_set',
            'min_total_zero_forcing_set',
-           'total_zero_forcing_number'
+           'total_zero_forcing_number',
+           'is_connected_k_forcing_set',
+           'is_connected_zero_forcing_set',
+           'min_connected_k_forcing_set',
+           'min_connected_zero_forcing_set',
+           'connected_k_forcing_number',
+           'connected_zero_forcing_number'
            ]
 
 def is_k_forcing_vertex(G, v, nbunch, k):
@@ -340,3 +346,157 @@ def total_zero_forcing_number(G):
         The total zero forcing number of *G*.
     """
     return len(min_total_zero_forcing_set(G))
+
+def is_connected_k_forcing_set(G, nbunch, k):
+    """Return whether or not the nodes in nbunch comprise a connected k-forcing
+    set in *G*.
+
+    A *connected k-forcing set* in a graph *G* is a k-forcing set that induces
+    a connected subgraph.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    nbunch: a single node or iterable container of nodes in *G*.
+
+    k : int
+        A positive integer.
+
+    Returns
+    -------
+    boolean
+        True if the nodes in nbunch comprise a connected k-forcing set in *G*.
+        False otherwise.
+    """
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
+    # check if nbunch is an iterable; if not, convert to a list
+    try:
+        _ = (v for v in nbunch)
+    except:
+        nbunch = [nbunch]
+    S = set(n for n in nbunch if n in G)
+    H = G.subgraph(S)
+    return is_k_forcing_set(G, S, k) and is_connected(H)
+
+def is_connected_zero_forcing_set(G, nbunch):
+    """Return whether or not the nodes in nbunch comprise a connected zero
+    forcing set in *G*.
+
+    A *connected zero forcing set* in a graph *G* is a zero forcing set that
+    induces a connected subgraph.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    nbunch: a single node or iterable container of nodes in *G*.
+
+    Returns
+    -------
+    boolean
+        True if the nodes in nbunch comprise a connected zero forcing set in
+        *G*. False otherwise.
+    """
+    return is_connected_k_forcing_set(G, nbunch, 1)
+
+def min_connected_k_forcing_set(G, k):
+    """Return a smallest connected k-forcing set in *G*.
+
+    The method used to compute the set is brute force.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    k : int
+        A positive integer
+
+    Returns
+    -------
+    list
+        A list of nodes in a smallest connected k-forcing set in *G*.
+    """
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
+    # loop through subsets of nodes of G in increasing order of size until a zero forcing set is found
+    for i in range(1, number_of_nodes(G) + 1):
+        for S in combinations(nodes(G), i):
+            if is_connected_k_forcing_set(G, S, k):
+                return list(S)
+    # if the above loop completes, return None (should not occur)
+    return None
+
+def min_connected_zero_forcing_set(G):
+    """Return a smallest connected zero forcing set in *G*.
+
+    The method used to compute the set is brute force.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    k : int
+        A positive integer
+
+    Returns
+    -------
+    list
+        A list of nodes in a smallest connected zero forcing set in *G*.
+    """
+    return min_connected_k_forcing_set(G, 1)
+
+def connected_k_forcing_number(G, k):
+    """Return the connected k-forcing number of *G*.
+
+    The *connected k-forcing number* of a graph is the cardinality of a smallest
+    connected k-forcing set in the graph.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    int
+        The connected k-forcing number of *G*.
+    """
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
+    return len(min_connected_k_forcing_set(G, k))
+
+def connected_zero_forcing_number(G):
+    """Return the connected zero forcing number of *G*.
+
+    The *connected zero forcing number* of a graph is the cardinality of a
+    smallest connected zero forcing set in the graph.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    int
+        The connected k-forcing number of *G*.
+    """
+    return connected_k_forcing_number(G, 1)
