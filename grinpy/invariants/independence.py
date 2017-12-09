@@ -13,7 +13,7 @@
 from itertools import combinations
 from grinpy import neighborhood, nodes, number_of_edges, number_of_nodes
 from grinpy.invariants.dsi import annihilation_number
-
+from grinpy.invariants.residue import k_residue
 
 __all__ = ['is_independent_set',
            'is_k_independent_set',
@@ -185,6 +185,36 @@ def independence_number(G):
     k_independence_number
     """
     return len(max_independent_set(G))
+
+def k_residual_index(G):
+    """Return k_residual_index of G. Namely, the smallest integer k such that k_residue(G,k)>= independence_number(G).
+
+    Parameters
+    ----------
+    G : graph
+        A Networkx graph.
+
+    Returns
+    -------
+    k_residual_index : int
+        The smallest integer k such that k_residue(G,k)>= independence_number(G).
+
+    See Also
+    --------
+    k_independence_number, k_residue
+    
+    Notes
+    -----
+    It should be noted that the k_residual_index was originally conjectured to be an upper
+    bound on the independence number of the independence_number by Siemion Faijtlowizc and
+    his original conjecturing program Graffiti. This was told to Davila by personal communication
+    with Ryan Pepper, a former PhD student of Faijtlowicz. 
+    """ 
+    k = 1
+    while k_residue(G, k) < independence_number(G):
+           k += 1
+    return k
+
 
 def k_independence_number(G, k):
     """Return a the k-independence number of G.
