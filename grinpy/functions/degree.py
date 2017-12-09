@@ -101,23 +101,6 @@ def max_degree(G):
     D.sort(reverse = True)
     return D[0]
 
-def is_regular(G):
-    """ Return boolean value of True if G is regular, and False if G is not regular """
-    return min_degree(G) == max_degree(G)
-
-def is_subcubic(G):
-    """ Return boolean value of True if G has maximum degree at most 3, and False if G has 
-        maximum degree greater than 3"""
-    return max_degree(G) <= 3
-
-def is_cubic(G):
-    """ Return boolean value of True if G has min_degree(G)=max_degree(G)=3, and false otherwise"""
-    return is_regular(G) and max_degree(G) == 3
-
-
-
-
-
 def average_degree(G):
     """Return the average degree of G.
 
@@ -312,3 +295,80 @@ def closed_neighborhood_degree_list(G, nbunch):
     [1, 2, 2]
     """
     return list(set(degree(G, u) for u in closed_neighborhood(G, nbunch)))
+
+def is_regular(G):
+    """ Return True if G is regular, and False otherwise.
+
+    A graph is *regular* if each node has the same degree.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph
+
+    Returns
+    -------
+    boolean
+        True if regular, false otherwise.
+    """
+    return min_degree(G) == max_degree(G)
+
+def is_k_regular(G, k):
+    """ Return True if the graph is regular of degree k and False otherwise.
+
+    A graph is *regular of degree k* if all nodes have degree equal to *k*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph
+
+    k : int
+        An integer
+
+    Returns
+    -------
+    boolean
+        True if all nodes have degree equal to *k*, False otherwise.
+    """
+    # check that k is an integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    for v in nodes(G):
+        if not degree(G, v) == k:
+            return False
+    return True
+
+def is_sub_cubic(G):
+    """ Return True if *G* sub-cubic, and False otherwise.
+
+    A graph is *sub-cubic* if its maximum degree is at most 3.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+
+    Returns
+    -------
+    boolean
+        True if *G* is sub-cubic, False otherwise.
+    """
+    return max_degree(G) <= 3
+
+def is_cubic(G):
+    """ Return True if *G* is cubic, and False otherwise.
+
+    A graph is *cubic* if it is regular of degree 3.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph
+
+    Returns
+    -------
+    boolean
+        True if *G* is cubic, False otherwise.
+    """
+    return is_k_regular(G, 3)
