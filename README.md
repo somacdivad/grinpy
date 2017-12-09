@@ -15,6 +15,7 @@ NP-hard invariants in the latest version include:
 
 * Independence number
 * Domination number
+* Power domination number
 * Total domination number
 * Connected domination number
 * Independent domination number
