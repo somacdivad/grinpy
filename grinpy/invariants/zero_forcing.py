@@ -22,7 +22,9 @@ __all__ = ['is_k_forcing_vertex',
            'is_zero_forcing_set',
            'min_zero_forcing_set',
            'zero_forcing_number',
-           'is_total_zero_forcing_set'
+           'is_total_zero_forcing_set',
+           'min_total_zero_forcing_set',
+           'total_zero_forcing_number'
            ]
 
 def is_k_forcing_vertex(G, v, nbunch, k):
@@ -289,12 +291,12 @@ def is_total_zero_forcing_set(G, nbunch):
         False otherwise.
     """
     try:
-      _ = (v for v in S)
+      _ = (v for v in nbunch)
     except:
       nbunch = [nbunch]
     S = set(n for n in nbunch if n in G)
     for v in S:
-      if set(neighborhood(G, v)).intersection(S) == {}:
+      if set(neighborhood(G, v)).intersection(S) == set():
         return False
     return is_zero_forcing_set(G, S)
 
@@ -314,7 +316,7 @@ def min_total_zero_forcing_set(G):
         A list of nodes in a smallest zero forcing set in *G*.
     """
     # loop through subsets of nodes of G in increasing order of size until a zero forcing set is found
-    for i in range(1, number_of_nodes(G) + 1):
+    for i in range(2, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_total_zero_forcing_set(G, S):
                 return list(S)
