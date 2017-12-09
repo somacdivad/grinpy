@@ -71,3 +71,15 @@ class TestZeroForcing():
     def test_2_forcing_number_of_petersen_graph_is_2(self):
         G = gp.petersen_graph()
         assert(gp.k_forcing_number(G, 2) == 2)
+
+    def test_leaf_is_not_total_forcing_set_of_path(self):
+        G = gp.path_graph(3)
+        assert(gp.is_total_zero_forcing_set(G, 0) == False)
+
+    def test_pair_of_adjacent_nodes_is_total_forcing_set_of_path(self):
+        G = gp.path_graph(6)
+        assert(gp.is_total_zero_forcing_set(G, [2, 3]) == True)
+
+    def test_total_zero_forcing_number_of_path_is_2(self):
+        G = gp.path_graph(5)
+        assert(gp.total_zero_forcing_number(G) == 2)

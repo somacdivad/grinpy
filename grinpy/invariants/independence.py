@@ -14,7 +14,6 @@ from itertools import combinations
 from grinpy import neighborhood, nodes, number_of_edges, number_of_nodes
 from grinpy.invariants.dsi import annihilation_number
 
-
 __all__ = ['is_independent_set',
            'is_k_independent_set',
            'max_k_independent_set',

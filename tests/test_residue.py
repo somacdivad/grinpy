@@ -16,3 +16,11 @@ class TestResidue():
         for i in range(3, 13):
             G = gp.complete_graph(i)
             assert(gp.k_residue(G, 2) == 1.5)
+
+    def test_k_residual_index_of_peterson_graph_is_2(self):
+        G = gp.petersen_graph()
+        assert(gp.k_residual_index(G) == 2)
+
+    def test_k_residual_index_of_trivial_graph_is_1(self):
+        G = gp.trivial_graph()
+        assert(gp.k_residual_index(G) == 1)
