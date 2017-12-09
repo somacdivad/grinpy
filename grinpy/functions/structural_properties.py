@@ -12,6 +12,11 @@
 import grinpy as gp
 import itertools
 
+__all__ = ['is_triangle_free',
+           'is_bull_free',
+           'is_claw_free'
+          ]
+
 def is_triangle_free(G):
     """Returns True if *G* is triangle-free, and False otherwise.
 
