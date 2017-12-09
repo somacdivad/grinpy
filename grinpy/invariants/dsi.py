@@ -64,21 +64,26 @@ def sub_k_domination_number(G, k):
     of a graph with applications to k-domination, *arXiv preprint
     arXiv:1611.02379*, (2016)
     """
-    # TODO: add check that k >= 1 and throw error if not
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
     D = degree_sequence(G)
     D.sort(reverse = True)
     n = len(D)
     for i in range(n + 1):
         if i + (sum(D[:i]) / k) >= n:
             return i
-    # if above loop completes, return None (should not occur)
+    # if above loop completes, return None
     return None
 
 def slater(G):
     """Return the Slater invariant for the graph.
 
-    The Slater invariant is a lower bound for the domination number of a graph
-    defined by:
+    The Slater invariant of a graph G is a lower bound for the domination
+    number of a graph defined by:
 
     .. math::
         sl(G) = \min{t : t + \sum_{i=0}^t d_i \geq n}
@@ -88,9 +93,10 @@ def slater(G):
     .. math::
         {d_1 \geq d_2 \geq \cdots \geq \d_n}
 
-    is the degree sequence of the graph ordered in non-increasing order.
+    is the degree sequence of the graph ordered in non-increasing order and *n*
+    is the order of G.
 
-    Amos et al. rediscovered this invariant an generalized it into what is
+    Amos et al. rediscovered this invariant and generalized it into what is
     now known as the sub-domination number.
 
     Parameters
@@ -133,7 +139,8 @@ def sub_total_domination_number(G):
     .. math::
         {d_1 \geq d_2 \geq \cdots \geq \d_n}
 
-    is the degree sequence of the graph ordered in non-increasing order.
+    is the degree sequence of the graph ordered in non-increasing order and *n*
+    is the order of the graph.
 
     This invariant was defined and investigated by Randy Davila.
 
@@ -158,23 +165,24 @@ def sub_total_domination_number(G):
     for i in range(n + 1):
         if sum(D[:i]) >= n:
             return i
-    # if above loop completes, return None (should not occur)
+    # if above loop completes, return None
     return None
 
 def annihilation_number(G):
     """Return the annihilation number of the graph.
 
-    The annihilation number is defined as:
+    The annihilation number of a graph G is defined as:
 
     .. math::
-        a(G) = \max{t : \sum_{i=0}^t d_i \leq n}
+        a(G) = \max{t : \sum_{i=0}^t d_i \leq m}
 
     where
 
     .. math::
         {d_1 \leq d_2 \leq \cdots \leq \d_n}
 
-    is the degree sequence of the graph ordered in non-decreasing order.
+    is the degree sequence of the graph ordered in non-decreasing order and m
+    is the number of edges in G.
 
     Parameters
     ----------
@@ -188,11 +196,11 @@ def annihilation_number(G):
     """
     D = degree_sequence(G)
     D.sort() # sort in non-decreasing order
+    n = len(D)
     m = number_of_edges(G)
     # sum over degrees in the sequence until the sum is larger than the number of edges in the graph
-    S = [D[0]]
-    while(sum(S) <= m):
-        S.append(D[len(S)])
-    return len(S) - 1
-
-# TODO: add more DSI invariants (such as upper and lower annihilation numbers)
+    for i in reversed(range(n+1)):
+        if sum(D[:i]) <= m:
+            return i
+    # if the above loop completes, return None
+    return None

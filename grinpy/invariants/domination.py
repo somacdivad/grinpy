@@ -53,7 +53,12 @@ def is_k_dominating_set(G, nbunch, k):
         True if the nodes in nbunch comprise a k-dominating set, and False
         otherwise.
     """
-    # TODO: add check that k >= 1 and throw error if not
+    # check that k is a positive integer
+    if not float(k).is_integer():
+        raise TypeError('Expected k to be an integer.')
+    k = int(k)
+    if k < 1:
+        raise ValueError('Expected k to be a positive integer.')
     # check if nbunch is an iterable; if not, convert to a list
     try:
         _ = (v for v in nbunch)
@@ -62,7 +67,8 @@ def is_k_dominating_set(G, nbunch, k):
     if k == 1:
         return is_dominating_set(G, nbunch)
     else:
-        S = set(nbunch)
+        # exclude any nodes that aren't in G
+        S = set(n for n in nbunch if n in G)
         # loop through the nodes in the complement of S and determine if they are adjacent to atleast k nodes in S
         others = set(nodes(G)).difference(S)
         for v in others:
@@ -96,6 +102,8 @@ def is_total_dominating_set(G, nbunch):
         _ = (v for v in nbunch)
     except:
         nbunch = [nbunch]
+    # exclude any nodes that aren't in G
+    S = set(n for n in nbunch if n in G)
     return set(neighborhood(G, nbunch)) == set(nodes(G))
 
 def is_connected_k_dominating(G, nbunch, k):

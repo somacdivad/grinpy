@@ -47,6 +47,9 @@ def vertex_disparity(G, v):
     --------
     closed_vertex_disparity
     """
+    if v not in nodes(G):
+        raise(ValueError)
+
     return len(neighborhood_degree_list(G, v))
 
 def closed_vertex_disparity(G, v):
@@ -70,6 +73,9 @@ def closed_vertex_disparity(G, v):
     --------
     vertex_disparity
     """
+    if v not in nodes(G):
+        raise(ValueError)
+    
     return len(closed_neighborhood_degree_list(G, v))
 
 def disparity_sequence(G):
@@ -222,7 +228,7 @@ def closed_inverse_disparity(G):
     --------
     CW_disparity, closed_CW_disparity, inverse_disparity
     """
-    return (1 / x for x in closed_disparity_sequence(G))
+    return sum(1 / x for x in closed_disparity_sequence(G))
 
 def average_vertex_disparity(G):
     """Return the average vertex disparity of the graph.
@@ -290,7 +296,8 @@ def k_disparity(G, k):
     closed_k_disparity
     """
     D = disparity_sequence(G)
-    s = sum((k - i) * D.count(i) for i in range(k))
+    D.sort(reverse = True)
+    s = sum((k - i) * D[i] for i in range(k))
     return (2 * s) / (k * (k+1))
 
 def closed_k_disparity(G, k):
@@ -299,9 +306,9 @@ def closed_k_disparity(G, k):
     The *closed k-disparity* of a graph is defined as:
 
     .. math::
-        \frac{2}{k(k+1)}\sum_{i=0}^{k-i}(k-i)f(i)
+        \frac{2}{k(k+1)}\sum_{i=0}^{k-1}(k-i)d_i
 
-    where *k* is a positive integer and *f(i)* is the frequency of i in the
+    where *k* is a positive integer and *d_i* is the frequency of i in the
     closed disparity sequence.
 
     Parameters
@@ -319,7 +326,8 @@ def closed_k_disparity(G, k):
     k_disparity
     """
     D = closed_disparity_sequence(G)
-    s = sum((k - i) * D.count(i) for i in range(k))
+    D.sort(reverse = True)
+    s = sum((k - i) * D[i] for i in range(k))
     return (2 * s) / (k * (k + 1))
 
 def irregularity(G):
