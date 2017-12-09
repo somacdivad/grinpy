@@ -21,7 +21,7 @@ __all__ = ['is_independent_set',
            'max_independent_set',
            'independence_number',
            'k_independence_number',
-           'k_residual_index
+           'k_residual_index'
            ]
 
 # methods
@@ -199,14 +199,14 @@ def k_residual_index(G):
     See Also
     --------
     k_independence_number, k_residue
-    
+
     Notes
     -----
     It should be noted that the k_residual_index was originally conjectured to be an upper
     bound on the independence number of the independence_number by Siemion Faijtlowizc and
     his original conjecturing program Graffiti. This was told to Davila by personal communication
-    with Ryan Pepper, a former PhD student of Faijtlowicz. 
-    """ 
+    with Ryan Pepper, a former PhD student of Faijtlowicz.
+    """
     k = 1
     while k_residue(G, k) < independence_number(G):
            k += 1

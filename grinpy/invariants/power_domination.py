@@ -18,7 +18,7 @@ __all__ = ['is_power_dominating_set',
            'power_domination_number',
            'is_k_power_dominating_set',
            'min_k_power_dominating_set',
-           'k_power_dominating_number'
+           'k_power_domination_number'
            ]
 
 def is_k_power_dominating_set(G, nbunch, k):
@@ -87,12 +87,8 @@ def k_power_domination_number(G, k):
 def is_power_dominating_set(G, nbunch):
     return is_k_power_dominating_set(G, nbunch, 1)
 
-def min_power_dominating_set(G)
-    return min_k-power_dominating_set(G,1):
+def min_power_dominating_set(G):
+    return min_k-power_dominating_set(G,1)
 
-def power_domination_number(G)
+def power_domination_number(G):
     return k_power_domination_number(G,1)
-
-
-
-          

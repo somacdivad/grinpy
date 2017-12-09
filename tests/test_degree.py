@@ -64,7 +64,7 @@ class TestDegree():
         assert(gp.is_cubic(G) == True)
 
     def test_K4_is_not_cubic(self):
-        G = gp.complte_graph(5)
+        G = gp.complete_graph(5)
         assert(gp.is_cubic(G) == False)
 
     def test_sub_cubic(self):

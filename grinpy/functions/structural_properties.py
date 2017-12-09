@@ -43,7 +43,7 @@ def is_triangle_free(G):
     True
     """
     # define a triangle graph, also known as the complete graph K_3
-    triangle = gp.complte_graph(3)
+    triangle = gp.complete_graph(3)
 
     # enumerate over all possible combinations of 3 vertices contained in G
     for S in set(itertools.combinations(G.nodes(), 3)):
