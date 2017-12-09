@@ -12,7 +12,6 @@
 from grinpy import is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes
 from grinpy.invariants.dsi import sub_k_domination_number, sub_total_domination_number
 from itertools import combinations
-import networkx as nx
 
 __all__ = ['is_k_dominating_set',
            'is_total_dominating_set',
