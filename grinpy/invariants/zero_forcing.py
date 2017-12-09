@@ -93,6 +93,16 @@ def is_zero_forcing_set(G, S):
     # TODO: Add documentation
     return is_k_forcing_set(G, S, 1)
 
+def is_total_forcing_set(G, S):
+    # TODO: Add documentation
+    no_isolates = True
+    for v in S:
+        if neighborhood(G, v).intersection(S) == {}:
+           no_isolates = False
+           return False
+    return is_zero_forcing_set(G, S)
+       
+
 def min_zero_forcing_set(G):
     # TODO: Add documentation
     return min_k_forcing_set(G, 1)
