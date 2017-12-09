@@ -30,6 +30,13 @@ Other invariants included are:
 * Sub-domination number
 * Annihilation number
 
+In addition to the graph invariants listed above, we have now included some
+simple checks for structural properties of a graph:
+
+* `is_triangle_free`
+* `is_bull_free`
+* `is_claw_free`
+
 ### How do I use it?
 Full documentation is available at [https://grinpy.rtfd.io](https://grinpy.rtfd.io). Here is a sample of how to
 calculate the independence number:
