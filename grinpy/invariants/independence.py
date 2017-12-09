@@ -20,7 +20,8 @@ __all__ = ['is_independent_set',
            'max_k_independent_set',
            'max_independent_set',
            'independence_number',
-           'k_independence_number'
+           'k_independence_number',
+           'k_residual_index
            ]
 
 # methods
