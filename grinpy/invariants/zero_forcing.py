@@ -10,7 +10,7 @@
 """Functions for computing zero forcing related invariants of a graph."""
 
 from itertools import combinations
-from grinpy import is_connected, min_degree, neighborhood, nodes, number_of_nodes
+from grinpy import is_connected, min_degree, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k
 
 __all__ = ['is_k_forcing_vertex',
            'is_k_forcing_active_set',
@@ -163,8 +163,6 @@ def min_k_forcing_set(G, k):
         for S in combinations(nodes(G), i):
             if is_k_forcing_set(G, S, k):
                 return list(S)
-    # if the above loop completes, return None (should not occur)
-    return None
 
 def k_forcing_number(G, k):
     """Return the *k*-forcing number of *G*.
@@ -330,7 +328,8 @@ def min_total_zero_forcing_set(G):
     list
         A list of nodes in a smallest zero forcing set in *G*.
     """
-    # loop through subsets of nodes of G in increasing order of size until a zero forcing set is found
+    # only start search if graph has no isolates
+    if number_of_nodes_of_degree_k(G, 0) > 0: return None
     for i in range(2, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_total_zero_forcing_set(G, S):
@@ -354,7 +353,11 @@ def total_zero_forcing_number(G):
     int
         The total zero forcing number of *G*.
     """
-    return len(min_total_zero_forcing_set(G))
+    Z = min_total_zero_forcing_set(G)
+    if Z == None:
+        return None
+    else:
+        return len(min_total_zero_forcing_set(G))
 
 def is_connected_k_forcing_set(G, nbunch, k):
     """Return whether or not the nodes in nbunch comprise a connected k-forcing
@@ -442,13 +445,12 @@ def min_connected_k_forcing_set(G, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    # loop through subsets of nodes of G in increasing order of size until a zero forcing set is found
+    # only start search if graph is connected
+    if not is_connected(G): return None
     for i in range(1, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_connected_k_forcing_set(G, S, k):
                 return list(S)
-    # if the above loop completes, return None (should not occur)
-    return None
 
 def min_connected_zero_forcing_set(G):
     """Return a smallest connected zero forcing set in *G*.
@@ -492,7 +494,11 @@ def connected_k_forcing_number(G, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    return len(min_connected_k_forcing_set(G, k))
+    Z = min_connected_k_forcing_set(G, k)
+    if Z == None:
+        return None
+    else:
+        return len(Z)
 
 def connected_zero_forcing_number(G):
     """Return the connected zero forcing number of *G*.

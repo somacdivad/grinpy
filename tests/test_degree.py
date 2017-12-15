@@ -1,4 +1,5 @@
 from grinpy import grinpy as gp
+import pytest
 
 class TestDegree():
     def setup_class(self):
@@ -50,6 +51,11 @@ class TestDegree():
     def test_star_is_not_regular(self):
         G = gp.star_graph(2)
         assert(gp.is_regular(G) == False)
+
+    def test_non_integral_value_raises_TypeError_is_k_regular(self):
+        with pytest.raises(TypeError, message="Expected TypeError when passed non-integral value for k"):
+            G = gp.trivial_graph()
+            gp.is_k_regular(G, 1.5)
 
     def test_K5_is_4_regular(self):
         G = gp.complete_graph(5)

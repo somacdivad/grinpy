@@ -8,6 +8,11 @@ class TestDSI():
             G = gp.star_graph(2)
             gp.sub_k_domination_number(G, 1.5)
 
+    def test_zero_value_for_k_raises_ValueError(self):
+        with pytest.raises(ValueError, message="Excepted zero value for k to throw ValueError."):
+            G = gp.star_graph(2)
+            gp.sub_k_domination_number(G, 0)
+
     def test_integral_float_for_k_works(self):
         G = gp.star_graph(2)
         assert(gp.sub_k_domination_number(G, 1.0) == 1)

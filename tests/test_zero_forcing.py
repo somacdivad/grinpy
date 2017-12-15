@@ -124,3 +124,15 @@ class TestZeroForcing():
         with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
             G = gp.star_graph(2)
             gp.connected_k_forcing_number(G, 0)
+
+    def test_total_zero_forcing_num_of_trivial_graph_is_None(self):
+        G = gp.trivial_graph()
+        assert(gp.total_zero_forcing_number(G) == None)
+
+    def test_endpoint_is_connected_forcing_set_of_path(self):
+        G = gp.path_graph(2)
+        assert(gp.is_connected_zero_forcing_set(G, 0))
+
+    def test_connected_zero_forcing_num_of_disconnected_graph_is_None(self):
+        G = gp.empty_graph(5)
+        assert(gp.connected_zero_forcing_number(G) == None)
