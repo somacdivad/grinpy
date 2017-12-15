@@ -43,4 +43,4 @@ def clique_number(G, cliques=None):
     maximal cliques, in order to avoid an exponential time search for maximal
     cliques.
     """
-    return graph_clique_number(G)
+    return graph_clique_number(G, cliques)

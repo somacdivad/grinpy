@@ -14,6 +14,7 @@ than version 0.1
 NP-hard invariants in the latest version include:
 
 * Independence number
+* Clique number
 * Domination number
 * Power domination number
 * Total domination number
