@@ -9,6 +9,7 @@ Invariants
 .. toctree::
    :maxdepth: 2
 
+   clique
    disparity
    domination
    dsi
