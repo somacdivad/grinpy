@@ -68,8 +68,6 @@ def min_k_power_dominating_set(G, k):
         for S in combinations(nodes(G), i):
             if is_k_power_dominating_set(G, S, k):
                 return list(S)
-    # if above loop completes, return None (should not occur)
-    return None
 
 def k_power_domination_number(G, k):
     """Return the k-power domination number of *G*.
@@ -121,7 +119,7 @@ def min_power_dominating_set(G):
     list
         A list of nodes in a smallest power dominating set in *G*.
     """
-    return min_k-power_dominating_set(G, 1)
+    return min_k_power_dominating_set(G, 1)
 
 def power_domination_number(G):
     """Return the power domination number of *G*.

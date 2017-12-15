@@ -41,8 +41,6 @@ def max_matching(G):
         for S in combinations(edges(G), i):
             if is_matching(G, set(S)):
                 return list(S)
-    # if above loop completes, return None (should not occur)
-    return None
 
 def matching_number(G):
     """Return the matching number of G.
@@ -85,8 +83,6 @@ def min_maximal_matching(G):
         for S in combinations(edges(G), i):
             if is_maximal_matching(G, set(S)):
                 return list(S)
-    # if above loop completes, return None (should not occur)
-    return None
 
 def min_maximal_matching_number(G):
     """Return the minimum maximal matching number of G.

@@ -9,7 +9,7 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing dominating sets in a graph."""
 
-from grinpy import is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes
+from grinpy import is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k
 from grinpy.invariants.dsi import sub_k_domination_number, sub_total_domination_number
 from grinpy.invariants.independence import is_independent_set
 from itertools import combinations
@@ -220,8 +220,6 @@ def min_k_dominating_set(G, k):
         for S in combinations(nodes(G), i):
             if is_k_dominating_set(G, S, k):
                 return list(S)
-    # return None if no dominating set is found (should not occur)
-    return None
 
 def min_connected_k_dominating_set(G, k):
     """Return a smallest connected k-dominating set in the graph.
@@ -247,12 +245,12 @@ def min_connected_k_dominating_set(G, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
+    # Only proceed with search if graph is connected
+    if not is_connected(G): return None
     for i in range(0, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_connected_k_dominating_set(G, S, k):
                 return list(S)
-    # return None if no set is found
-    return None
 
 def min_connected_dominating_set(G, k):
     """Return a smallest connected dominating set in the graph.
@@ -329,13 +327,12 @@ def min_total_dominating_set(G):
     """
     # use naive lower bound for domination to compute a starting point for the search range
     rangeMin = sub_total_domination_number(G)
-    # loop through subsets of nodes of G in increasing order of size until a total dominating set is found
+    # only process with search if graph has no isolated vertices
+    if number_of_nodes_of_degree_k(G, 0) > 0: return None
     for i in range(rangeMin, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_total_dominating_set(G, S):
                 return list(S)
-    # return None if no total dominating set is found (should not occur)
-    return None
 
 def domination_number(G):
     """Return the domination number the graph.
@@ -416,7 +413,11 @@ def connected_k_domination_number(G, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    return len(min_connected_k_dominating_set(G, k))
+    D = min_connected_k_dominating_set(G, k)
+    if D == None:
+        return None
+    else:
+        return len(D)
 
 def connected_domination_number(G):
     """Return the connected domination number the graph.
@@ -457,7 +458,11 @@ def total_domination_number(G):
     int
         The total domination number of the graph.
     """
-    return len(min_total_dominating_set(G))
+    D = min_total_dominating_set(G)
+    if D == None:
+        return None
+    else:
+        return len(D)
 
 def is_independent_k_dominating_set(G, nbunch, k):
     """ Return True if the nodes in nbunch comprise an independent k-dominating
@@ -468,7 +473,8 @@ def is_independent_k_dominating_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container or nodes
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
@@ -476,12 +482,12 @@ def is_independent_k_dominating_set(G, nbunch, k):
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a k-dominating set, and False
-        otherwise.
+        True if the nodes in nbunch comprise an independent k-dominating set,
+        and False otherwise.
     """
     return is_k_dominating_set(G, nbunch, k) and is_independent_set(G, nbunch)
 
-def is_independent_dominating_set(G, nbunch, k):
+def is_independent_dominating_set(G, nbunch):
     """ Return True if the nodes in nbunch comprise an independent k-dominating
     set in *G*, and return false otherwise.
 
@@ -490,16 +496,14 @@ def is_independent_dominating_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container or nodes
-
-    k : int
-        A positive integer.
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a k-dominating set, and False
-        otherwise.
+        True if the nodes in nbunch comprise an independent dominating set, and
+        False otherwise.
     """
     return is_k_dominating_set(G, nbunch, 1) and is_independent_set(G, nbunch)
 
@@ -523,8 +527,6 @@ def min_independent_k_dominating_set(G, k):
         for S in combinations(nodes(G), i):
             if is_independent_k_dominating_set(G, S, k):
                 return list(S)
-    # return None if no total dominating set is found (should not occur)
-    return None
 
 def min_independent_dominating_set(G):
     """Return a smallest independent dominating set in the graph.

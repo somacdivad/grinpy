@@ -202,5 +202,3 @@ def annihilation_number(G):
     for i in reversed(range(n+1)):
         if sum(D[:i]) <= m:
             return i
-    # if the above loop completes, return None
-    return None

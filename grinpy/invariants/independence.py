@@ -133,8 +133,6 @@ def max_k_independent_set(G, k):
         for S in combinations(nodes(G), i):
             if is_k_independent_set(G, S, k):
                 return list(S)
-    # return None if no independent set is found (should not occur)
-    return None
 
 def max_independent_set(G):
     """Return a largest independent set of nodes in *G*.

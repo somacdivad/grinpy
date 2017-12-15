@@ -186,3 +186,28 @@ class TestDomination():
         with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
             G = gp.star_graph(2)
             gp.independent_k_domination_number(G, 0)
+
+    def test_min_conn_dominating_for_disconnected_graph_is_none(self):
+        G = gp.Graph()
+        G.add_edge(1, 2)
+        G.add_edge(3, 4)
+        assert(gp.connected_domination_number(G) == None)
+
+    def test_tot_dom_for_graph_with_isolates_is_None(self):
+        G = gp.empty_graph(5)
+        assert(gp.total_domination_number(G) == None)
+
+    def test_domination_number_of_star_is_1(self):
+        for i in range(1, 9):
+            G = gp.star_graph(i)
+            assert(gp.domination_number(G) == 1)
+
+    def test_2_domination_number_of_star_is_order_minus_1(self):
+        for i in range(2, 9):
+            G = gp.star_graph(i)
+            assert(gp.k_domination_number(G, 2) == G.order() - 1)
+
+    def test_total_domination_number_of_star_is_2(self):
+        for i in range(1, 9):
+            G = gp.star_graph(i)
+            assert(gp.total_domination_number(G) == 2)

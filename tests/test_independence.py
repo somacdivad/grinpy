@@ -1,6 +1,14 @@
 from grinpy import grinpy as gp
 
 class TestIndependence():
+    def test_single_vertex_is_independent_set(self):
+        G = gp.trivial_graph()
+        assert(gp.is_independent_set(G, 0) == True)
+
+    def test_single_vertex_is_2_independent_set(self):
+        G = gp.trivial_graph()
+        assert(gp.is_k_independent_set(G, 0, 2) == True)
+
     def test_set_of_leaves_of_star_is_independent_set(self):
         for i in range(2, 10):
             G = gp.star_graph(i)
