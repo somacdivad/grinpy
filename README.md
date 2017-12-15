@@ -22,6 +22,8 @@ NP-hard invariants in the latest version include:
 * Zero forcing number
 * Total zero forcing number
 * Connected zero forcing number
+* Matching number
+* Minimum maximal matching number
 * Generalized *k* versions of almost all of the above invariants
 
 Other invariants included are:
