@@ -1,5 +1,4 @@
 from grinpy import grinpy as gp
-import pytest
 import math
 
 class TestMatching():
@@ -19,12 +18,12 @@ class TestMatching():
             G = gp.star_graph(i)
             assert(gp.matching_number(G) == 1)
 
-    def min_maximal_matching_number_of_star_is_1(self):
+    def test_min_maximal_matching_number_of_star_is_1(self):
         for i in range(1, 11):
             G = gp.star_graph(i)
             assert(gp.min_maximal_matching_number(G) == 1)
 
-    def min_maximal_matching_of_P2_through_P4_is_1(self):
+    def test_min_maximal_matching_of_P2_through_P4_is_1(self):
         for i in range(2, 5):
             P = gp.path_graph(i)
             assert(gp.min_maximal_matching_number(P) == 1)
