@@ -24,9 +24,14 @@ def is_graphic(sequence):
     exist a graph whose degree sequence is equal to the input sequence, up to
     ordering.
 
+    Parameters
+    ----------
+    sequence : list, iterable
+        A list or other iterable container of integers.
+
     Returns
     -------
-    isGraphic : bool
+    bool
         True if the input sequence is graphic. False otherwise.
     """
     hh = gp.HavelHakimi(sequence)
@@ -36,9 +41,14 @@ def havel_hakimi_process(G):
     """Return an instance of the HavelHakimi class initialized with the degree
     sequence of the graph.
 
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
     Returns
     -------
-    process : object
+    object
         An instance of the HavelHakimi class initialized with the degree
         sequence of the graph.
 
@@ -54,9 +64,14 @@ def elimination_sequence(G):
     The *elimination sequence* of a graph is the elimination sequence generated
     by the Havel Hakimi process performed on the degree sequence of the graph.
 
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
     Returns
     -------
-    elimSequence : list
+    list
         The elimination sequence of the graph.
     """
     return havel_hakimi_process(G).get_elimination_sequence()

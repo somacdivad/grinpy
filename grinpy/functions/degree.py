@@ -37,19 +37,19 @@ def degree_sequence(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    degSeq : list
+    list
         The degree sequence of the graph.
 
     Examples
     --------
     >>> G = nx.path_graph(3) # Path on 3 nodes
     >>> nx.degree_sequence(G)
-    [2, 1, 1]
+    [1, 2, 1]
     """
     return [degree(G, v) for v in nodes(G)]
 
@@ -61,12 +61,12 @@ def min_degree(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    minDegree : int
+    int
         The minimum degree of the graph.
 
     Examples
@@ -87,12 +87,12 @@ def max_degree(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    maxDegree : int
+    int
         The maximum degree of the graph.
 
     Examples
@@ -113,12 +113,12 @@ def average_degree(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    avgDegree : float
+    float
         The average degree of the graph.
 
     Examples
@@ -134,15 +134,15 @@ def number_of_nodes_of_degree_k(G, k):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    numNodes : int
+    int
         The number of nodes in the graph with degree equal to k.
 
     See Also
@@ -164,12 +164,12 @@ def number_of_degree_one_nodes(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    numNodes : int
+    int
         The number of nodes in the graph with degree equal to 1.
 
     See Also
@@ -191,12 +191,12 @@ def number_of_min_degree_nodes(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    numNodes : int
+    int
         The number of nodes in the graph with degree equal to the minimum
         degree.
 
@@ -219,12 +219,12 @@ def number_of_max_degree_nodes(G):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    numNodes : int
+    int
         The number of nodes in the graph with degree equal to the maximum
         degree.
 
@@ -246,14 +246,14 @@ def neighborhood_degree_list(G, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch : a single node or iterable container of nodes
 
     Returns
     -------
-    degreeList : list
+    list
         A list of the degrees of all nodes in the neighborhood of the nodes
         in nbunch.
 
@@ -276,14 +276,14 @@ def closed_neighborhood_degree_list(G, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch : a single node or iterable container of nodes
 
     Returns
     -------
-    degreeList : list
+    list
         A list of the degrees of all nodes in the closed neighborhood of the
         nodes in nbunch.
 
@@ -352,6 +352,7 @@ def is_sub_cubic(G):
     Parameters
     ----------
     G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------

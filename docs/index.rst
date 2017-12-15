@@ -45,13 +45,15 @@ terms of the :doc:`3-clause BSD license </license>`, the same license that
 NetworkX is released under. We greatly appreciate contributions. Please join us
 on `Github <https://github.com/somacdivad/grinpy>`_.
 
+Documentation
+-------------
+
 .. only:: html
    :Release: |version|
    :Date: |today|
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    tutorial
    reference/index

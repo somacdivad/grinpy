@@ -16,14 +16,14 @@ def neighborhood(G, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch : a single node or iterable container
 
     Returns
     -------
-    neighbors : list
+    list
         A list containing all nodes that are a neighbor of some node in nbunch.
 
     See Also
@@ -53,14 +53,14 @@ def closed_neighborhood(G, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     nbunch : a single node or iterable container
 
     Returns
     -------
-    neighbors : list
+    list
         A list containing all nodes that are a neighbor of some node in nbunch
         together with all nodes in nbunch.
 
@@ -88,8 +88,8 @@ def are_neighbors(G, v, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A NetworkX graph.
+    G : NetworkX graph
+        An undirected graph.
 
     v : node
         A node in the graph.
@@ -98,7 +98,7 @@ def are_neighbors(G, v, nbunch):
 
     Returns
     -------
-    isNeighbor : bool
+    bool
         If nbunch in a single node, True if v in a neighbor that node and False
         otherwise.
 
