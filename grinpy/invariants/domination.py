@@ -51,7 +51,8 @@ def is_k_dominating_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container or nodes
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
@@ -98,7 +99,8 @@ def is_total_dominating_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container or nodes
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
@@ -128,7 +130,8 @@ def is_connected_k_dominating_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch : A single node or iterable container of nodes in *G*
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer
@@ -167,7 +170,8 @@ def is_connected_dominating_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch : A single node or iterable container of nodes in *G*
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------

@@ -26,26 +26,26 @@ def sub_k_domination_number(G, k):
     smallest positive integer t such that the following relation holds:
 
     .. math::
-        t + \frac{1}{k}\sum_{i=0}^t d_i \geq n
+        t + \\frac{1}{k}\sum_{i=0}^t d_i \geq n
 
     where
 
     .. math::
-        {d_1 \geq d_2 \geq \cdots \geq \d_n}
+        {d_1 \geq d_2 \geq \cdots \geq d_n}
 
     is the degree sequence of the graph.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    sub : int
+    int
         The sub-k-domination number of a graph.
 
     See Also
@@ -86,27 +86,27 @@ def slater(G):
     number of a graph defined by:
 
     .. math::
-        sl(G) = \min{t : t + \sum_{i=0}^t d_i \geq n}
+        sl(G) = \min\{t : t + \sum_{i=0}^t d_i \geq n\}
 
     where
 
     .. math::
-        {d_1 \geq d_2 \geq \cdots \geq \d_n}
+        {d_1 \geq d_2 \geq \cdots \geq d_n}
 
     is the degree sequence of the graph ordered in non-increasing order and *n*
     is the order of G.
 
     Amos et al. rediscovered this invariant and generalized it into what is
-    now known as the sub-domination number.
+    now known as the sub-*k*-domination number.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    slater : int
+    int
         The Slater invariant for the graph.
 
     See Also
@@ -132,12 +132,12 @@ def sub_total_domination_number(G):
     The sub-total domination number is defined as:
 
     .. math::
-        sub_{t}(G) = \min{t : \sum_{i=0}^t d_i \geq n}
+        sub_{t}(G) = \min\{t : \sum_{i=0}^t d_i \geq n\}
 
     where
 
     .. math::
-        {d_1 \geq d_2 \geq \cdots \geq \d_n}
+        {d_1 \geq d_2 \geq \cdots \geq d_n}
 
     is the degree sequence of the graph ordered in non-increasing order and *n*
     is the order of the graph.
@@ -146,12 +146,12 @@ def sub_total_domination_number(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    subTotalDominationNumber : int
+    int
         The sub-total domination number of the graph.
 
     References
@@ -174,24 +174,24 @@ def annihilation_number(G):
     The annihilation number of a graph G is defined as:
 
     .. math::
-        a(G) = \max{t : \sum_{i=0}^t d_i \leq m}
+        a(G) = \max\{t : \sum_{i=0}^t d_i \leq m\}
 
     where
 
     .. math::
-        {d_1 \leq d_2 \leq \cdots \leq \d_n}
+        {d_1 \leq d_2 \leq \cdots \leq d_n}
 
-    is the degree sequence of the graph ordered in non-decreasing order and m
+    is the degree sequence of the graph ordered in non-decreasing order and *m*
     is the number of edges in G.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    annihilationNumber : int
+    int
         The annihilation number of the graph.
     """
     D = degree_sequence(G)

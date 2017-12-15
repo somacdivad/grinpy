@@ -31,14 +31,15 @@ def is_independent_set(G, nbunch):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
-    nbunch : a single node or iterable container of nodes.
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
-    isIndependent : bool
+    bool
         True if the nodes in nbunch comprise an independent set, False
         otherwise.
 
@@ -64,17 +65,18 @@ def is_k_independent_set(G, nbunch, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
-    nbunch : a single node or iterable container of nodes.
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    isKIndependent : bool
+    bool
         True if the nodes in nbunch comprise a k-independent set, False
         otherwise.
 
@@ -107,15 +109,15 @@ def max_k_independent_set(G, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    maxKIndependentSet : list
+    list
         A list of nodes comprising a largest k-independent set in *G*.
 
     See Also
@@ -145,12 +147,12 @@ def max_independent_set(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    maxIndependentSet : list
+    list
         A list of nodes comprising a largest independent set in *G*.
 
     See Also
@@ -167,12 +169,12 @@ def independence_number(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    independenceNumber : int
+    int
         The independence number of *G*.
 
     See Also
@@ -189,15 +191,15 @@ def k_independence_number(G, k):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     k : int
         A positive integer.
 
     Returns
     -------
-    kIndependenceNumber : int
+    int
         The k-independence number of *G*.
 
     See Also

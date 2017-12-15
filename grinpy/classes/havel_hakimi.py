@@ -59,7 +59,7 @@ class HavelHakimi:
 
         Returns
         -------
-        depth : int
+        int
             The depth of the Havel Hakimi process.
         """
         return len(self.process) - 1
@@ -69,7 +69,7 @@ class HavelHakimi:
 
         Returns
         -------
-        elimSequence : list
+        list
             The elimination sequence of the Havel Hakimi process.
         """
         return self.eliminationSequence
@@ -80,7 +80,7 @@ class HavelHakimi:
 
         Returns
         -------
-        initSequence : list
+        list
             The initial sequence passed to the Havel Hakimi class.
         """
         return self.process[0]
@@ -90,7 +90,7 @@ class HavelHakimi:
 
         Returns
         -------
-        isGraphic : bool
+        bool
             True if the initial sequence is graphic. False otherwise.
         """
         return contains_only_zeros(self.process[-1])
@@ -101,7 +101,7 @@ class HavelHakimi:
 
         Returns
         -------
-        process : list
+        list
             The list of sequences produced by the Havel Hakimi process.
         """
         return self.process
@@ -111,7 +111,7 @@ class HavelHakimi:
 
         Returns
         -------
-        residue : int
+        int
             The residue of the initial sequence. If the sequence is not graphic,
             this will be None.
         """

@@ -13,6 +13,7 @@ Invariants
    domination
    dsi
    independence
+   matching
    power_domination
    residue
    zero_forcing

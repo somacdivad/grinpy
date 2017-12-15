@@ -42,9 +42,11 @@ def is_k_forcing_vertex(G, v, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    v : a single node in *G*
+    v : node
+        A single node in *G*.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
@@ -78,7 +80,8 @@ def is_k_forcing_active_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
@@ -109,7 +112,8 @@ def is_k_forcing_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
@@ -192,9 +196,11 @@ def is_zero_forcing_vertex(G, v, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    v: a single node in *G*
+    v : node
+        A single node in *G*.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
@@ -212,7 +218,8 @@ def is_zero_forcing_active_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
@@ -222,7 +229,7 @@ def is_zero_forcing_active_set(G, nbunch):
     """
     return is_k_forcing_active_set(G, nbunch, 1)
 
-def is_zero_forcing_set(G, S):
+def is_zero_forcing_set(G, nbunch):
     """Return whether or not the nodes in nbunch comprise a zero forcing set in
     *G*.
 
@@ -231,7 +238,8 @@ def is_zero_forcing_set(G, S):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
@@ -239,7 +247,7 @@ def is_zero_forcing_set(G, S):
         True if the nodes in nbunch comprise a zero forcing set in *G*. False
         otherwise.
     """
-    return is_k_forcing_set(G, S, 1)
+    return is_k_forcing_set(G, nbunch, 1)
 
 def min_zero_forcing_set(G):
     """Return a smallest zero forcing set in *G*.
@@ -288,7 +296,8 @@ def is_total_zero_forcing_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------
@@ -359,7 +368,8 @@ def is_connected_k_forcing_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     k : int
         A positive integer.
@@ -397,7 +407,8 @@ def is_connected_zero_forcing_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch: a single node or iterable container of nodes in *G*.
+    nbunch :
+        A single node or iterable container or nodes.
 
     Returns
     -------

@@ -30,7 +30,7 @@ def residue(G):
 
     Returns
     -------
-    residue : int
+    int
         The residue of *G*.
 
     See Also
@@ -45,7 +45,7 @@ def k_residue(G, k):
     The *k-residue* of a graph *G* is defined as follows:
 
     .. math::
-        \frac{1}{k}\sum_{i=0}^{k-1}(k - i)f(i)
+        \\frac{1}{k}\sum_{i=0}^{k-1}(k - i)f(i)
 
     where *f(i)* is the frequency of *i* in the elmination sequence of the
     graph. The elimination sequence is the sequence of deletions made during the
@@ -58,7 +58,7 @@ def k_residue(G, k):
 
     Returns
     -------
-    kResidue : float
+    float
         The k-residue of *G*.
 
     See Also
@@ -82,8 +82,8 @@ def k_residual_index(G):
 
     Returns
     -------
-    k_residual_index : int
-        The smallest integer k such that k_residue(G,k)>= independence_number(G).
+    int
+        The smallest integer k such that k_residue(G,k) >= independence_number(G).
 
     See Also
     --------

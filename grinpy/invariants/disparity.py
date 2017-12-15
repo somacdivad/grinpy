@@ -33,14 +33,15 @@ def vertex_disparity(G, v):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
-    v : a node in G
+    v : node
+        A node in G.
 
     Returns
     -------
-    disparity : int
+    int
         The number of distinct degrees of neighbors of v.
 
     See Also
@@ -58,14 +59,15 @@ def closed_vertex_disparity(G, v):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
-    v : a node in G
+    v : node
+        A node in G.
 
     Returns
     -------
-    closedDisparity : int
+    int
         The number of distinct degrees of nodes in the closed neighborhood
         of v.
 
@@ -75,7 +77,7 @@ def closed_vertex_disparity(G, v):
     """
     if v not in nodes(G):
         raise(ValueError)
-    
+
     return len(closed_neighborhood_degree_list(G, v))
 
 def disparity_sequence(G):
@@ -83,12 +85,12 @@ def disparity_sequence(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    disparitySequence : list
+    list
         The sequence of disparities of each node in the graph.
 
     See Also
@@ -102,12 +104,12 @@ def closed_disparity_sequence(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    disparitySequence : list
+    list
         The sequence of closed disparities of each node in the graph.
 
     See Also
@@ -122,7 +124,7 @@ def CW_disparity(G):
     The *Caro-Wei disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\frac{1}{1 + disp(v)}
+        \sum_{v \in V(G)}\\frac{1}{1 + disp(v)}
 
     where *V(G)* is the set of nodes of *G* and *disp(v)* is the disparity of
     the vertex v.
@@ -132,12 +134,12 @@ def CW_disparity(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    cwDisparity : float
+    float
         The Caro-Wei disparity of the graph.
 
     See Also
@@ -152,7 +154,7 @@ def closed_CW_disparity(G):
     The *closed Caro-Wei disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\frac{1}{1 + cdisp(v)}
+        \sum_{v \in V(G)}\\frac{1}{1 + cdisp(v)}
 
     where *V(G)* is the set of nodes of *G* and *cdisp(v)* is the closed
     disparity of the vertex v.
@@ -162,12 +164,12 @@ def closed_CW_disparity(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    closedCWDisparity : float
+    float
         The closed Caro-Wei disparity of the graph.
 
     See Also
@@ -182,19 +184,19 @@ def inverse_disparity(G):
     The *inverse disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\frac{1}{disp(v)}
+        \sum_{v \in V(G)}\\frac{1}{disp(v)}
 
     where *V(G)* is the set of nodes of *G* and *disp(v)* is the disparity
     of the vertex v.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    inverseDisparity : float
+    float
         The inverse disparity of the graph.
 
     See Also
@@ -209,19 +211,19 @@ def closed_inverse_disparity(G):
     The *closed inverse disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\frac{1}{cdisp(v)}
+        \sum_{v \in V(G)}\\frac{1}{cdisp(v)}
 
     where *V(G)* is the set of nodes of *G* and *cdisp(v)* is the closed
     disparity of the vertex v.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    closedInverseDisparity : float
+    float
         The closed inverse disparity of the graph.
 
     See Also
@@ -235,12 +237,12 @@ def average_vertex_disparity(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    avgDisparity : int
+    int
         The average vertex disparity of the graph.
 
     See Also
@@ -255,12 +257,12 @@ def average_closed_vertex_disparity(G):
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    avgClosedDisparity : int
+    int
         The average closed vertex disparity of the graph.
 
     See Also
@@ -276,19 +278,19 @@ def k_disparity(G, k):
     The *k-disparity* of a graph is defined as:
 
     .. math::
-        \frac{2}{k(k+1)}\sum_{i=0}^{k-i}(k-i)f(i)
+        \\frac{2}{k(k+1)}\sum_{i=0}^{k-i}(k-i)d_i
 
-    where *k* is a positive integer and *f(i)* is the frequency of i in the
-    disparity sequence.
+    where *k* is a positive integer and *d_i* is the i-th element in the
+    disparity sequence, ordered in weakly decreasing order.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    kDisparity : float
+    float
         The k-disparity of the graph.
 
     See Also
@@ -306,19 +308,19 @@ def closed_k_disparity(G, k):
     The *closed k-disparity* of a graph is defined as:
 
     .. math::
-        \frac{2}{k(k+1)}\sum_{i=0}^{k-1}(k-i)d_i
+        \\frac{2}{k(k+1)}\sum_{i=0}^{k-1}(k-i)d_i
 
-    where *k* is a positive integer and *d_i* is the frequency of i in the
-    closed disparity sequence.
+    where *k* is a positive integer and *d_i* is the i-th element in the
+    closed disparity sequence, ordered in weakly decreasing order.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    closedKDisparity : float
+    float
         The closed k-disparity of the graph.
 
     See Also
@@ -336,19 +338,19 @@ def irregularity(G):
     The *irregularity* of an *n*-vertex graph is defined as:
 
     .. math::
-        \frac{2}{n(n+1)}\sum_{i=0}^{n-i}(n-i)f(i)
+        \\frac{2}{n(n+1)}\sum_{i=0}^{n-i}(n-i)d_i
 
-    where *f(i)* is the frequency of i in the
-    closed disparity sequence.
+    where *d_i* is the i-th element in the closed disparity sequence, ordered
+    in weakly decreasing order.
 
     Parameters
     ----------
-    G : graph
-        A Networkx graph.
+    G : NetworkX graph
+        An undirected graph.
 
     Returns
     -------
-    irregularity : float
+    float
         The irregularity of the graph.
 
     See Also
