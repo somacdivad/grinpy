@@ -10,12 +10,34 @@
 """Functions for computing various structural properites."""
 
 import grinpy as gp
+from grinpy import nodes
+from grinpy.functions.neighborhoods import neighborhood
 import itertools
 
 __all__ = ['is_triangle_free',
            'is_bull_free',
-           'is_claw_free'
+           'is_claw_free',
+           'is_complete_graph'
           ]
+
+def is_complete_graph(G):
+    """Returns True if *G* is a complete graph, and False otherwise.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    boolean
+        True if G is a complete graph, False otherwise.
+    """
+    V = set(nodes(G))
+    for v in V:
+        if not set(neighborhood(G, v)) == V.difference({v}):
+            return False
+    return True
 
 def is_triangle_free(G):
     """Returns True if *G* is triangle-free, and False otherwise.
