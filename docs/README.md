@@ -4,7 +4,7 @@ GrinPy uses Sphinx for generating the API documentation. Pre-built docs can
 be found at [https://grinpy.rtfd.io](https://grinpy.rtfd.io).
 
 ## Instructions
-Install the Python packages required to build the documentation:
+To install the Python packages required to build the documentation, enter
 
 ```
 pip install -r requirements.txt
