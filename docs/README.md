@@ -1,6 +1,6 @@
 # How to build the docs
 
-GrinPy uses Sphinx for generating the API documentation. Pre-built docs for can
+GrinPy uses Sphinx for generating the API documentation. Pre-built docs can
 be found at [https://grinpy.rtfd.io](https://grinpy.rtfd.io).
 
 ## Instructions
