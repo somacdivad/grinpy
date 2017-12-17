@@ -13,26 +13,27 @@ than version 0.1
 
 NP-hard invariants in the latest version include:
 
-* Independence number
+* Chromatic number
 * Clique number
+* Independence number
 * Domination number
-* Power domination number
 * Total domination number
 * Connected domination number
 * Independent domination number
+* Power domination number
 * Zero forcing number
 * Total zero forcing number
 * Connected zero forcing number
-* Matching number
 * Minimum maximal matching number
 * Generalized *k* versions of almost all of the above invariants
 
 Other invariants included are:
 
+* Annihilation number
+* Matching number
 * Residue
 * Slater number
-* Sub-domination number
-* Annihilation number
+* Sub-*k*-domination number
 
 In addition to the graph invariants listed above, we have now included some
 simple checks for structural properties of a graph:
