@@ -11,6 +11,12 @@
 
 from grinpy import neighbors
 
+__all__ = ['neighborhood',
+           'closed_neighborhood',
+           'are_neighbors',
+           'common_neighbors'
+          ]
+
 def neighborhood(G, nbunch):
     """Return a list of all neighbors of the nodes in nbunch.
 
@@ -56,7 +62,8 @@ def closed_neighborhood(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch : a single node or iterable container
+    nbunch :
+        A single node or iterable container
 
     Returns
     -------
@@ -94,7 +101,8 @@ def are_neighbors(G, v, nbunch):
     v : node
         A node in the graph.
 
-    nbunch : a single node or iterable container
+    nbunch :
+        A single node or iterable container
 
     Returns
     -------
@@ -117,3 +125,33 @@ def are_neighbors(G, v, nbunch):
     True
     """
     return v in neighborhood(G, nbunch)
+
+def common_neighbors(G, nbunch):
+    """Returns a list of all nodes in G that are adjacent to every node in `nbunch`.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    v : node
+        A node in the graph.
+
+    nbunch :
+        A single node or iterable container
+
+    Returns
+    -------
+    list
+        All nodes adjacent to every node in nbunch. If nbunch contains only a
+        single node, that nodes neighborhood is returned.
+    """
+    # check if nbunch is an iterable; if not, convert to a list
+    try:
+        _ = (v for v in nbunch)
+    except:
+        nbunch = [nbunch]
+    S = set(neighborhood(G, nbunch[0]))
+    for node in nbunch:
+        S = S.intersection(set(neighborhood(G, node)))
+    return list(S)

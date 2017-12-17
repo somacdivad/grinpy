@@ -52,3 +52,7 @@ class TestNeighborhoods():
         assert(t2 == False)
         assert(t3 == True)
         assert(t4 == False)
+
+    def test_common_neighbors_of_pair_of_nodes_in_K3_is_third_node(self):
+        G = gp.complete_graph(3)
+        assert(gp.common_neighbors(G, [0, 1]) == [2])
