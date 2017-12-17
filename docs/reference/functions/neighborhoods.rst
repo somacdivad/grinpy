@@ -7,6 +7,7 @@ Neighborhoods
 .. autosummary::
   :toctree: generated/
 
-  neighborhood
-  closed_neighborhood
   are_neighbors
+  closed_neighborhood
+  common_neighbors
+  neighborhood

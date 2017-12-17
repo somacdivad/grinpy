@@ -25,7 +25,7 @@ def chromatic_number(G):
     the nodes in G such that no two adjacent nodes have the same color.
 
     The method for computing the chromatic number is an implementation of the
-    algorithm discoverd Ram and Rama.
+    algorithm discovered by Ram and Rama.
 
     Parameters
     ----------

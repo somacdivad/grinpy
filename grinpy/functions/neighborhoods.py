@@ -134,9 +134,6 @@ def common_neighbors(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    v : node
-        A node in the graph.
-
     nbunch :
         A single node or iterable container
 
