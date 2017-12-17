@@ -9,6 +9,7 @@ Invariants
 .. toctree::
    :maxdepth: 2
 
+   chromatic
    clique
    disparity
    domination
