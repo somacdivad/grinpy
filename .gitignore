@@ -26,3 +26,7 @@ docs/reference/generated
 docs/reference/classes/generated
 docs/reference/functions/generated
 docs/reference/invariants/generated
+
+# dist and build
+/dist
+/build
