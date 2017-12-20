@@ -4,12 +4,8 @@
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
-GrinPy is still in development. We have released version 0.1 which includes
-several well-known graph invariants. However, the algorithms used to calculate
-NP-hard invariants are simple brute force. We will be updating these to more
-efficient algorithms over the next several months in our build-up to version
-1.0. The `master` branch is the latest version and now includes more invariants
-than version 0.1
+GrinPy is an extension for NetworkX used for calculating graph invariants for
+simple graphs.
 
 NP-hard invariants in the latest version include:
 
@@ -35,7 +31,7 @@ Other invariants included are:
 * Slater number
 * Sub-*k*-domination number
 
-In addition to the graph invariants listed above, we have now included some
+In addition to the graph invariants listed above, we have included some
 simple checks for structural properties of a graph:
 
 * `is_triangle_free`
@@ -43,8 +39,15 @@ simple checks for structural properties of a graph:
 * `is_claw_free`
 
 ### How do I use it?
-Full documentation is available at [https://grinpy.rtfd.io](https://grinpy.rtfd.io). Here is a sample of how to
-calculate the independence number:
+Full documentation is available at [https://grinpy.rtfd.io](https://grinpy.rtfd.io).
+
+You can install Grinpy from the command line with `pip`:
+
+```
+pip install grinpy
+```
+
+Here is a sample of how to calculate the independence number:
 ```python
 >>> import grinpy as gp
 >>> G = gp.petersen_graph()
@@ -55,7 +58,8 @@ calculate the independence number:
 GrinPy automatically imports [NetworkX](https://github.com/networkx/networkx) and provides all of the NetworkX classes and methods in the same interface.
 
 ### Why does it exist?
-The motivation for this project is to filter a database of graphs into an ordered tree of subsets. This database will be used in an experimental automated
+The motivation for this project is to filter a database of graphs into an
+ordered tree of subsets. This database will be used in an experimental automated
 conjecturing program. In creating the required packages for this database, we
 realized that a Python package for calculating graph invariants would be
 useful for professional research and for graph theory education.
