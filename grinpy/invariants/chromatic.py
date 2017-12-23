@@ -9,7 +9,7 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing the chromatic number of a graph."""
 
-from grinpy import nodes
+from grinpy import nodes, is_connected
 from grinpy.functions.graph_operations import contract_nodes
 from grinpy.functions.neighborhoods import are_neighbors, common_neighbors
 from grinpy.functions.structural_properties import is_complete_graph
@@ -43,11 +43,13 @@ def chromatic_number(G):
     finite, connected graph, *arXiv preprint
     arXiv:1309.3642*, (2013)
     """
+    if not is_connected(G): raise TypeError('Invalid graph: not connected')
     if is_complete_graph(G): return G.order()
     # get list of pairs of non neighbors in G
     N = [list(p) for p in pairs_of_nodes(G) if not are_neighbors(G, p[0], p[1])]
     # get a pair of non neighbors who have the most common neighbors
-    P = N[np.argmax(list(map(lambda p: len(common_neighbors(G, p)), N)))]
+    num_common_neighbors = list(map(lambda p: len(common_neighbors(G, p)), N))
+    P = N[np.argmax(num_common_neighbors)]
     # Collapse the nodes in P and repeat the above process
     H = G.copy()
     contract_nodes(H, P)

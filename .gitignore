@@ -30,3 +30,6 @@ docs/reference/invariants/generated
 # dist and build
 /dist
 /build
+
+# scratch folder
+/scratch

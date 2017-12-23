@@ -14,23 +14,26 @@ from grinpy import neighbors
 __all__ = ['neighborhood',
            'closed_neighborhood',
            'are_neighbors',
-           'common_neighbors'
+           'common_neighbors',
+           'set_neighborhood',
+           'set_closed_neighborhood'
           ]
 
-def neighborhood(G, nbunch):
-    """Return a list of all neighbors of the nodes in nbunch.
+def neighborhood(G, v):
+    """Return a list of all neighbors of v.
 
     Parameters
     ----------
     G : NetworkX graph
         An undirected graph.
 
-    nbunch : a single node or iterable container
+    v :
+        A node in G.
 
     Returns
     -------
     list
-        A list containing all nodes that are a neighbor of some node in nbunch.
+        A list containing all nodes that are a neighbor of v.
 
     See Also
     --------
@@ -42,34 +45,49 @@ def neighborhood(G, nbunch):
     >>> nx.neighborhood(G, 1)
     [0, 2]
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    # loop through all nodes in nbunch and add their neighbors to the set of neighbors
-    N = set()
-    for v in nbunch:
-        N |= set(neighbors(G, v))
-    return list(N)
+    return list(neighbors(G, v))
 
-def closed_neighborhood(G, nbunch):
-    """Return a list of all neighbors of the nodes in nbunch, including the
-    nodes in nbunch.
+def set_neighborhood(G, nodes):
+    """Return a list of all neighbors of every node in nodes.
 
     Parameters
     ----------
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container
+    nodes :
+        An interable container of nodes in G.
 
     Returns
     -------
     list
-        A list containing all nodes that are a neighbor of some node in nbunch
-        together with all nodes in nbunch.
+        A list containing all nodes that are a neighbor of some node in nodes.
+
+    See Also
+    --------
+    set_closed_neighborhood
+    """
+    # TODO: write unit test
+    N = set()
+    for n in nodes:
+        N |= set(neighborhood(G, n))
+    return list(N)
+
+def closed_neighborhood(G, v):
+    """Return a list with v and of all neighbors of v.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    v :
+        A node in G.
+
+    Returns
+    -------
+    list
+        A list containing v and all nodes that are a neighbor of v.
 
     See Also
     --------
@@ -81,16 +99,34 @@ def closed_neighborhood(G, nbunch):
     >>> nx.closed_neighborhood(G, 1)
     [0, 1, 2]
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    N = set(neighborhood(G, nbunch)).union(nbunch)
-    return list(N)
+    return list(set(neighborhood(G, v)).union([v]))
 
-def are_neighbors(G, v, nbunch):
-    """Returns true if v is adjacent to any of the nodes in nbunch. Otherwise,
+def set_closed_neighborhood(G, nodes):
+    """Return a list containing every node in nodes all neighbors their neighbors.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    nodes :
+        An interable container of nodes in G.
+
+    Returns
+    -------
+    list
+        A list containing every node in nodes and all nodes of their neighbors.
+
+    See Also
+    --------
+    set_neighborhood
+    """
+    # TODO: write unit test
+    N = set(set_neighborhood(G, nodes)).union(nodes)
+    return(list(N))
+
+def are_neighbors(G, u, v):
+    """Returns true if u is adjacent to v. Otherwise,
     returns false.
 
     Parameters
@@ -98,20 +134,17 @@ def are_neighbors(G, v, nbunch):
     G : NetworkX graph
         An undirected graph.
 
+    u : node
+        A node in the graph.
+
     v : node
         A node in the graph.
 
-    nbunch :
-        A single node or iterable container
 
     Returns
     -------
     bool
-        If nbunch in a single node, True if v in a neighbor that node and False
-        otherwise.
-
-        If nbunch is an interable, True if v is a neighbor of some node in
-        nbunch and False otherwise.
+        True if u is a neighbor of v in G, False otherwise.
 
 
     Examples
@@ -121,13 +154,11 @@ def are_neighbors(G, v, nbunch):
     True
     >>> nx.are_neighbors(G, 1, 2)
     False
-    >>> nx.are_neighbors(G, 1, [0, 2])
-    True
     """
-    return v in neighborhood(G, nbunch)
+    return u in neighborhood(G, v)
 
-def common_neighbors(G, nbunch):
-    """Returns a list of all nodes in G that are adjacent to every node in `nbunch`.
+def common_neighbors(G, nodes):
+    """Returns a list of all nodes in G that are adjacent to every node in `nodes`.
 
     Parameters
     ----------
@@ -143,12 +174,7 @@ def common_neighbors(G, nbunch):
         All nodes adjacent to every node in nbunch. If nbunch contains only a
         single node, that nodes neighborhood is returned.
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    S = set(neighborhood(G, nbunch[0]))
-    for node in nbunch:
-        S = S.intersection(set(neighborhood(G, node)))
+    S = set(neighborhood(G, nodes[0]))
+    for n in nodes:
+        S = S.intersection(set(neighborhood(G, n)))
     return list(S)

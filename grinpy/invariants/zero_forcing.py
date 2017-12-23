@@ -10,7 +10,7 @@
 """Functions for computing zero forcing related invariants of a graph."""
 
 from itertools import combinations
-from grinpy import is_connected, min_degree, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k
+from grinpy import is_connected, min_degree, neighborhood, number_of_nodes_of_degree_k
 
 __all__ = ['is_k_forcing_vertex',
            'is_k_forcing_active_set',
@@ -33,9 +33,9 @@ __all__ = ['is_k_forcing_vertex',
            'connected_zero_forcing_number'
            ]
 
-def is_k_forcing_vertex(G, v, nbunch, k):
+def is_k_forcing_vertex(G, v, nodes, k):
     """Return whether or not *v* can *k*-force relative to the set of nodes
-    in nbunch.
+    in `nodes`.
 
     Parameters
     ----------
@@ -45,8 +45,8 @@ def is_k_forcing_vertex(G, v, nbunch, k):
     v : node
         A single node in *G*.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     k : int
         A positive integer.
@@ -54,7 +54,7 @@ def is_k_forcing_vertex(G, v, nbunch, k):
     Returns
     -------
     boolean
-        True if *v* can *k*-force relative to the nodes in nbunch. False
+        True if *v* can *k*-force relative to the nodes in `nodes`. False
         otherwise.
     """
     # check that k is a positive integer
@@ -63,17 +63,12 @@ def is_k_forcing_vertex(G, v, nbunch, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    S = set( n for n in nbunch if n in G)
+    S = set(n for n in nodes if n in G)
     n = len(set(neighborhood(G, v)).difference(S))
     return v in S and n >= 1 and n <= k
 
-def is_k_forcing_active_set(G, nbunch, k):
-    """Return whether or not at least one node in nbunch can *k*-force.
+def is_k_forcing_active_set(G, nodes, k):
+    """Return whether or not at least one node in `nodes` can *k*-force.
 
     Parameters
     ----------
@@ -89,22 +84,17 @@ def is_k_forcing_active_set(G, nbunch, k):
     Returns
     -------
     boolean
-        True if at least one of the nodes in nbunch can *k*-force. False
+        True if at least one of the nodes in `nodes` can *k*-force. False
         otherwise.
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    S = set(n for n in nbunch if n in G)
+    S = set(n for n in nodes if n in G)
     for v in S:
         if is_k_forcing_vertex(G, v, S, k):
             return True
     return False
 
-def is_k_forcing_set(G, nbunch, k):
-    """Return whether or not the nodes in nbunch comprise a *k*-forcing set in
+def is_k_forcing_set(G, nodes, k):
+    """Return whether or not the nodes in `nodes` comprise a *k*-forcing set in
     *G*.
 
     Parameters
@@ -112,8 +102,8 @@ def is_k_forcing_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     k : int
         A positive integer.
@@ -121,22 +111,17 @@ def is_k_forcing_set(G, nbunch, k):
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a *k*-forcing set in *G*. False
+        True if the nodes in `nodes` comprise a *k*-forcing set in *G*. False
         otherwise.
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    Z = set(n for n in nbunch if n in G)
+    Z = set(n for n in nodes if n in G)
     while is_k_forcing_active_set(G, Z, k):
         Z_temp = Z.copy()
         for v in Z:
             if is_k_forcing_vertex(G, v, Z, k):
                 Z_temp |= set(neighborhood(G, v))
         Z = Z_temp
-    return Z == set(nodes(G))
+    return Z == set(G.nodes())
 
 def min_k_forcing_set(G, k):
     """Return a smallest *k*-forcing set in *G*.
@@ -159,8 +144,8 @@ def min_k_forcing_set(G, k):
     # use naive lower bound to compute a starting point for the search range
     rangeMin = min_degree(G) if k == 1 else 1
     # loop through subsets of nodes of G in increasing order of size until a zero forcing set is found
-    for i in range(rangeMin, number_of_nodes(G) + 1):
-        for S in combinations(nodes(G), i):
+    for i in range(rangeMin, G.order() + 1):
+        for S in combinations(G.nodes(), i):
             if is_k_forcing_set(G, S, k):
                 return list(S)
 
@@ -282,8 +267,8 @@ def zero_forcing_number(G):
     """
     return len(min_zero_forcing_set(G))
 
-def is_total_zero_forcing_set(G, nbunch):
-    """Return whether or not the nodes in nbunch comprise a total zero forcing
+def is_total_zero_forcing_set(G, nodes):
+    """Return whether or not the nodes in `nodes` comprise a total zero forcing
     set in *G*.
 
     A *total zero forcing set* in a graph *G* is a zero forcing set that does
@@ -294,20 +279,16 @@ def is_total_zero_forcing_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a total zero forcing set in *G*.
+        True if the nodes in `nodes` comprise a total zero forcing set in *G*.
         False otherwise.
     """
-    try:
-      _ = (v for v in nbunch)
-    except:
-      nbunch = [nbunch]
-    S = set(n for n in nbunch if n in G)
+    S = set(n for n in nodes if n in G)
     for v in S:
       if set(neighborhood(G, v)).intersection(S) == set():
         return False
@@ -330,8 +311,8 @@ def min_total_zero_forcing_set(G):
     """
     # only start search if graph has no isolates
     if number_of_nodes_of_degree_k(G, 0) > 0: return None
-    for i in range(2, number_of_nodes(G) + 1):
-        for S in combinations(nodes(G), i):
+    for i in range(2, G.order() + 1):
+        for S in combinations(G.nodes(), i):
             if is_total_zero_forcing_set(G, S):
                 return list(S)
     # if the above loop completes, return None (should not occur)
@@ -359,8 +340,8 @@ def total_zero_forcing_number(G):
     else:
         return len(min_total_zero_forcing_set(G))
 
-def is_connected_k_forcing_set(G, nbunch, k):
-    """Return whether or not the nodes in nbunch comprise a connected k-forcing
+def is_connected_k_forcing_set(G, nodes, k):
+    """Return whether or not the nodes in `nodes` comprise a connected k-forcing
     set in *G*.
 
     A *connected k-forcing set* in a graph *G* is a k-forcing set that induces
@@ -371,8 +352,8 @@ def is_connected_k_forcing_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     k : int
         A positive integer.
@@ -389,17 +370,12 @@ def is_connected_k_forcing_set(G, nbunch, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    S = set(n for n in nbunch if n in G)
+    S = set(n for n in nodes if n in G)
     H = G.subgraph(S)
-    return is_k_forcing_set(G, S, k) and is_connected(H)
+    return is_connected(H) and is_k_forcing_set(G, S, k)
 
-def is_connected_zero_forcing_set(G, nbunch):
-    """Return whether or not the nodes in nbunch comprise a connected zero
+def is_connected_zero_forcing_set(G, nodes):
+    """Return whether or not the nodes in `nodes` comprise a connected zero
     forcing set in *G*.
 
     A *connected zero forcing set* in a graph *G* is a zero forcing set that
@@ -410,16 +386,16 @@ def is_connected_zero_forcing_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a connected zero forcing set in
+        True if the nodes in `nodes` comprise a connected zero forcing set in
         *G*. False otherwise.
     """
-    return is_connected_k_forcing_set(G, nbunch, 1)
+    return is_connected_k_forcing_set(G, nodes, 1)
 
 def min_connected_k_forcing_set(G, k):
     """Return a smallest connected k-forcing set in *G*.
@@ -447,8 +423,8 @@ def min_connected_k_forcing_set(G, k):
         raise ValueError('Expected k to be a positive integer.')
     # only start search if graph is connected
     if not is_connected(G): return None
-    for i in range(1, number_of_nodes(G) + 1):
-        for S in combinations(nodes(G), i):
+    for i in range(1, G.order() + 1):
+        for S in combinations(G.nodes(), i):
             if is_connected_k_forcing_set(G, S, k):
                 return list(S)
 

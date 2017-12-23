@@ -9,7 +9,7 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing power domination related invariants of a graph."""
 
-from grinpy import closed_neighborhood, nodes, number_of_nodes
+from grinpy import set_closed_neighborhood
 from grinpy.invariants.zero_forcing import is_zero_forcing_set, is_k_forcing_set
 from itertools import combinations
 
@@ -21,8 +21,8 @@ __all__ = ['is_k_power_dominating_set',
            'power_domination_number'
            ]
 
-def is_k_power_dominating_set(G, nbunch, k):
-    """Return whether or not the nodes in nbunch comprise a k-power dominating
+def is_k_power_dominating_set(G, nodes, k):
+    """Return whether or not the nodes in `nodes` comprise a k-power dominating
     set.
 
     Parameters
@@ -30,8 +30,8 @@ def is_k_power_dominating_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     k : int
         A positive integer.
@@ -39,15 +39,10 @@ def is_k_power_dominating_set(G, nbunch, k):
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a k-power dominating set, False
+        True if the nodes in `nodes` comprise a k-power dominating set, False
         otherwise.
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    return is_k_forcing_set(G, closed_neighborhood(G, nbunch), k)
+    return is_k_forcing_set(G, set_closed_neighborhood(G, nodes), k)
 
 def min_k_power_dominating_set(G, k):
     """Return a smallest k-power dominating set of nodes in *G*.
@@ -64,8 +59,8 @@ def min_k_power_dominating_set(G, k):
     list
         A list of nodes in a smallest k-power dominating set in *G*.
     """
-    for i in range(1, number_of_nodes(G) + 1):
-        for S in combinations(nodes(G), i):
+    for i in range(1, G.order() + 1):
+        for S in combinations(G.nodes(), i):
             if is_k_power_dominating_set(G, S, k):
                 return list(S)
 
@@ -84,8 +79,8 @@ def k_power_domination_number(G, k):
     """
     return len(min_k_power_dominating_set(G, k))
 
-def is_power_dominating_set(G, nbunch):
-    """Return whether or not the nodes in nbunch comprise a power dominating
+def is_power_dominating_set(G, nodes):
+    """Return whether or not the nodes in `nodes` comprise a power dominating
     set.
 
     Parameters
@@ -93,16 +88,16 @@ def is_power_dominating_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     Returns
     -------
     boolean
-        True if the nodes in nbunch comprise a power dominating set, False
+        True if the nodes in `nodes` comprise a power dominating set, False
         otherwise.
     """
-    return is_k_power_dominating_set(G, nbunch, 1)
+    return is_k_power_dominating_set(G, nodes, 1)
 
 def min_power_dominating_set(G):
     """Return a smallest power dominating set of nodes in *G*.

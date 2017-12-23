@@ -5,12 +5,12 @@ class TestDomination():
     def test_non_integral_value_for_k_raises_error_in_is_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
             G = gp.star_graph(2)
-            gp.is_k_dominating_set(G, 0, 1.5)
+            gp.is_k_dominating_set(G, [0], 1.5)
 
     def test_0_value_for_k_raises_error_in_is_k_dom_set(self):
         with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
             G = gp.star_graph(2)
-            gp.is_k_dominating_set(G, 0, 0)
+            gp.is_k_dominating_set(G, [0], 0)
 
     def test_non_int_value_for_k_raises_error_in_min_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
@@ -34,27 +34,27 @@ class TestDomination():
 
     def test_integral_float_for_k_works(self):
         G = gp.star_graph(2)
-        assert(gp.is_k_dominating_set(G, 0, 1.0) == True)
+        assert(gp.is_k_dominating_set(G, [0], 1.0) == True)
 
     def test_max_degree_vertex_is_dominating_set_of_star(self):
         for i in range(1, 9):
             G = gp.star_graph(i)
-            assert(gp.is_k_dominating_set(G, 0, 1) == True)
+            assert(gp.is_k_dominating_set(G, [0], 1) == True)
 
     def test_min_degree_vertex_is_not_dominating_set_of_star(self):
         for i in range(2, 9):
             G = gp.star_graph(i)
-            assert(gp.is_k_dominating_set(G, 1, 1) == False)
+            assert(gp.is_k_dominating_set(G, [1], 1) == False)
 
     def test_dominating_set_with_nodes_not_in_graph(self):
         G = gp.star_graph(3)
-        assert(gp.is_k_dominating_set(G, 4, 1) == False)
+        assert(gp.is_k_dominating_set(G, [4], 1) == False)
         assert(gp.is_k_dominating_set(G, [0, 4], 1) == True)
 
     def test_max_degree_vertex_is_not_2_dominating_set_of_star(self):
         for i in range(1, 9):
             G = gp.star_graph(i)
-            assert(gp.is_k_dominating_set(G, 0, 2) == False)
+            assert(gp.is_k_dominating_set(G, [0], 2) == False)
 
     def test_min_degree_vertices_are_2_dominating_set_of_star(self):
         for i in range(2, 9):
@@ -65,13 +65,13 @@ class TestDomination():
     def test_2_dominating_set_with_nodes_not_in_graph(self):
         G = gp.star_graph(3)
         nodes = [1, 2, 3, 4]
-        assert(gp.is_k_dominating_set(G, 4, 1) == False)
+        assert(gp.is_k_dominating_set(G, [4], 1) == False)
         assert(gp.is_k_dominating_set(G, nodes, 1) == True)
 
     def test_no_single_node_is_total_dominating_set_of_star(self):
         G = gp.star_graph(3)
         for v in gp.nodes(G):
-            assert(gp.is_total_dominating_set(G, v) == False)
+            assert(gp.is_total_dominating_set(G, [v]) == False)
 
     def test_adjacent_vertices_are_total_dominating_set_of_star(self):
         G = gp.star_graph(3)
@@ -89,7 +89,7 @@ class TestDomination():
 
     def test_center_vertex_of_star_is_connected_dominating_set(self):
         G = gp.star_graph(3)
-        assert(gp.is_connected_dominating_set(G, 0) == True)
+        assert(gp.is_connected_dominating_set(G, [0]) == True)
 
     def test_leaves_of_star_are_not_connected_dominating_set(self):
         G = gp.star_graph(3)
@@ -130,12 +130,12 @@ class TestDomination():
     def test_non_int_value_for_k_raises_error_in_connected_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
             G = gp.star_graph(2)
-            gp.is_connected_k_dominating_set(G, 0, 1.5)
+            gp.is_connected_k_dominating_set(G, [0], 1.5)
 
     def test_0_value_for_k_raises_error_in_connected_k_dom_set(self):
         with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
             G = gp.star_graph(2)
-            gp.is_connected_k_dominating_set(G, 0, 0)
+            gp.is_connected_k_dominating_set(G, [0], 0)
 
     def test_non_int_value_for_k_raises_error_in_min_connected_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
@@ -160,12 +160,12 @@ class TestDomination():
     def test_non_int_value_for_k_raises_error_in_ind_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
             G = gp.star_graph(2)
-            gp.is_independent_k_dominating_set(G, 0, 1.5)
+            gp.is_independent_k_dominating_set(G, [0], 1.5)
 
     def test_0_value_for_k_raises_error_in_ind_k_dom_set(self):
         with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
             G = gp.star_graph(2)
-            gp.is_independent_k_dominating_set(G, 0, 0)
+            gp.is_independent_k_dominating_set(G, [0], 0)
 
     def test_non_int_value_for_k_raises_error_in_min_ind_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):

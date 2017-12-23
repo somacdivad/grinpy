@@ -11,7 +11,7 @@
 
 # imports
 from itertools import combinations
-from grinpy import neighborhood, nodes, number_of_edges, number_of_nodes
+from grinpy import neighborhood, nodes, number_of_edges, number_of_nodes, set_neighborhood
 from grinpy.invariants.dsi import annihilation_number
 
 __all__ = ['is_independent_set',
@@ -23,8 +23,8 @@ __all__ = ['is_independent_set',
            ]
 
 # methods
-def is_independent_set(G, nbunch):
-    """Return whether or not the nodes in nbunch comprise an independent set.
+def is_independent_set(G, nodes):
+    """Return whether or not the *nodes* comprises an independent set.
 
     An set *S* of nodes in *G* is called an *independent set* if no two nodes in
     S are neighbors of one another.
@@ -34,29 +34,24 @@ def is_independent_set(G, nbunch):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     Returns
     -------
     bool
-        True if the nodes in nbunch comprise an independent set, False
+        True if the the nodes in *nodes* comprise an independent set, False
         otherwise.
 
     See Also
     --------
     is_k_independent_set
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
-    S = set(n for n in nbunch if n in G)
-    return set(neighborhood(G, S)).intersection(S) == set()
+    S = set(n for n in nodes if n in G)
+    return set(set_neighborhood(G, S)).intersection(S) == set()
 
-def is_k_independent_set(G, nbunch, k):
-    """Return whether or not the nodes in nbunch comprise an a k-independent
+def is_k_independent_set(G, nodes, k):
+    """Return whether or not the nodes in *nodes* comprise an a k-independent
     set.
 
     A set *S* of nodes in *G* is called a *k-independent set* it every node
@@ -68,8 +63,8 @@ def is_k_independent_set(G, nbunch, k):
     G : NetworkX graph
         An undirected graph.
 
-    nbunch :
-        A single node or iterable container or nodes.
+    nodes : list, set
+        An iterable container of nodes in G.
 
     k : int
         A positive integer.
@@ -77,24 +72,20 @@ def is_k_independent_set(G, nbunch, k):
     Returns
     -------
     bool
-        True if the nodes in nbunch comprise a k-independent set, False
+        True if the nodes in *nodes* comprise a k-independent set, False
         otherwise.
 
     See Also
     --------
     is_independent_set
     """
-    # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
-        nbunch = [nbunch]
     if k == 1:
-        return is_independent_set(G, nbunch)
+        return is_independent_set(G, nodes)
     else:
-        for v in nbunch:
+        S = set(n for n in nodes if n in G)
+        for v in S:
             N = set(neighborhood(G, v))
-            if len(N.intersection(nbunch)) >= k:
+            if len(N.intersection(S)) >= k:
                 return False
         return True
 
