@@ -5,13 +5,13 @@ class TestPowerDomination():
     def test_center_node_is_power_dominating_set_of_star(self):
         for i in range(1, 11):
             G = gp.star_graph(i)
-            assert(gp.is_power_dominating_set(G, 0) == True)
+            assert(gp.is_power_dominating_set(G, [0]) == True)
 
     def test_leaf_is_not_power_dominating_set_of_star(self):
         for i in range(3, 13):
             G = gp.star_graph(i)
             for j in range(1, i+1):
-                assert(gp.is_power_dominating_set(G, j) == False)
+                assert(gp.is_power_dominating_set(G, [j]) == False)
 
     def test_empty_set_is_not_power_dominating_set_of_trivial_graph(self):
         G = gp.trivial_graph()

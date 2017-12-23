@@ -10,6 +10,7 @@
 """Assorted degree related graph utilities.
 """
 
+import collections
 from grinpy import degree, nodes, number_of_nodes
 from grinpy.functions.neighborhoods import closed_neighborhood, neighborhood
 
@@ -242,20 +243,22 @@ def number_of_max_degree_nodes(G):
     return number_of_nodes_of_degree_k(G, max_degree(G))
 
 def neighborhood_degree_list(G, nbunch):
-    """Return a list of the unique degrees of all neighbors of nodes in nbunch
+    """Return a list of the unique degrees of all neighbors of nodes in
+    `nbunch`.
 
     Parameters
     ----------
     G : NetworkX graph
         An undirected graph.
 
-    nbunch : a single node or iterable container of nodes
+    nbunch :
+        A single node or iterable container of nodes.
 
     Returns
     -------
     list
         A list of the degrees of all nodes in the neighborhood of the nodes
-        in nbunch.
+        in `nbunch`.
 
     See Also
     --------
@@ -268,24 +271,28 @@ def neighborhood_degree_list(G, nbunch):
     >>> gp.neighborhood_degree_list(G, 1)
     [1, 2]
     """
-    return list(set(degree(G, u) for u in neighborhood(G, nbunch)))
+    if isinstance(nodes, collections.abc.Iterable):
+        return list(set(degree(G, u) for u in set_neighborhood(G, nbunch)))
+    else:
+        return list(set(degree(G, u) for u in neighborhood(G, nbunch)))
 
 def closed_neighborhood_degree_list(G, nbunch):
     """Return a list of the unique degrees of all nodes in the closed
-    neighborhood of the nodes in nbunch.
+    neighborhood of the nodes in `nbunch`.
 
     Parameters
     ----------
     G : NetworkX graph
         An undirected graph.
 
-    nbunch : a single node or iterable container of nodes
+    nbunch :
+        A single node or iterable container of nodes.
 
     Returns
     -------
     list
         A list of the degrees of all nodes in the closed neighborhood of the
-        nodes in nbunch.
+        nodes in `nbunch`.
 
     See Also
     --------
@@ -298,7 +305,10 @@ def closed_neighborhood_degree_list(G, nbunch):
     >>> gp.closed_neighborhood_degree_list(G, 1)
     [1, 2, 2]
     """
-    return list(set(degree(G, u) for u in closed_neighborhood(G, nbunch)))
+    if isinstance(nodes, collections.abc.Iterable):
+        return list(set(degree(G, u) for u in set_closed_neighborhood(G, nbunch)))
+    else:
+        return list(set(degree(G, u) for u in closed_neighborhood(G, nbunch)))
 
 def is_regular(G):
     """ Return True if G is regular, and False otherwise.
