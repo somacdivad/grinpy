@@ -4,10 +4,10 @@
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
-GrinPy is an extension for NetworkX used for calculating graph invariants for
+GrinPy is an extension for NetworkX used for calculating graph invariants of
 simple graphs.
 
-NP-hard invariants in the latest version include:
+NP-hard invariants in this version include:
 
 * Chromatic number
 * Clique number

@@ -9,7 +9,7 @@ sys.path.insert(1, wd)
 name = 'grinpy'
 author = 'David Amos, Randy Davila'
 email = 'amosd2@tamu.edu, davilar@uhd.edu'
-version = '0.2.0a1'
+version = '0.2.0a2'
 classifiers = [
     'Development Status :: 2 - Pre-Alpha',
     'Intended Audience :: Science/Research',
