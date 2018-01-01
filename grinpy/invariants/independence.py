@@ -18,7 +18,8 @@ from pulp import LpBinary, LpMaximize, LpProblem, LpVariable, lpSum
 __all__ = ['is_independent_set',
            'is_k_independent_set',
            'max_k_independent_set',
-           'max_independent_set',
+           'max_independent_set_bf',
+           'max_independent_set_ip',
            'independence_number',
            'k_independence_number'
            ]
@@ -131,7 +132,7 @@ def max_k_independent_set(G, k):
                 return list(S)
 
 
-def max_independent_set(G):
+def max_independent_set_bf(G):
     """Return a largest independent set of nodes in *G*.
 
     The method used is a modified brute force search. The search
@@ -152,7 +153,30 @@ def max_independent_set(G):
 
     See Also
     --------
-    max_independent_set
+    max_k_independent_set
+    """
+    return max_k_independent_set(G, 1)
+
+
+def max_independent_set_ip(G):
+    """Return a largest independent set of nodes in *G*.
+
+    This method uses integer programming to solve for a largest independent
+    set.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    list
+        A list of nodes comprising a largest independent set in *G*.
+
+    See Also
+    --------
+    max_k_independent_set
     """
     # Initialize the problem
     prob = LpProblem('independence_number', LpMaximize)
@@ -189,10 +213,13 @@ def max_independent_set(G):
 
 
 def independence_number(G):
-    """Return a the independence number of G.
+    """Returns the independence number of G.
 
     The *independence number* of a graph is the cardinality of a largest
     independent set of nodes in the graph.
+
+    This method uses the `max_independent_set_ip` method to solve for a
+    largest independent set and returns the size of this set.
 
     Parameters
     ----------
@@ -208,7 +235,7 @@ def independence_number(G):
     --------
     k_independence_number
     """
-    return len(max_independent_set(G))
+    return len(max_independent_set_ip(G))
 
 
 def k_independence_number(G, k):
