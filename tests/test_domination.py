@@ -1,6 +1,7 @@
 from grinpy import grinpy as gp
 import pytest
 
+
 class TestDomination():
     def test_non_integral_value_for_k_raises_error_in_is_k_dom_set(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
@@ -191,11 +192,11 @@ class TestDomination():
         G = gp.Graph()
         G.add_edge(1, 2)
         G.add_edge(3, 4)
-        assert(gp.connected_domination_number(G) == None)
+        assert(gp.connected_domination_number(G) is None)
 
     def test_tot_dom_for_graph_with_isolates_is_None(self):
         G = gp.empty_graph(5)
-        assert(gp.total_domination_number(G) == None)
+        assert(gp.total_domination_number(G) is None)
 
     def test_domination_number_of_star_is_1(self):
         for i in range(1, 9):

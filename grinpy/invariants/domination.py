@@ -9,18 +9,21 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing dominating sets in a graph."""
 
-from grinpy import is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k, set_neighborhood
+from grinpy import to_numpy_matrix, is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k, set_neighborhood
 from grinpy.invariants.dsi import sub_k_domination_number, sub_total_domination_number
 from grinpy.invariants.independence import is_independent_set
 from itertools import combinations
+from pulp import LpBinary, LpMinimize, LpProblem, LpVariable, lpSum
 
 __all__ = ['is_k_dominating_set',
            'is_total_dominating_set',
            'is_connected_k_dominating_set',
            'is_connected_dominating_set',
            'min_k_dominating_set',
-           'min_dominating_set',
-           'min_total_dominating_set',
+           'min_dominating_set_bf',
+           'min_dominating_set_ip',
+           'min_total_dominating_set_bf',
+           'min_total_dominating_set_ip',
            'min_connected_k_dominating_set',
            'min_connected_dominating_set',
            'domination_number',
@@ -35,6 +38,7 @@ __all__ = ['is_k_dominating_set',
            'independent_k_domination_number',
            'independent_domination_number'
            ]
+
 
 def is_k_dominating_set(G, nodes, k):
     """Return whether or not nodes comprises a k-dominating set.
@@ -74,13 +78,15 @@ def is_k_dominating_set(G, nodes, k):
     if k == 1:
         return is_dominating_set(G, S)
     else:
-        # loop through the nodes in the complement of S and determine if they are adjacent to atleast k nodes in S
+        # loop through the nodes in the complement of S and determine if they
+        # are adjacent to atleast k nodes in S
         others = set(G.nodes()).difference(S)
         for v in others:
             if len(set(neighborhood(G, v)).intersection(S)) < k:
                 return False
         # if the above loop completes, nbunch is a k-dominating set
         return True
+
 
 def is_total_dominating_set(G, nodes):
     """Return whether or not nodes comprises a total dominating
@@ -106,6 +112,7 @@ def is_total_dominating_set(G, nodes):
     # exclude any nodes that aren't in G
     S = set(n for n in nodes if n in G)
     return set(set_neighborhood(G, S)) == set(G.nodes())
+
 
 def is_connected_k_dominating_set(G, nodes, k):
     """ Return True if *nodes* is a connected *k*-dominating set of *G*, and
@@ -143,6 +150,7 @@ def is_connected_k_dominating_set(G, nodes, k):
     H = G.subgraph(S)
     return is_connected(H) and is_k_dominating_set(G, S, k)
 
+
 def is_connected_dominating_set(G, nodes):
     """ Return True if *nodes* is a connected dominating set of *G*, and
     False otherwise.
@@ -166,13 +174,14 @@ def is_connected_dominating_set(G, nodes):
     """
     return is_connected_k_dominating_set(G, nodes, 1)
 
+
 def min_k_dominating_set(G, k):
     """Return a smallest k-dominating set in the graph.
 
     The method to compute the set is brute force except that the subsets
-    searched begin with those whose cardinality is equal to the sub-k-domination
-    number of the graph, which was defined by Amos et al. and shown to be a
-    tractable lower bound for the k-domination number.
+    searched begin with those whose cardinality is equal to the
+    sub-k-domination number of the graph, which was defined by Amos et al. and
+    shown to be a tractable lower bound for the k-domination number.
 
     Parameters
     ----------
@@ -198,13 +207,16 @@ def min_k_dominating_set(G, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    # use the sub-k-domination number to compute a starting point for the search range
+    # use the sub-k-domination number to compute a starting point for the
+    # search range
     rangeMin = sub_k_domination_number(G, k)
-    # loop through subsets of nodes of G in increasing order of size until a dominating set is found
+    # loop through subsets of nodes of G in increasing order of size until a
+    # dominating set is found
     for i in range(rangeMin, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_k_dominating_set(G, S, k):
                 return list(S)
+
 
 def min_connected_k_dominating_set(G, k):
     """Return a smallest connected k-dominating set in the graph.
@@ -231,11 +243,13 @@ def min_connected_k_dominating_set(G, k):
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
     # Only proceed with search if graph is connected
-    if not is_connected(G): return None
+    if not is_connected(G):
+        return None
     for i in range(1, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_connected_k_dominating_set(G, S, k):
                 return list(S)
+
 
 def min_connected_dominating_set(G, k):
     """Return a smallest connected dominating set in the graph.
@@ -254,7 +268,8 @@ def min_connected_dominating_set(G, k):
     """
     return min_connected_k_dominating_set(G, 1)
 
-def min_dominating_set(G):
+
+def min_dominating_set_bf(G):
     """Return a smallest dominating set in the graph.
 
     The method to compute the set is brute force except that the subsets
@@ -287,7 +302,43 @@ def min_dominating_set(G):
     """
     return min_k_dominating_set(G, 1)
 
-def min_total_dominating_set(G):
+
+def min_dominating_set_ip(G):
+    # Initialize the problem
+    prob = LpProblem('min_total_dominating_set', LpMinimize)
+    variables = []
+
+    # Pairs is a list which keeps track of the indicies of the variables
+    pairs = list()
+
+    # Set the variables
+    for i in range(G.order()):
+        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
+        pairs.append((i, x))
+        variables.append(x)
+
+    # Set the domination number objective function
+    prob += lpSum(variables)
+
+    # Set the integer program contraints
+    for e in G.edges():
+        prob += pairs[int(e[0])][1] + pairs[int(e[1])][1] >= 1
+
+    # Solve the IP
+    prob.solve()
+
+    # Now that the IP has been solved, the variables have been assigned
+    # values which acheive the optimal (might not be unique)
+    solution_set = []
+    for i in range(len(variables)):
+        if variables[i].value() == 1:
+            solution_set.append(variables[i])
+
+    # Return an optimal dominating set
+    return list(solution_set)
+
+
+def min_total_dominating_set_bf(G):
     """Return a smallest total dominating set in the graph.
 
     The method to compute the set is brute force except that the subsets
@@ -310,14 +361,56 @@ def min_total_dominating_set(G):
     R. Davila, A note on sub-total domination in graphs. *arXiv preprint
     arXiv:1701.07811*, (2017)
     """
-    # use naive lower bound for domination to compute a starting point for the search range
+    # use naive lower bound for domination to compute a starting point for the
+    # search range
     rangeMin = sub_total_domination_number(G)
     # only process with search if graph has no isolated vertices
-    if number_of_nodes_of_degree_k(G, 0) > 0: return None
+    if number_of_nodes_of_degree_k(G, 0) > 0:
+        return None
     for i in range(rangeMin, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_total_dominating_set(G, S):
                 return list(S)
+
+
+def min_total_dominating_set_ip(G):
+    # Initialize the problem
+    prob = LpProblem('min_total_dominating_set', LpMinimize)
+    variables = []
+
+    # Pairs is a list which keeps track of the indicies of the variables
+    pairs = list()
+
+    # Set the variables
+    for i, n in enumerate(G.nodes()):
+        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
+        pairs.append((n, x))
+        variables.append(x)
+
+    # Set the total domination number objective function
+    prob += lpSum(variables)
+
+    # Set constraints
+    for n in G.nodes():
+        n_vars = []
+        for i in range(G.order()):
+            if pairs[i][0] in neighborhood(G, n):
+                n_vars.append(pairs[i][1])
+        prob += lpSum(n_vars) >= 1
+
+    # Solve the IP
+    prob.solve()
+
+    # Now that the IP has been solved, the variables have been assigned
+    # values which acheive the optimal (might not be unique)
+    solution_set = []
+    for i in range(len(variables)):
+        if variables[i].value() == 1:
+            solution_set.append(variables[i])
+
+    # Return an optimal total dominating set
+    return list(solution_set)
+
 
 def domination_number(G):
     """Return the domination number the graph.
@@ -341,7 +434,8 @@ def domination_number(G):
     --------
     min_dominating_set, k_domination_number
     """
-    return len(min_dominating_set(G))
+    return len(min_dominating_set_ip(G))
+
 
 def k_domination_number(G, k):
     """Return the k-domination number the graph.
@@ -373,6 +467,7 @@ def k_domination_number(G, k):
         raise ValueError('Expected k to be a positive integer.')
     return len(min_k_dominating_set(G, k))
 
+
 def connected_k_domination_number(G, k):
     """Return the connected k-domination number the graph.
 
@@ -399,10 +494,11 @@ def connected_k_domination_number(G, k):
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
     D = min_connected_k_dominating_set(G, k)
-    if D == None:
+    if D is None:
         return None
     else:
         return len(D)
+
 
 def connected_domination_number(G):
     """Return the connected domination number the graph.
@@ -425,6 +521,7 @@ def connected_domination_number(G):
     """
     return connected_k_domination_number(G, 1)
 
+
 def total_domination_number(G):
     """Return the total domination number the graph.
 
@@ -443,11 +540,12 @@ def total_domination_number(G):
     int
         The total domination number of the graph.
     """
-    D = min_total_dominating_set(G)
-    if D == None:
+    D = min_total_dominating_set_ip(G)
+    if D is None:
         return None
     else:
         return len(D)
+
 
 def is_independent_k_dominating_set(G, nodes, k):
     """ Return True if *nodes* comprises an independent k-dominating
@@ -472,6 +570,7 @@ def is_independent_k_dominating_set(G, nodes, k):
     """
     return is_k_dominating_set(G, nodes, k) and is_independent_set(G, nodes)
 
+
 def is_independent_dominating_set(G, nodes):
     """ Return True if *nodes* comprises an independent k-dominating
     set in *G*, and return false otherwise.
@@ -490,7 +589,8 @@ def is_independent_dominating_set(G, nodes):
         True if the nodes in nbunch comprise an independent dominating set, and
         False otherwise.
     """
-    return is_k_dominating_set(G, nbunch, 1) and is_independent_set(G, nbunch)
+    return is_k_dominating_set(G, nodes, 1) and is_independent_set(G, nodes)
+
 
 def min_independent_k_dominating_set(G, k):
     """Return a smallest independent k-dominating set in the graph.
@@ -505,13 +605,16 @@ def min_independent_k_dominating_set(G, k):
     Returns
     -------
     list
-        A list of nodes in a smallest independent k-dominating set in the graph.
+        A list of nodes in a smallest independent k-dominating set in
+        the graph.
     """
-    # loop through subsets of nodes of G in increasing order of size until a total dominating set is found
+    # loop through subsets of nodes of G in increasing order of size until a
+    # total dominating set is found
     for i in range(1, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_independent_k_dominating_set(G, S, k):
                 return list(S)
+
 
 def min_independent_dominating_set(G):
     """Return a smallest independent dominating set in the graph.
@@ -529,6 +632,7 @@ def min_independent_dominating_set(G):
         A list of nodes in a smallest independent dominating set in the graph.
     """
     return min_independent_k_dominating_set(G, 1)
+
 
 def independent_k_domination_number(G, k):
     """Return the independnet k-domination number the graph.
@@ -549,6 +653,7 @@ def independent_k_domination_number(G, k):
         The independent k-domination number of the graph.
     """
     return len(min_independent_k_dominating_set(G, k))
+
 
 def independent_domination_number(G):
     """Return the independnet domination number the graph.
