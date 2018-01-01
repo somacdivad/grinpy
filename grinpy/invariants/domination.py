@@ -9,7 +9,7 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing dominating sets in a graph."""
 
-from grinpy import to_numpy_matrix, is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k, set_neighborhood
+from grinpy import closed_neighborhood, to_numpy_matrix, is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k, set_neighborhood
 from grinpy.invariants.dsi import sub_k_domination_number, sub_total_domination_number
 from grinpy.invariants.independence import is_independent_set
 from itertools import combinations
@@ -320,9 +320,13 @@ def min_dominating_set_ip(G):
     # Set the domination number objective function
     prob += lpSum(variables)
 
-    # Set the integer program contraints
-    for e in G.edges():
-        prob += pairs[int(e[0])][1] + pairs[int(e[1])][1] >= 1
+    # Set constraints
+    for n in G.nodes():
+        n_vars = []
+        for i in range(G.order()):
+            if pairs[i][0] in closed_neighborhood(G, n):
+                n_vars.append(pairs[i][1])
+        prob += lpSum(n_vars) >= 1
 
     # Solve the IP
     prob.solve()
