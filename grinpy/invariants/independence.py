@@ -11,8 +11,9 @@
 
 # imports
 from itertools import combinations
-from grinpy import neighborhood, nodes, number_of_edges, number_of_nodes, set_neighborhood
+from grinpy import neighborhood, nodes, number_of_nodes, set_neighborhood
 from grinpy.invariants.dsi import annihilation_number
+from pulp import LpBinary, LpMaximize, LpProblem, LpVariable, lpSum
 
 __all__ = ['is_independent_set',
            'is_k_independent_set',
@@ -22,12 +23,13 @@ __all__ = ['is_independent_set',
            'k_independence_number'
            ]
 
+
 # methods
 def is_independent_set(G, nodes):
     """Return whether or not the *nodes* comprises an independent set.
 
-    An set *S* of nodes in *G* is called an *independent set* if no two nodes in
-    S are neighbors of one another.
+    An set *S* of nodes in *G* is called an *independent set* if no two nodes
+    in S are neighbors of one another.
 
     Parameters
     ----------
@@ -49,6 +51,7 @@ def is_independent_set(G, nodes):
     """
     S = set(n for n in nodes if n in G)
     return set(set_neighborhood(G, S)).intersection(S) == set()
+
 
 def is_k_independent_set(G, nodes, k):
     """Return whether or not the nodes in *nodes* comprise an a k-independent
@@ -89,6 +92,7 @@ def is_k_independent_set(G, nodes, k):
                 return False
         return True
 
+
 def max_k_independent_set(G, k):
     """Return a largest k-independent set of nodes in *G*.
 
@@ -119,11 +123,13 @@ def max_k_independent_set(G, k):
     rangeMax = number_of_nodes(G) + 1
     if k == 1:
         rangeMax = annihilation_number(G) + 1
-    # loop through subsets of nodes of G in decreasing order of size until a k-independent set is found
+    # loop through subsets of nodes of G in decreasing order of size until a
+    # k-independent set is found
     for i in reversed(range(rangeMax)):
         for S in combinations(nodes(G), i):
             if is_k_independent_set(G, S, k):
                 return list(S)
+
 
 def max_independent_set(G):
     """Return a largest independent set of nodes in *G*.
@@ -148,7 +154,39 @@ def max_independent_set(G):
     --------
     max_independent_set
     """
-    return max_k_independent_set(G, 1)
+    # Initialize the problem
+    prob = LpProblem('independence_number', LpMaximize)
+    variables = []
+
+    # Pairs is a list which keeps track of the indicies of the variables
+    pairs = list()
+
+    # Set the variables
+    for i in range(G.order()):
+        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
+        pairs.append((i, x))
+        variables.append(x)
+
+    # Set the independence number objective function
+    prob += lpSum(variables)
+
+    # Set the integer program contraints
+    for e in G.edges():
+        prob += pairs[int(e[0])][1] + pairs[int(e[1])][1] <= 1
+
+    # Solve the IP
+    prob.solve()
+
+    # Now that the IP has been solved, the variables have been assigned
+    # values which acheive the optimal (might not be unique)
+    solution_set = []
+    for i in range(len(variables)):
+        if variables[i].value() == 1:
+            solution_set.append(variables[i])
+
+    # Return an optimal independent set
+    return list(solution_set)
+
 
 def independence_number(G):
     """Return a the independence number of G.
@@ -171,6 +209,7 @@ def independence_number(G):
     k_independence_number
     """
     return len(max_independent_set(G))
+
 
 def k_independence_number(G, k):
     """Return a the k-independence number of G.
