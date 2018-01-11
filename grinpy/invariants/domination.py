@@ -9,7 +9,7 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for computing dominating sets in a graph."""
 
-from grinpy import closed_neighborhood, to_numpy_matrix, is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k, set_neighborhood
+from grinpy import closed_neighborhood, is_connected, is_dominating_set, neighborhood, nodes, number_of_nodes, number_of_nodes_of_degree_k, set_neighborhood
 from grinpy.invariants.dsi import sub_k_domination_number, sub_total_domination_number
 from grinpy.invariants.independence import is_independent_set
 from itertools import combinations
