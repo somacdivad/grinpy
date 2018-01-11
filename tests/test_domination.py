@@ -178,6 +178,12 @@ class TestDomination():
             G = gp.star_graph(2)
             gp.min_independent_k_dominating_set(G, 0)
 
+    def test_min_ind_dom_set_ip_returns_same_as_bf_for_peterson_graph(self):
+        G = gp.petersen_graph()
+        bf = len(gp.min_independent_dominating_set_bf(G))
+        ip = len(gp.min_independent_dominating_set_ip(G))
+        assert(bf == ip)
+
     def test_non_int_value_for_k_raises_error_in_ind_k_dom_num(self):
         with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
             G = gp.star_graph(2)

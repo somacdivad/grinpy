@@ -34,7 +34,8 @@ __all__ = ['is_k_dominating_set',
            'is_independent_k_dominating_set',
            'is_independent_dominating_set',
            'min_independent_k_dominating_set',
-           'min_independent_dominating_set',
+           'min_independent_dominating_set_bf',
+           'min_independent_dominating_set_ip',
            'independent_k_domination_number',
            'independent_domination_number'
            ]
@@ -199,7 +200,8 @@ def min_k_dominating_set(G, k):
     References
     ----------
     D. Amos, J. Asplund, and R. Davila, The sub-k-domination number of a graph
-    with applications to k-domination, *arXiv preprint arXiv:1611.02379*, (2016)
+    with applications to k-domination, *arXiv preprint arXiv:1611.02379*,
+    (2016)
     """
     # check that k is a positive integer
     if not float(k).is_integer():
@@ -304,6 +306,30 @@ def min_dominating_set_bf(G):
 
 
 def min_dominating_set_ip(G):
+    '''Return a smallest dominating set in the graph.
+
+    A dominating set in a graph *G* is a set *D* of nodes of *G* for which
+    every node not in *D* has a neighbor in *D*.
+
+    This method using integer programming to compute a smallest dominating set.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    k : int
+        A positive integer.
+
+    Returns
+    -------
+    list
+        A list of nodes in a smallest dominating set in the graph.
+
+    See Also
+    --------
+    min_k_dominating_set
+    '''
     # Initialize the problem
     prob = LpProblem('min_total_dominating_set', LpMinimize)
     variables = []
@@ -422,7 +448,8 @@ def domination_number(G):
     The *domination number* of a graph is the cardinality of a smallest
     dominating set of nodes in the graph.
 
-    The method to compute this number modified brute force.
+    This method calls the `min_dominating_set_ip` method in order to compute
+    a smallest dominating set, then returns the length of that set.
 
     Parameters
     ----------
@@ -620,7 +647,7 @@ def min_independent_k_dominating_set(G, k):
                 return list(S)
 
 
-def min_independent_dominating_set(G):
+def min_independent_dominating_set_bf(G):
     """Return a smallest independent dominating set in the graph.
 
     The method to compute the set is brute force.
@@ -636,6 +663,64 @@ def min_independent_dominating_set(G):
         A list of nodes in a smallest independent dominating set in the graph.
     """
     return min_independent_k_dominating_set(G, 1)
+
+
+def min_independent_dominating_set_ip(G):
+    """Return a smallest independent dominating set in the graph.
+
+    This method solves an integer program to compute a smallest independent
+    dominating set.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    list
+        A list of nodes in a smallest independent dominating set in the graph.
+    """
+    # Initialize the problem
+    prob = LpProblem('min_total_dominating_set', LpMinimize)
+    variables = []
+
+    # Pairs is a list which keeps track of the indicies of the variables
+    pairs = list()
+
+    # Set the variables
+    for i in range(G.order()):
+        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
+        pairs.append((i, x))
+        variables.append(x)
+
+    # Set the domination number objective function
+    prob += lpSum(variables)
+
+    # Set constraints for domination
+    for n in G.nodes():
+        n_vars = []
+        for i in range(G.order()):
+            if pairs[i][0] in closed_neighborhood(G, n):
+                n_vars.append(pairs[i][1])
+        prob += lpSum(n_vars) >= 1
+
+    # Set constraints for independence
+    for e in G.edges():
+        prob += pairs[int(e[0])][1] + pairs[int(e[1])][1] <= 1
+
+    # Solve the IP
+    prob.solve()
+
+    # Now that the IP has been solved, the variables have been assigned
+    # values which acheive the optimal (might not be unique)
+    solution_set = []
+    for i in range(len(variables)):
+        if variables[i].value() == 1:
+            solution_set.append(variables[i])
+
+    # Return an optimal dominating set
+    return list(solution_set)
 
 
 def independent_k_domination_number(G, k):
