@@ -330,28 +330,22 @@ def min_dominating_set_ip(G):
     --------
     min_k_dominating_set
     '''
-    # Initialize the problem
     prob = LpProblem('min_dominating_set', LpMinimize)
     variables = [
         (node, LpVariable('x{}'.format(i+1), 0, 1, LpBinary))
         for i, node in enumerate(G.nodes())
     ]
-
     # Set the domination number objective function
     prob += lpSum([var for _, var in variables])
-
     # Set constraints
-    for n in G.nodes():
+    for node in G.nodes():
         combination = [
             var
-            for node, var in variables
-            if node in closed_neighborhood(G, n)
+            for n, var in variables if n in closed_neighborhood(G, node)
         ]
         prob += lpSum(combination) >= 1
-
     prob.solve()
-
-    solution_set = [var for _, var in variables if var.value() == 1]
+    solution_set = [node for node, var in variables if var.value() == 1]
     return list(solution_set)
 
 
@@ -393,39 +387,21 @@ def min_total_dominating_set_bf(G):
 def min_total_dominating_set_ip(G):
     # Initialize the problem
     prob = LpProblem('min_total_dominating_set', LpMinimize)
-    variables = []
-
-    # Pairs is a list which keeps track of the indicies of the variables
-    pairs = list()
-
-    # Set the variables
-    for i, n in enumerate(G.nodes()):
-        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
-        pairs.append((n, x))
-        variables.append(x)
-
+    variables = [
+        (n, LpVariable('x{}'.format(i+1), 0, 1, LpBinary))
+        for i, n in enumerate(G.nodes())
+    ]
     # Set the total domination number objective function
-    prob += lpSum(variables)
-
+    prob += lpSum([var for _, var in variables])
     # Set constraints
-    for n in G.nodes():
-        n_vars = []
-        for i in range(G.order()):
-            if pairs[i][0] in neighborhood(G, n):
-                n_vars.append(pairs[i][1])
-        prob += lpSum(n_vars) >= 1
-
-    # Solve the IP
+    for node in G.nodes():
+        combination = [
+            var
+            for n, var in variables if n in neighborhood(G, node)
+        ]
+        prob += lpSum(combination) >= 1
     prob.solve()
-
-    # Now that the IP has been solved, the variables have been assigned
-    # values which acheive the optimal (might not be unique)
-    solution_set = []
-    for i in range(len(variables)):
-        if variables[i].value() == 1:
-            solution_set.append(variables[i])
-
-    # Return an optimal total dominating set
+    solution_set = [node for node, var in variables if var.value() == 1]
     return list(solution_set)
 
 
