@@ -246,7 +246,7 @@ def min_connected_k_dominating_set(G, k):
         raise ValueError('Expected k to be a positive integer.')
     # Only proceed with search if graph is connected
     if not is_connected(G):
-        return None
+        return []
     for i in range(1, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
             if is_connected_k_dominating_set(G, S, k):
@@ -331,40 +331,27 @@ def min_dominating_set_ip(G):
     min_k_dominating_set
     '''
     # Initialize the problem
-    prob = LpProblem('min_total_dominating_set', LpMinimize)
-    variables = []
-
-    # Pairs is a list which keeps track of the indicies of the variables
-    pairs = list()
-
-    # Set the variables
-    for i in range(G.order()):
-        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
-        pairs.append((i, x))
-        variables.append(x)
+    prob = LpProblem('min_dominating_set', LpMinimize)
+    variables = [
+        (node, LpVariable('x{}'.format(i+1), 0, 1, LpBinary))
+        for i, node in enumerate(G.nodes())
+    ]
 
     # Set the domination number objective function
-    prob += lpSum(variables)
+    prob += lpSum([var for _, var in variables])
 
     # Set constraints
     for n in G.nodes():
-        n_vars = []
-        for i in range(G.order()):
-            if pairs[i][0] in closed_neighborhood(G, n):
-                n_vars.append(pairs[i][1])
-        prob += lpSum(n_vars) >= 1
+        combination = [
+            var
+            for node, var in variables
+            if node in closed_neighborhood(G, n)
+        ]
+        prob += lpSum(combination) >= 1
 
-    # Solve the IP
     prob.solve()
 
-    # Now that the IP has been solved, the variables have been assigned
-    # values which acheive the optimal (might not be unique)
-    solution_set = []
-    for i in range(len(variables)):
-        if variables[i].value() == 1:
-            solution_set.append(variables[i])
-
-    # Return an optimal dominating set
+    solution_set = [var for _, var in variables if var.value() == 1]
     return list(solution_set)
 
 
@@ -524,11 +511,7 @@ def connected_k_domination_number(G, k):
     k = int(k)
     if k < 1:
         raise ValueError('Expected k to be a positive integer.')
-    D = min_connected_k_dominating_set(G, k)
-    if D is None:
-        return None
-    else:
-        return len(D)
+    return len(min_connected_k_dominating_set(G, k))
 
 
 def connected_domination_number(G):

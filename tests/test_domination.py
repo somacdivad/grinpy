@@ -60,7 +60,7 @@ class TestDomination():
     def test_min_degree_vertices_are_2_dominating_set_of_star(self):
         for i in range(2, 9):
             G = gp.star_graph(i)
-            nodes = [i for i in range(1,i+2)]
+            nodes = [i for i in range(1, i+2)]
             assert(gp.is_k_dominating_set(G, nodes, 2) == True)
 
     def test_2_dominating_set_with_nodes_not_in_graph(self):
@@ -194,15 +194,15 @@ class TestDomination():
             G = gp.star_graph(2)
             gp.independent_k_domination_number(G, 0)
 
-    def test_min_conn_dominating_for_disconnected_graph_is_none(self):
+    def test_min_conn_dominating_for_disconnected_graph_is_0(self):
         G = gp.Graph()
         G.add_edge(1, 2)
         G.add_edge(3, 4)
-        assert(gp.connected_domination_number(G) is None)
+        assert(gp.connected_domination_number(G) is 0)
 
-    def test_tot_dom_for_graph_with_isolates_is_None(self):
+    def test_tot_dom_for_graph_with_isolates_is_0(self):
         G = gp.empty_graph(5)
-        assert(gp.total_domination_number(G) is None)
+        assert(gp.total_domination_number(G) is 0)
 
     def test_domination_number_of_star_is_1(self):
         for i in range(1, 9):
