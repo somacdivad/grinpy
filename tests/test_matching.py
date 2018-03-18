@@ -1,6 +1,7 @@
 from grinpy import grinpy as gp
 import math
 
+
 class TestMatching():
     def test_matching_number_of_empty_graph_is_0(self):
         for i in range(1, 11):
