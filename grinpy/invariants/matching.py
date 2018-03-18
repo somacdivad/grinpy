@@ -15,7 +15,7 @@ from pulp import LpBinary, LpMaximize, LpProblem, lpSum, LpVariable
 
 from grinpy import edges, is_matching, is_maximal_matching, number_of_edges
 
-__all__ = ['max_matching',
+__all__ = ['max_matching_bf',
            'max_matching_ip',
            'matching_number',
            'min_maximal_matching',
