@@ -341,16 +341,11 @@ def min_dominating_set_ip(G):
     for node in G.nodes():
         combination = [
             variables[n]
-            for n in variables
-            if n in closed_neighborhood(G, node)
+            for n in variables if n in closed_neighborhood(G, node)
         ]
         prob += lpSum(combination) >= 1
     prob.solve()
-    solution_set = [
-        node
-        for node in variables
-        if variables[node].value() == 1
-    ]
+    solution_set = [node for node in variables if variables[node].value() == 1]
     return solution_set
 
 
@@ -401,16 +396,11 @@ def min_total_dominating_set_ip(G):
     for node in G.nodes():
         combination = [
             variables[n]
-            for n in variables
-            if n in neighborhood(G, node)
+            for n in variables if n in neighborhood(G, node)
         ]
         prob += lpSum(combination) >= 1
     prob.solve()
-    solution_set = [
-        node
-        for node in variables
-        if variables[node].value() == 1
-    ]
+    solution_set = [node for node in variables if variables[node].value() == 1]
     return solution_set
 
 
@@ -660,19 +650,14 @@ def min_independent_dominating_set_ip(G):
     for node in G.nodes():
         combination = [
             variables[n]
-            for n in variables
-            if n in closed_neighborhood(G, node)
+            for n in variables if n in closed_neighborhood(G, node)
         ]
         prob += lpSum(combination) >= 1
     # Set constraints for independence
     for e in G.edges():
         prob += variables[e[0]] + variables[e[1]] <= 1
     prob.solve()
-    solution_set = [
-        node
-        for node in variables
-        if variables[node].value() == 1
-    ]
+    solution_set = [node for node in variables if variables[node].value() == 1]
     return solution_set
 
 

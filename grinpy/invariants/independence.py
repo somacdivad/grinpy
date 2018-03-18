@@ -178,38 +178,19 @@ def max_independent_set_ip(G):
     --------
     max_k_independent_set
     """
-    # Initialize the problem
-    prob = LpProblem('independence_number', LpMaximize)
-    variables = []
-
-    # Pairs is a list which keeps track of the indicies of the variables
-    pairs = list()
-
-    # Set the variables
-    for i in range(G.order()):
-        x = LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
-        pairs.append((i, x))
-        variables.append(x)
-
-    # Set the independence number objective function
+    prob = LpProblem('min_total_dominating_set', LpMaximize)
+    variables = {
+        node: LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
+        for i, node in enumerate(G.nodes())
+    }
+    # Set the domination number objective function
     prob += lpSum(variables)
-
-    # Set the integer program contraints
+    # Set constraints for independence
     for e in G.edges():
-        prob += pairs[int(e[0])][1] + pairs[int(e[1])][1] <= 1
-
-    # Solve the IP
+        prob += variables[e[0]] + variables[e[1]] <= 1
     prob.solve()
-
-    # Now that the IP has been solved, the variables have been assigned
-    # values which acheive the optimal (might not be unique)
-    solution_set = []
-    for i in range(len(variables)):
-        if variables[i].value() == 1:
-            solution_set.append(variables[i])
-
-    # Return an optimal independent set
-    return list(solution_set)
+    solution_set = [node for node in variables if variables[node].value() == 1]
+    return solution_set
 
 
 def independence_number(G):
