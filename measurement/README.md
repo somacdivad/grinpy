@@ -12,8 +12,8 @@ necessary.
 ## Instructions
  To execute, run the following from the command line:
 
-```
-python -m cProfile filename.py
+```console
+$ python -m cProfile filename.py
 ```
 
 ## Explanation
