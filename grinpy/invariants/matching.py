@@ -23,7 +23,7 @@ __all__ = ['max_matching_bf',
            ]
 
 
-def max_matching(G):
+def max_matching_bf(G):
     """Return a maximum matching in G.
 
     A *maximum matching* is a largest set of edges such that no two edges in
