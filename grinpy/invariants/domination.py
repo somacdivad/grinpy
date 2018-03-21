@@ -41,8 +41,7 @@ __all__ = [
     'is_connected_dominating_set',
     'min_k_dominating_set',
     'min_dominating_set',
-    'min_total_dominating_set_bf',
-    'min_total_dominating_set_ilp',
+    'min_total_dominating_set',
     'min_connected_k_dominating_set',
     'min_connected_dominating_set',
     'domination_number',
@@ -449,7 +448,7 @@ def min_total_dominating_set_bf(G):
                 return list(S)
 
 
-def min_total_dominating_set_ip(G):
+def min_total_dominating_set_ilp(G):
     """Return a smallest total dominating set in the graph.
 
     This method solves an integer linear program in order to find a
@@ -489,8 +488,43 @@ def min_total_dominating_set_ip(G):
         prob += lpSum(combination) >= 1
 
     prob.solve()
-    solution_set = [node for node in variables if variables[node].value() == 1]
+    solution_set = {node for node in variables if variables[node].value() == 1}
     return solution_set
+
+
+def min_total_dominating_set(G, method='ilp'):
+    """Return a smallest total dominating set in the graph.
+
+    Parameters
+    ----------
+    G: NetworkX graph
+        An undirected graph.
+
+    method: string
+        The method to use for finding a minimum total dominating set.
+        Use 'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
+
+    Returns
+    -------
+    set
+        A set of nodes in a smallest total dominating set in the graph.
+
+    References
+    ----------
+    R. Davila, A note on sub-total domination in graphs. *arXiv preprint
+    arXiv: 1701.07811*, (2017)
+
+    """
+    total_dominating_set_func = {
+        'bf': min_total_dominating_set_bf,
+        'ilp': min_total_dominating_set_ilp,
+    }.get(method, None)
+
+    if total_dominating_set_func:
+        return total_dominating_set_func(G)
+
+    raise ValueError('Invalid `method` argument "{}"'.format(method))
 
 
 def domination_number(G, method='ilp'):
@@ -613,7 +647,7 @@ def connected_domination_number(G):
     return connected_k_domination_number(G, 1)
 
 
-def total_domination_number(G):
+def total_domination_number(G, method='ilp'):
     """Return the total domination number the graph.
 
     The * total domination number * of a graph is the cardinality of a
@@ -626,17 +660,21 @@ def total_domination_number(G):
     G: NetworkX graph
         An undirected graph.
 
+    method: string
+        The method to use for calulating the total domination number.
+        Use 'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
+
     Returns
     -------
     int
         The total domination number of the graph.
 
     """
-    D = min_total_dominating_set_ip(G)
-    if D is None:
-        return None
-    else:
-        return len(D)
+    try:
+        return min_total_dominating_set(G, method=method)
+    except ValueError as exc:
+        raise ValueError(exc)
 
 
 def is_independent_k_dominating_set(G, nodes, k):
