@@ -11,26 +11,39 @@
 
 # imports
 from itertools import combinations
-from grinpy import neighborhood, nodes, number_of_nodes, set_neighborhood
-from grinpy.invariants.dsi import annihilation_number
-from pulp import LpBinary, LpMaximize, LpProblem, LpVariable, lpSum
 
-__all__ = ['is_independent_set',
-           'is_k_independent_set',
-           'max_k_independent_set',
-           'max_independent_set_bf',
-           'max_independent_set_ip',
-           'independence_number',
-           'k_independence_number'
-           ]
+from pulp import (
+    LpBinary,
+    LpMaximize,
+    LpProblem,
+    LpVariable,
+    lpSum,
+)
+
+from grinpy import (
+    neighborhood,
+    nodes,
+    number_of_nodes,
+    set_neighborhood,
+)
+from grinpy.invariants.dsi import annihilation_number
+
+__all__ = [
+    'independence_number',
+    'is_independent_set',
+    'is_k_independent_set',
+    'k_independence_number',
+    'max_independent_set',
+    'max_k_independent_set',
+]
 
 
 # methods
 def is_independent_set(G, nodes):
     """Return whether or not the *nodes* comprises an independent set.
 
-    An set *S* of nodes in *G* is called an *independent set* if no two nodes
-    in S are neighbors of one another.
+    An set *S* of nodes in *G* is called an *independent set* if no two
+    nodes in S are neighbors of one another.
 
     Parameters
     ----------
@@ -38,7 +51,8 @@ def is_independent_set(G, nodes):
         An undirected graph.
 
     nodes : list, set
-        An iterable container of nodes in G.
+        An iterable container of nodes in G. Only nodes existing in G
+        will be considered. Any other nodes will be ignored.
 
     Returns
     -------
@@ -49,18 +63,18 @@ def is_independent_set(G, nodes):
     See Also
     --------
     is_k_independent_set
+
     """
     S = set(n for n in nodes if n in G)
     return set(set_neighborhood(G, S)).intersection(S) == set()
 
 
 def is_k_independent_set(G, nodes, k):
-    """Return whether or not the nodes in *nodes* comprise an a k-independent
-    set.
+    """Return whether or not `nodes` is a k-independent set in G.
 
-    A set *S* of nodes in *G* is called a *k-independent set* it every node
-    in S has at most *k*-1 neighbors in S. Notice that a 1-independent set
-    is equivalent to an independent set.
+    A set *S* of nodes in *G* is called a *k-independent set* it every
+    node in S has at most *k*-1 neighbors in S. Notice that a
+    1-independent set is equivalent to an independent set.
 
     Parameters
     ----------
@@ -82,6 +96,7 @@ def is_k_independent_set(G, nodes, k):
     See Also
     --------
     is_independent_set
+
     """
     if k == 1:
         return is_independent_set(G, nodes)
@@ -97,11 +112,11 @@ def is_k_independent_set(G, nodes, k):
 def max_k_independent_set(G, k):
     """Return a largest k-independent set of nodes in *G*.
 
-    The method used is brute force, except when *k*=1. In this case, the search
-    starts with subsets of *G* with cardinality equal to the annihilation
-    number of *G*, which was shown by Pepper to be an upper bound for the
-    independence number of a graph, and then continues checking smaller subsets
-    until a maximum independent set is found.
+    The method used is brute force, except when *k*=1. In this case,
+    the search starts with subsets of *G* with cardinality equal to the
+    annihilation number of *G*, which was shown by Pepper to be an upper
+    bound for the independence number of a graph, and then continues
+    checking smaller subsets until a maximum independent set is found.
 
     Parameters
     ----------
@@ -119,13 +134,15 @@ def max_k_independent_set(G, k):
     See Also
     --------
     max_independent_set
+
     """
     # set the maximum for the loop range
     rangeMax = number_of_nodes(G) + 1
     if k == 1:
         rangeMax = annihilation_number(G) + 1
-    # loop through subsets of nodes of G in decreasing order of size until a
-    # k-independent set is found
+
+    # loop through subsets of nodes of G in decreasing order of size
+    # until a k-independent set is found
     for i in reversed(range(rangeMax)):
         for S in combinations(nodes(G), i):
             if is_k_independent_set(G, S, k):
@@ -135,11 +152,11 @@ def max_k_independent_set(G, k):
 def max_independent_set_bf(G):
     """Return a largest independent set of nodes in *G*.
 
-    The method used is a modified brute force search. The search
-    starts with subsets of *G* with cardinality equal to the annihilation
-    number of *G*, which was shown by Pepper to be an upper bound for the
-    independence number of a graph, and then continues checking smaller subsets
-    until a maximum independent set is found.
+    The method used is a modified brute force search. The search starts
+    with subsets of *G* with cardinality equal to the annihilation
+    number of *G*, which was shown by Pepper to be an upper bound for
+    the independence number of a graph, and then continues checking
+    smaller subsets until a maximum independent set is found.
 
     Parameters
     ----------
@@ -153,16 +170,17 @@ def max_independent_set_bf(G):
 
     See Also
     --------
-    max_k_independent_set
+    annihilation_number, max_independent_set, max_k_independent_set
+
     """
     return max_k_independent_set(G, 1)
 
 
-def max_independent_set_ip(G):
+def max_independent_set_ilp(G):
     """Return a largest independent set of nodes in *G*.
 
-    This method uses integer programming to solve for a largest independent
-    set.
+    This method uses integer programming to solve for a largest
+    independent set.
 
     Parameters
     ----------
@@ -177,6 +195,7 @@ def max_independent_set_ip(G):
     See Also
     --------
     max_k_independent_set
+
     """
     prob = LpProblem('min_total_dominating_set', LpMaximize)
     variables = {
@@ -216,11 +235,12 @@ def max_independent_set(G, method='ilp'):
 
     See Also
     --------
+    max_independent_set_bf, max_independent_set_ilp,
     max_k_independent_set
 
     """
     independent_set_func = {
-        'ilp': max_independent_set_ip,
+        'ilp': max_independent_set_ilp,
         'bf': max_independent_set_bf,
     }.get(method, None)
 
@@ -231,13 +251,10 @@ def max_independent_set(G, method='ilp'):
 
 
 def independence_number(G, method='ilp'):
-    """Returns the independence number of G.
+    """Return the independence number of G.
 
     The *independence number* of a graph is the cardinality of a largest
     independent set of nodes in the graph.
-
-    This method uses the `max_independent_set_ip` method to solve for a
-    largest independent set and returns the size of this set.
 
     Parameters
     ----------
@@ -268,8 +285,8 @@ def independence_number(G, method='ilp'):
 def k_independence_number(G, k):
     """Return a the k-independence number of G.
 
-    The *k-independence number* of a graph is the cardinality of a largest
-    k-independent set of nodes in the graph.
+    The *k-independence number* of a graph is the cardinality of a
+    largest k-independent set of nodes in the graph.
 
     Parameters
     ----------
@@ -287,5 +304,6 @@ def k_independence_number(G, k):
     See Also
     --------
     independence_number
+
     """
     return len(max_k_independent_set(G, k))
