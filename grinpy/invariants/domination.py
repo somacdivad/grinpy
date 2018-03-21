@@ -52,8 +52,7 @@ __all__ = [
     'is_independent_k_dominating_set',
     'is_independent_dominating_set',
     'min_independent_k_dominating_set',
-    'min_independent_dominating_set_bf',
-    'min_independent_dominating_set_ilp',
+    'min_independent_dominating_set',
     'independent_k_domination_number',
     'independent_domination_number'
 ]
@@ -767,7 +766,7 @@ def min_independent_dominating_set_bf(G):
     return min_independent_k_dominating_set(G, 1)
 
 
-def min_independent_dominating_set_ip(G):
+def min_independent_dominating_set_ilp(G):
     """Return a smallest independent dominating set in the graph.
 
     This method solves an integer program to compute a smallest
@@ -780,8 +779,8 @@ def min_independent_dominating_set_ip(G):
 
     Returns
     -------
-    list
-        A list of nodes in a smallest independent dominating set in the
+    set
+        A set of nodes in a smallest independent dominating set in the
         graph.
 
     """
@@ -807,8 +806,39 @@ def min_independent_dominating_set_ip(G):
         prob += variables[e[0]] + variables[e[1]] <= 1
 
     prob.solve()
-    solution_set = [node for node in variables if variables[node].value() == 1]
+    solution_set = {node for node in variables if variables[node].value() == 1}
     return solution_set
+
+
+def min_independent_dominating_set(G, method='ilp'):
+    """Return a smallest independent dominating set in the graph.
+
+    Parameters
+    ----------
+    G: NetworkX graph
+        An undirected graph.
+
+    method: string
+        The method to use for finding a smallest independent dominating
+        set. Use 'ilp' for integer linear program or 'bf' for brute
+        force. Defaults to 'ilp'.
+
+    Returns
+    -------
+    set
+        A set of nodes in a smallest independent dominating set in the
+        graph.
+
+    """
+    independent_dominating_set_func = {
+        'bf': min_independent_dominating_set_bf,
+        'ilp': min_independent_dominating_set_ilp,
+    }.get(method, None)
+
+    if independent_dominating_set_func:
+        return independent_dominating_set_func(G)
+
+    raise ValueError('Invalid `method` argument "{}"'.format(method))
 
 
 def independent_k_domination_number(G, k):
@@ -833,18 +863,21 @@ def independent_k_domination_number(G, k):
     return len(min_independent_k_dominating_set(G, k))
 
 
-def independent_domination_number(G):
+def independent_domination_number(G, method='ilp'):
     """Return the independnet domination number the graph.
 
     The * independent domination number * of a graph is the cardinality of
     a smallest independent dominating set of nodes in the graph.
 
-    The method to compute this number is brute force.
-
     Parameters
     ----------
     G: NetworkX graph
         An undirected graph.
+
+    method: string
+        The method to use for calculating the independent dominationg
+        number. Use 'ilp' for integer linear program or 'bf' for brute
+        force. Defaults to 'ilp'.
 
     Returns
     -------
@@ -852,4 +885,7 @@ def independent_domination_number(G):
         The independent domination number of the graph.
 
     """
-    return independent_k_domination_number(G, 1)
+    try:
+        return len(min_independent_dominating_set(G, method=method))
+    except ValueError as exc:
+        raise ValueError(exc)
