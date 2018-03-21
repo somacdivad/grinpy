@@ -13,7 +13,7 @@
 from pulp import LpBinary, LpMinimize, LpProblem, LpVariable, lpSum
 
 
-def min_vertex_cover_ip(G):
+def min_vertex_cover_ilp(G):
     """ Return a smallest vertex cover in the graph G.
 
     This method uses an ILP to solve for a smallest vertex cover. Specifically,
@@ -73,4 +73,4 @@ def vertex_cover_number(G):
     number
         The size of a smallest vertex cover of G.
     """
-    return len(min_vertex_cover_ip(G))
+    return len(min_vertex_cover_ilp(G))
