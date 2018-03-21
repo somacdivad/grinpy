@@ -183,17 +183,20 @@ def max_independent_set_ip(G):
         node: LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
         for i, node in enumerate(G.nodes())
     }
+
     # Set the domination number objective function
     prob += lpSum(variables)
+
     # Set constraints for independence
     for e in G.edges():
         prob += variables[e[0]] + variables[e[1]] <= 1
+
     prob.solve()
-    solution_set = [node for node in variables if variables[node].value() == 1]
+    solution_set = {node for node in variables if variables[node].value() == 1}
     return solution_set
 
 
-def independence_number(G):
+def independence_number(G, method='ilp'):
     """Returns the independence number of G.
 
     The *independence number* of a graph is the cardinality of a largest
@@ -207,6 +210,11 @@ def independence_number(G):
     G : NetworkX graph
         An undirected graph.
 
+    method: string
+        The method to use for computing the independence number. Use
+        'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
+
     Returns
     -------
     int
@@ -216,7 +224,15 @@ def independence_number(G):
     --------
     k_independence_number
     """
-    return len(max_independent_set_ip(G))
+    independent_set_func = {
+        'ilp': max_independent_set_ip,
+        'bf': max_independent_set_bf,
+    }.get(method, None)
+
+    if independent_set_func:
+        return len(independent_set_func(G))
+
+    raise ValueError('Invalid `method` argument "{}".'.format(method))
 
 
 def k_independence_number(G, k):
