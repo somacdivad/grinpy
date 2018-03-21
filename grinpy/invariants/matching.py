@@ -51,7 +51,8 @@ def max_matching_bf(G):
 
     """
     if number_of_edges(G) == 0:
-        return []
+        return set()
+
     for i in reversed(range(1, number_of_edges(G) + 1)):
         for S in combinations(edges(G), i):
             if is_matching(G, set(S)):
@@ -175,12 +176,9 @@ def min_maximal_matching(G):
         A set of edges in a smallest maximal matching.
 
     """
-    # return empty list if graph has no edges
     if number_of_edges(G) == 0:
         return set()
 
-    # loop through subsets of edges of G in decreasing order of size
-    # until a matching is found
     for i in range(1, number_of_edges(G) + 1):
         for S in combinations(edges(G), i):
             if is_maximal_matching(G, set(S)):
