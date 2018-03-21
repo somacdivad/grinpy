@@ -171,8 +171,8 @@ def max_independent_set_ip(G):
 
     Returns
     -------
-    list
-        A list of nodes comprising a largest independent set in *G*.
+    set
+        A set of nodes comprising a largest independent set in *G*.
 
     See Also
     --------
@@ -194,6 +194,40 @@ def max_independent_set_ip(G):
     prob.solve()
     solution_set = {node for node in variables if variables[node].value() == 1}
     return solution_set
+
+
+def max_independent_set(G, method='ilp'):
+    """Return a largest independent set of nodes in *G*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    method: string
+        The method to use for computing the independence number. Use
+        'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
+
+    Returns
+    -------
+    set
+        A set of nodes comprising a largest independent set in *G*.
+
+    See Also
+    --------
+    max_k_independent_set
+
+    """
+    independent_set_func = {
+        'ilp': max_independent_set_ip,
+        'bf': max_independent_set_bf,
+    }.get(method, None)
+
+    if independent_set_func:
+        return independent_set_func(G)
+
+    raise ValueError('Invalid `method` argument "{}".'.format(method))
 
 
 def independence_number(G, method='ilp'):
@@ -223,16 +257,12 @@ def independence_number(G, method='ilp'):
     See Also
     --------
     k_independence_number
+
     """
-    independent_set_func = {
-        'ilp': max_independent_set_ip,
-        'bf': max_independent_set_bf,
-    }.get(method, None)
-
-    if independent_set_func:
-        return len(independent_set_func(G))
-
-    raise ValueError('Invalid `method` argument "{}".'.format(method))
+    try:
+        return len(max_independent_set(G, method=method))
+    except ValueError as exc:
+        raise ValueError(exc)
 
 
 def k_independence_number(G, k):
