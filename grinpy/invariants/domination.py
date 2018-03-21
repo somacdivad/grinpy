@@ -405,7 +405,7 @@ def min_dominating_set(G, method='ilp'):
     }.format(method, None)
 
     if dominating_set_func:
-        dominating_set_func(G)
+        return dominating_set_func(G)
 
     raise ValueError('Invalid `method` arguemnt "{}"'.format(method))
 
