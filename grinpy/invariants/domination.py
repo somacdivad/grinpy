@@ -40,8 +40,7 @@ __all__ = [
     'is_connected_k_dominating_set',
     'is_connected_dominating_set',
     'min_k_dominating_set',
-    'min_dominating_set_bf',
-    'min_dominating_set_ilp',
+    'min_dominating_set',
     'min_total_dominating_set_bf',
     'min_total_dominating_set_ilp',
     'min_connected_k_dominating_set',
@@ -310,9 +309,6 @@ def min_dominating_set_bf(G):
     G : NetworkX graph
         An undirected graph.
 
-    k : int
-        A positive integer.
-
     Returns
     -------
     list
@@ -332,7 +328,7 @@ def min_dominating_set_bf(G):
     return min_k_dominating_set(G, 1)
 
 
-def min_dominating_set_ip(G):
+def min_dominating_set_ilp(G):
     """Return a smallest dominating set in the graph.
 
     A dominating set in a graph *G* is a set *D* of nodes of *G* for
@@ -345,9 +341,6 @@ def min_dominating_set_ip(G):
     ----------
     G : NetworkX graph
         An undirected graph.
-
-    k : int
-        A positive integer.
 
     Returns
     -------
@@ -377,8 +370,45 @@ def min_dominating_set_ip(G):
         prob += lpSum(combination) >= 1
 
     prob.solve()
-    solution_set = [node for node in variables if variables[node].value() == 1]
+    solution_set = {node for node in variables if variables[node].value() == 1}
     return solution_set
+
+
+def min_dominating_set(G, method='ilp'):
+    """Return a smallest dominating set in the graph.
+
+    A dominating set in a graph *G* is a set *D* of nodes of *G* for
+    which every node not in *D* has a neighbor in *D*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    method: string
+        The method to use for finding a minimum dominating set. Use
+        'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
+
+    Returns
+    -------
+    set
+        A set of nodes in a smallest dominating set in the graph.
+
+    See Also
+    --------
+    min_k_dominating_set
+
+    """
+    dominating_set_func = {
+        'bf': min_dominating_set_bf,
+        'ilp': min_dominating_set_ilp
+    }.format(method, None)
+
+    if dominating_set_func:
+        dominating_set_func(G)
+
+    raise ValueError('Invalid `method` arguemnt "{}"'.format(method))
 
 
 def min_total_dominating_set_bf(G):
@@ -392,7 +422,7 @@ def min_total_dominating_set_bf(G):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -403,7 +433,7 @@ def min_total_dominating_set_bf(G):
     References
     ----------
     R. Davila, A note on sub-total domination in graphs. *arXiv preprint
-    arXiv:1701.07811*, (2017)
+    arXiv: 1701.07811*, (2017)
 
     """
     # use naive lower bound for domination to compute a starting point
@@ -427,7 +457,7 @@ def min_total_dominating_set_ip(G):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -438,7 +468,7 @@ def min_total_dominating_set_ip(G):
     References
     ----------
     R. Davila, A note on sub-total domination in graphs. *arXiv preprint
-    arXiv:1701.07811*, (2017)
+    arXiv: 1701.07811*, (2017)
 
     """
     prob = LpProblem('min_total_dominating_set', LpMinimize)
@@ -463,10 +493,10 @@ def min_total_dominating_set_ip(G):
     return solution_set
 
 
-def domination_number(G):
+def domination_number(G, method='ilp'):
     """Return the domination number the graph.
 
-    The *domination number* of a graph is the cardinality of a smallest
+    The * domination number * of a graph is the cardinality of a smallest
     dominating set of nodes in the graph.
 
     This method calls the `min_dominating_set_ip` method in order to
@@ -475,8 +505,13 @@ def domination_number(G):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
+
+    method: string
+        The method to use for calculating the domination number. Use
+        'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
 
     Returns
     -------
@@ -488,20 +523,23 @@ def domination_number(G):
     min_dominating_set, k_domination_number
 
     """
-    return len(min_dominating_set_ip(G))
+    try:
+        return len(min_dominating_set(G, method=method))
+    except ValueError as exc:
+        raise ValueError(exc)
 
 
 def k_domination_number(G, k):
     """Return the k-domination number the graph.
 
-    The *k-domination number* of a graph is the cardinality of a
+    The * k-domination number * of a graph is the cardinality of a
     smallest k-dominating set of nodes in the graph.
 
     The method to compute this number is modified brute force.
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -526,7 +564,7 @@ def k_domination_number(G, k):
 def connected_k_domination_number(G, k):
     """Return the connected k-domination number the graph.
 
-    The *connected k-domination number* of a graph is the cardinality
+    The * connected k-domination number * of a graph is the cardinality
     of a smallest k-dominating set of nodes in the graph that induces a
     connected subgraph.
 
@@ -534,7 +572,7 @@ def connected_k_domination_number(G, k):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -555,7 +593,7 @@ def connected_k_domination_number(G, k):
 def connected_domination_number(G):
     """Return the connected domination number the graph.
 
-    The *connected domination number* of a graph is the cardinality of a
+    The * connected domination number * of a graph is the cardinality of a
     smallest dominating set of nodes in the graph that induces a
     connected subgraph.
 
@@ -563,7 +601,7 @@ def connected_domination_number(G):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -578,14 +616,14 @@ def connected_domination_number(G):
 def total_domination_number(G):
     """Return the total domination number the graph.
 
-    The *total domination number* of a graph is the cardinality of a
+    The * total domination number * of a graph is the cardinality of a
     smallest total dominating set of nodes in the graph.
 
     The method to compute this number is modified brute force.
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -602,17 +640,17 @@ def total_domination_number(G):
 
 
 def is_independent_k_dominating_set(G, nodes, k):
-    """Return whether or not *nodes* is an independent k-dominating set in *G.
+    """Return whether or not *nodes * is an independent k-dominating set in *G.
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
-    nodes : list, set
+    nodes: list, set
         An iterable container of nodes in G.
 
-    k : int
+    k: int
         A positive integer.
 
     Returns
@@ -626,14 +664,14 @@ def is_independent_k_dominating_set(G, nodes, k):
 
 
 def is_independent_dominating_set(G, nodes):
-    """Return whether or not *nodes* is an independent k-dominating set in *G*.
+    """Return whether or not *nodes * is an independent k-dominating set in *G*.
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
-    nodes : list, set
+    nodes: list, set
         An iterable container of nodes in G.
 
     Returns
@@ -653,7 +691,7 @@ def min_independent_k_dominating_set(G, k):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -678,7 +716,7 @@ def min_independent_dominating_set_bf(G):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -699,7 +737,7 @@ def min_independent_dominating_set_ip(G):
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -738,14 +776,14 @@ def min_independent_dominating_set_ip(G):
 def independent_k_domination_number(G, k):
     """Return the independnet k-domination number the graph.
 
-    The *independent k-domination number* of a graph is the cardinality
+    The * independent k-domination number * of a graph is the cardinality
     of a smallest independent k-dominating set of nodes in the graph.
 
     The method to compute this number is brute force.
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
@@ -760,14 +798,14 @@ def independent_k_domination_number(G, k):
 def independent_domination_number(G):
     """Return the independnet domination number the graph.
 
-    The *independent domination number* of a graph is the cardinality of
+    The * independent domination number * of a graph is the cardinality of
     a smallest independent dominating set of nodes in the graph.
 
     The method to compute this number is brute force.
 
     Parameters
     ----------
-    G : NetworkX graph
+    G: NetworkX graph
         An undirected graph.
 
     Returns
