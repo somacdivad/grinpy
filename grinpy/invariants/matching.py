@@ -27,8 +27,6 @@ from grinpy import (
 )
 
 __all__ = [
-    'max_matching_bf',
-    'max_matching_ip',
     'matching_number',
     'min_maximal_matching',
     'min_maximal_matching_number'
@@ -60,7 +58,7 @@ def max_matching_bf(G):
                 return set(S)
 
 
-def max_matching_ip(G):
+def max_matching_ilp(G):
     """Return a largest matching in *G*.
 
     This method uses integer programming to solve for a maximum
@@ -79,6 +77,7 @@ def max_matching_ip(G):
     See Also
     --------
     max_matching
+
     """
     prob = LpProblem('min_total_dominating_set', LpMaximize)
     variables = {
@@ -102,7 +101,41 @@ def max_matching_ip(G):
     return solution_set
 
 
-def matching_number(G):
+def max_matching(G, method='ilp'):
+    """Return a largest matching in *G*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    method: string
+        The method to use for finding the maximum matching. Use
+        'ilp' for integer linear program or 'bf' for brute force.
+        Defaults to 'ilp'.
+
+    Returns
+    -------
+    set
+        A set of edges comprising a maximum matching in *G*.
+
+    See Also
+    --------
+    max_matching
+
+    """
+    max_matching_func = {
+        'bf': max_matching_bf,
+        'ilp': max_matching_ilp,
+    }.get(method, None)
+
+    if max_matching_func:
+        max_matching_func(G)
+
+    raise ValueError('Invalid `method` argument "{}"'.format(method))
+
+
+def matching_number(G, method='ilp'):
     """Return the matching number of G.
 
     The *matching number* of a graph G is the cardinality of a maximum
@@ -119,7 +152,10 @@ def matching_number(G):
         The matching number of G.
 
     """
-    return len(max_matching_ip(G))
+    try:
+        return len(max_matching(G, method))
+    except ValueError as exc:
+        raise ValueError(exc)
 
 
 def min_maximal_matching(G):
@@ -136,7 +172,8 @@ def min_maximal_matching(G):
     Returns
     -------
     set
-        A set of edges in a smalles maximal matching.
+        A set of edges in a smallest maximal matching.
+
     """
     # return empty list if graph has no edges
     if number_of_edges(G) == 0:
