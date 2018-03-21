@@ -6,5 +6,5 @@ import numpy as np
 
 
 G = gp.circular_ladder_graph(10)
-m = gp.max_matching_ip(G)
+m = gp.max_matching_ilp(G)
 print('Matching number (IP): {}'.format(len(m)))
