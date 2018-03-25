@@ -14,10 +14,10 @@ from pulp import LpBinary, LpMinimize, LpProblem, LpVariable, lpSum
 
 
 def min_vertex_cover_ilp(G):
-    """ Return a smallest vertex cover in the graph G.
+    r"""Return a smallest vertex cover in the graph G.
 
-    This method uses an ILP to solve for a smallest vertex cover. Specifically,
-    the ILP minimizes
+    This method uses an ILP to solve for a smallest vertex cover.
+    Specifically, the ILP minimizes
 
     .. math::
 
@@ -41,6 +41,7 @@ def min_vertex_cover_ilp(G):
     -------
     set
         A set of nodes in a smallest vertex cover.
+
     """
     prob = LpProblem('min_vertex_cover', LpMinimize)
     variables = {
@@ -93,7 +94,7 @@ def min_vertex_cover(G, method='ilp'):
 
 
 def vertex_cover_number(G):
-    """ Return a the size of smallest vertex cover in the graph G.
+    """Return a the size of smallest vertex cover in the graph G.
 
     Parameters
     ----------
@@ -104,5 +105,6 @@ def vertex_cover_number(G):
     -------
     number
         The size of a smallest vertex cover of G.
+
     """
     return len(min_vertex_cover_ilp(G))
