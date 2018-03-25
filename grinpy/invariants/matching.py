@@ -131,7 +131,7 @@ def max_matching(G, method='ilp'):
     }.get(method, None)
 
     if max_matching_func:
-        max_matching_func(G)
+        return max_matching_func(G)
 
     raise ValueError('Invalid `method` argument "{}"'.format(method))
 
