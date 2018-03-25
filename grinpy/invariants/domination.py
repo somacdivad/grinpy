@@ -558,8 +558,8 @@ def domination_number(G, method='ilp'):
     """
     try:
         return len(min_dominating_set(G, method=method))
-    except ValueError as exc:
-        raise ValueError(exc)
+    except ValueError:
+        raise
 
 
 def k_domination_number(G, k):
@@ -887,5 +887,5 @@ def independent_domination_number(G, method='ilp'):
     """
     try:
         return len(min_independent_dominating_set(G, method=method))
-    except ValueError as exc:
-        raise ValueError(exc)
+    except ValueError:
+        raise
