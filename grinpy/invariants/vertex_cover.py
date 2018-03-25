@@ -60,6 +60,38 @@ def min_vertex_cover_ilp(G):
     return solution_set
 
 
+def min_vertex_cover(G, method='ilp'):
+    """Return a smallest vertex cover of G.
+
+    A *vertex cover* of a graph *G* is a set of vertices with the
+    property that every edge in the graph is incident to at least one
+    vertex in the set.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    method: string
+        The method to use for finding a smallest vertex cover.
+        Currently, the only option is 'ilp'. Defaults to 'ilp'.
+
+    Returns
+    -------
+    set
+        A set of nodes in a smallest vertex cover.
+
+    """
+    vertex_cover_func = {
+        'ilp': min_vertex_cover_ilp,
+    }.get(method, None)
+
+    if vertex_cover_func:
+        return vertex_cover_func(G)
+
+    raise ValueError('Invalid `method` argument "{}"'.format(method))
+
+
 def vertex_cover_number(G):
     """ Return a the size of smallest vertex cover in the graph G.
 
