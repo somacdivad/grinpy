@@ -155,8 +155,8 @@ def matching_number(G, method='ilp'):
     """
     try:
         return len(max_matching(G, method))
-    except ValueError as exc:
-        raise ValueError(exc)
+    except ValueError:
+        raise
 
 
 def min_maximal_matching(G):
