@@ -36,7 +36,7 @@ __all__ = [
 
 
 def min_proper_coloring_ilp(G):
-    """Return a smallest proper coloring the graph.
+    r"""Return a smallest proper coloring the graph.
 
     A *k*-proper coloring is a function
 
@@ -123,7 +123,7 @@ def min_proper_coloring_ilp(G):
 
 
 def min_proper_coloring(G):
-    """Return a smallest proper coloring the graph.
+    r"""Return a smallest proper coloring the graph.
 
     A *k*-proper coloring is a function
 
@@ -182,7 +182,7 @@ def chromatic_number_ilp(G):
 
 
 def chromatic_number_ram_rama(G):
-    """ Return the chromatic number of G.
+    """Return the chromatic number of G.
 
     The *chromatic number* of a graph G is the size of a mininum coloring of
     the nodes in G such that no two adjacent nodes have the same color.
@@ -205,6 +205,7 @@ def chromatic_number_ram_rama(G):
     A.M. Ram, R. Rama, An alternate method to find the chromatic number of a
     finite, connected graph, *arXiv preprint
     arXiv:1309.3642*, (2013)
+
     """
     if not is_connected(G):
         raise TypeError('Invalid graph: not connected')
@@ -228,7 +229,7 @@ def chromatic_number_ram_rama(G):
 
 
 def chromatic_number(G, method='ilp'):
-    """ Returns the chromatic number of G.
+    """Return the chromatic number of G.
 
     The *chromatic number* of a graph G is the size of a mininum
     coloring of the nodes in G such that no two adjacent nodes have the
