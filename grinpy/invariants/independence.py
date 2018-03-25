@@ -278,8 +278,8 @@ def independence_number(G, method='ilp'):
     """
     try:
         return len(max_independent_set(G, method=method))
-    except ValueError as exc:
-        raise ValueError(exc)
+    except ValueError:
+        raise
 
 
 def k_independence_number(G, k):
