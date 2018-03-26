@@ -63,7 +63,20 @@ def max_matching_ilp(G):
     """Return a largest matching in *G*.
 
     This method uses integer programming to solve for a maximum
-    matching.
+    matching. It solves the following integer program: maximize
+
+    .. math::
+
+        \\sum_{e \\in E} x_e
+
+    subject to
+
+    ... math::
+
+        \\sum_{e \\sim u} x_e \\leq 1 \\mathrm{ for all } u \\in V
+
+    where *E* and *V* are the set of edges and nodes of G, and *e* ~ *u*
+    denotes "*e* is incident to *u*."
 
     Parameters
     ----------
@@ -86,10 +99,10 @@ def max_matching_ilp(G):
         for i, edge in enumerate(G.edges())
     }
 
-    # Set the domination number objective function
+    # Set the maximum matching objective function
     prob += lpSum(variables)
 
-    # Set constraints for independence
+    # Set constraints
     for node in G.nodes():
         incident_edges = [
             variables[edge]
