@@ -333,7 +333,20 @@ def min_dominating_set_ilp(G):
     which every node not in *D* has a neighbor in *D*.
 
     This method using integer programming to compute a smallest
-    dominating set.
+    dominating set. It solves the following integer program: minimize
+
+    .. math::
+
+        \sum_{v \in V} x_v
+
+    subject to
+
+    ... math::
+
+        x_v + \sum_{u \in N(v)} x_u \geq 1 \mathrm{ for all } v \in V
+
+    where *V* is the set of nodes of G and *N(v)* is the set of
+    neighbors of the vertex *v*.
 
     Parameters
     ----------
@@ -342,8 +355,8 @@ def min_dominating_set_ilp(G):
 
     Returns
     -------
-    list
-        A list of nodes in a smallest dominating set in the graph.
+    set
+        A set of nodes in a smallest dominating set in the graph.
 
     See Also
     --------
@@ -451,7 +464,21 @@ def min_total_dominating_set_ilp(G):
     """Return a smallest total dominating set in the graph.
 
     This method solves an integer linear program in order to find a
-    smallest total dominating set.
+    smallest total dominating set. It solves the following integer
+    program: minimize
+
+    .. math::
+
+        \sum_{v \in V} x_v
+
+    subject to
+
+    ... math::
+
+        \sum_{u \in N(v)} x_u \geq 1 \mathrm{ for all } v \in V
+
+    where *V* is the set of nodes of G and *N(v)* is the set of
+    neighbors of the vertex *v*.
 
     Parameters
     ----------
@@ -460,8 +487,8 @@ def min_total_dominating_set_ilp(G):
 
     Returns
     -------
-    list
-        A list of nodes in a smallest total dominating set in the graph.
+    set
+        A set of nodes in a smallest total dominating set in the graph.
 
     References
     ----------
@@ -770,7 +797,22 @@ def min_independent_dominating_set_ilp(G):
     """Return a smallest independent dominating set in the graph.
 
     This method solves an integer program to compute a smallest
-    independent dominating set.
+    independent dominating set. It solves the following integer program:
+    minimize
+
+    .. math::
+
+        \sum_{v \in V} x_v
+
+    subject to
+
+    ... math::
+
+        x_v + \sum_{u \in N(v)} x_u \geq 1 \mathrm{ for all } v \in V
+        \sum_{\{u, v\} \in E} x_u + x_v \leq 1 \mathrm{ for all } e \in E
+
+    where *E* and *V* are the set of edges and nodes of G, and *N(v)* is
+    the set of neighbors of the vertex *v*.
 
     Parameters
     ----------
