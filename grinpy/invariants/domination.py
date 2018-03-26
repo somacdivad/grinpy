@@ -337,13 +337,13 @@ def min_dominating_set_ilp(G):
 
     .. math::
 
-        \sum_{v \in V} x_v
+        \\sum_{v \\in V} x_v
 
     subject to
 
     ... math::
 
-        x_v + \sum_{u \in N(v)} x_u \geq 1 \mathrm{ for all } v \in V
+        x_v + \\sum_{u \\in N(v)} x_u \\geq 1 \\mathrm{ for all } v \\in V
 
     where *V* is the set of nodes of G and *N(v)* is the set of
     neighbors of the vertex *v*.
@@ -469,13 +469,13 @@ def min_total_dominating_set_ilp(G):
 
     .. math::
 
-        \sum_{v \in V} x_v
+        \\sum_{v \\in V} x_v
 
     subject to
 
     ... math::
 
-        \sum_{u \in N(v)} x_u \geq 1 \mathrm{ for all } v \in V
+        \\sum_{u \\in N(v)} x_u \\geq 1 \\mathrm{ for all } v \\in V
 
     where *V* is the set of nodes of G and *N(v)* is the set of
     neighbors of the vertex *v*.
@@ -802,14 +802,14 @@ def min_independent_dominating_set_ilp(G):
 
     .. math::
 
-        \sum_{v \in V} x_v
+        \\sum_{v \\in V} x_v
 
     subject to
 
     ... math::
 
-        x_v + \sum_{u \in N(v)} x_u \geq 1 \mathrm{ for all } v \in V
-        \sum_{\{u, v\} \in E} x_u + x_v \leq 1 \mathrm{ for all } e \in E
+        x_v + \\sum_{u \\in N(v)} x_u \\geq 1 \\mathrm{ for all } v \\in V
+        \\sum_{\\{u, v\\} \\in E} x_u + x_v \\leq 1 \\mathrm{ for all } e \\in E
 
     where *E* and *V* are the set of edges and nodes of G, and *N(v)* is
     the set of neighbors of the vertex *v*.
