@@ -57,8 +57,8 @@ def is_independent_set(G, nodes):
     Returns
     -------
     bool
-        True if the the nodes in *nodes* comprise an independent set, False
-        otherwise.
+        True if the the nodes in *nodes* comprise an independent set,
+        False otherwise.
 
     See Also
     --------
