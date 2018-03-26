@@ -14,21 +14,21 @@ from pulp import LpBinary, LpMinimize, LpProblem, LpVariable, lpSum
 
 
 def min_vertex_cover_ilp(G):
-    r"""Return a smallest vertex cover in the graph G.
+    """Return a smallest vertex cover in the graph G.
 
     This method uses an ILP to solve for a smallest vertex cover.
     Specifically, the ILP minimizes
 
     .. math::
 
-        \sum_{v \in V} x_v
+        \\sum_{v \\in V} x_v
 
     subject to
 
     .. math::
 
-        x_v + x_u \geq 1 \mathrm{for all } \{u, v\} \in E
-        x_v \in \{0, 1\} \mathrm{for all } v \in V
+        x_v + x_u \\geq 1 \\mathrm{for all } \\{u, v\\} \\in E
+        x_v \\in \\{0, 1\\} \\mathrm{for all } v \\in V
 
     where *V* and *E* are the vertex and edge sets of *G*.
 
