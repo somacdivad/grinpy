@@ -36,14 +36,14 @@ __all__ = [
 
 
 def min_proper_coloring_ilp(G):
-    r"""Return a smallest proper coloring the graph.
+    """Return a smallest proper coloring the graph.
 
     A *k*-proper coloring is a function
 
     .. math::
 
-        c : V \to \{1, \dotsb, k\} \mthrm{ such that } c(u) \neq c(v)
-        \mathrm{ for all } \{u, v\} \in E
+        c : V \\to \\{1, \\dotsb, k\\} \\mthrm{ such that } c(u) \\neq c(v)
+        \\mathrm{ for all } \\{u, v\\} \\in E
 
     where *V* and *E* are the vertex and edge set of *G*.
 
@@ -54,17 +54,17 @@ def min_proper_coloring_ilp(G):
 
     .. math::
 
-        \sum_{1 \leq j \leq n} x_j
+        \\sum_{1 \\leq j \\leq n} x_j
 
 
     subject to
 
     .. math::
 
-        \sum_{1 \leq j \leq n} c_v^j = 1 \mathrm{ for all } v \in V
-        c_v^j + c_u^j \leq 1 \mathrm{ for all } j \in \{1, \dotsb, n\}, \{u, v\} \in E
-        c_v^j \leq y_j \mathrm{ for all } j \in \{1, \dotsb, n\}, v \in V
-        y_j, c_v^j \in \{0, 1\} \mathrm{ for all } j \in \{1, \dotsb, n\}, v \in V
+        \\sum_{1 \\leq j \\leq n} c_v^j = 1 \\mathrm{ for all } v \\in V
+        c_v^j + c_u^j \\leq 1 \\mathrm{ for all } j \\in \\{1, \\dotsb, n\\}, \\{u, v\\} \\in E
+        c_v^j \\leq y_j \\mathrm{ for all } j \\in \\{1, \\dotsb, n\\}, v \\in V
+        y_j, c_v^j \\in \\{0, 1\\} \\mathrm{ for all } j \\in \\{1, \\dotsb, n\\}, v \\in V
 
     Note that this method is not imported by default when importing
     GrinPy. See `min_proper_coloring`.
@@ -123,14 +123,14 @@ def min_proper_coloring_ilp(G):
 
 
 def min_proper_coloring(G):
-    r"""Return a smallest proper coloring the graph.
+    """Return a smallest proper coloring the graph.
 
     A *k*-proper coloring is a function
 
     .. math::
 
-        c : V \to \{1, \dotsb, k\} \mthrm{ such that } c(u) \neq c(v)
-        \mathrm{ for all } \{u, v\} \in E
+        c : V \\to \\{1, \\dotsb, k\\} \\mthrm{ such that } c(u) \\neq c(v)
+        \\mathrm{ for all } \\{u, v\\} \\in E
 
     where *V* and *E* are the vertex and edge set of *G*.
 
