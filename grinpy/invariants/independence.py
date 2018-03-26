@@ -177,10 +177,24 @@ def max_independent_set_bf(G):
 
 
 def max_independent_set_ilp(G):
-    """Return a largest independent set of nodes in *G*.
+    r"""Return a largest independent set of nodes in *G*.
 
     This method uses integer programming to solve for a largest
-    independent set.
+    independent set. It solves the following integer program:
+    maximize
+
+    .. math::
+
+        \sum_{v \in V} x_v
+
+    subject to
+
+    ... math::
+
+        \sum_{\{u, v\} \in E} x_u + x_v \leq 1 \mathrm{ for all } e \in E
+
+    where *E* and *V* are the set of edges and nodes of G, and *N(v)* is
+    the set of neighbors of the vertex *v*.
 
     Parameters
     ----------
