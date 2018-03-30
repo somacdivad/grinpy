@@ -33,3 +33,6 @@ docs/reference/invariants/generated
 
 # scratch folder
 /scratch
+
+# virtual environments
+venv/
