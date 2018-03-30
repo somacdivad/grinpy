@@ -1,2 +1,2 @@
-networkx>=2.0
-numpy>=1.12.0
+networkx==2.1
+numpy==1.14.2
