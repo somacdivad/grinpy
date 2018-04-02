@@ -49,14 +49,15 @@ def test_center_and_two_leaves_of_star_is_not_2_independent_set():
 def test_independence_number_of_complete_graph_is_1():
     for i in range(1, 13):
         G = gp.complete_graph(i)
-        assert(gp.independence_number(G) == 1)
-        assert(gp.independence_number(G) == 1)
+        assert(gp.independence_number(G, method='bf') == 1)
+        assert(gp.independence_number(G, method='ilp') == 1)
 
 
 def test_independence_number_of_star_is_order_minus_1():
     for i in range(1, 10):
         G = gp.star_graph(i)
-        assert(gp.independence_number(G) == G.order() - 1)
+        assert(gp.independence_number(G, method='bf') == G.order() - 1)
+        assert(gp.independence_number(G, method='ilp') == G.order() - 1)
 
 
 def test_2_independence_number_of_trivial_graph_is_1():
