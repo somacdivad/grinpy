@@ -146,7 +146,7 @@ def max_k_independent_set(G, k):
     for i in reversed(range(rangeMax)):
         for S in combinations(nodes(G), i):
             if is_k_independent_set(G, S, k):
-                return list(S)
+                return set(S)
 
 
 def max_independent_set_bf(G):
