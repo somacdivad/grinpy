@@ -414,7 +414,7 @@ def min_dominating_set(G, method='ilp'):
     dominating_set_func = {
         'bf': min_dominating_set_bf,
         'ilp': min_dominating_set_ilp
-    }.format(method, None)
+    }.get(method, None)
 
     if dominating_set_func:
         return dominating_set_func(G)
@@ -452,7 +452,7 @@ def min_total_dominating_set_bf(G):
     rangeMin = sub_total_domination_number(G)
 
     if number_of_nodes_of_degree_k(G, 0) > 0:
-        return None
+        return set()
 
     for i in range(rangeMin, number_of_nodes(G) + 1):
         for S in combinations(nodes(G), i):
@@ -698,7 +698,7 @@ def total_domination_number(G, method='ilp'):
 
     """
     try:
-        return min_total_dominating_set(G, method=method)
+        return len(min_total_dominating_set(G, method=method))
     except ValueError as exc:
         raise ValueError(exc)
 
