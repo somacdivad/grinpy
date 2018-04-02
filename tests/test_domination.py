@@ -161,7 +161,8 @@ def test_independent_domination_num_of_monster_is_3():
     G = gp.star_graph(3)
     G.add_edge(3, 4)
     G.add_edge(3, 5)
-    assert(gp.independent_domination_number(G) == 3)
+    assert(gp.independent_domination_number(G, method='bf') == 3)
+    assert(gp.independent_domination_number(G, method='ilp') == 3)
 
 
 def test_non_int_value_for_k_raises_error_in_connected_k_dom_set():
@@ -246,8 +247,8 @@ def test_0_value_for_k_raises_error_in_min_ind_k_dom_set():
 
 def test_min_ind_dom_set_ip_returns_same_as_bf_for_peterson_graph():
     G = gp.petersen_graph()
-    bf = len(gp.min_independent_dominating_set_bf(G))
-    ip = len(gp.min_independent_dominating_set_ip(G))
+    bf = len(gp.min_independent_dominating_set(G, method='bf'))
+    ip = len(gp.min_independent_dominating_set(G, method='ilp'))
     assert(bf == ip)
 
 
@@ -276,13 +277,15 @@ def test_min_conn_dominating_for_disconnected_graph_is_0():
 
 def test_tot_dom_for_graph_with_isolates_is_0():
     G = gp.empty_graph(5)
-    assert(gp.total_domination_number(G) == 0)
+    assert(gp.total_domination_number(G, method='bf') == 0)
+    assert(gp.total_domination_number(G, method='ilp') == 0)
 
 
 def test_domination_number_of_star_is_1():
     for i in range(1, 9):
         G = gp.star_graph(i)
-        assert(gp.domination_number(G) == 1)
+        assert(gp.domination_number(G, method='bf') == 1)
+        assert(gp.domination_number(G, method='ilp') == 1)
 
 
 def test_2_domination_number_of_star_is_order_minus_1():
@@ -294,4 +297,5 @@ def test_2_domination_number_of_star_is_order_minus_1():
 def test_total_domination_number_of_star_is_2():
     for i in range(1, 9):
         G = gp.star_graph(i)
-        assert(gp.total_domination_number(G) == 2)
+        assert(gp.total_domination_number(G, method='bf') == 2)
+        assert(gp.total_domination_number(G, method='ilp') == 2)
