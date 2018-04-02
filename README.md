@@ -1,12 +1,11 @@
-[![Build Status](https://travis-ci.org/somacdivad/grinpy.svg?branch=master)](https://travis-ci.org/somacdivad/grinpy) [![Build status](https://ci.appveyor.com/api/projects/status/aqqnfhlce26f09xn/branch/master?svg=true)](https://ci.appveyor.com/project/somacdivad/grinpy/branch/integer-programming) [![BCH compliance](https://bettercodehub.com/edge/badge/somacdivad/grinpy?branch=integer-programming)](https://bettercodehub.com/) [![codecov](https://codecov.io/gh/somacdivad/grinpy/branch/integer-programming/graph/badge.svg)](https://codecov.io/gh/somacdivad/grinpy) [![Documentation Status](https://readthedocs.org/projects/grinpy/badge/)](http://grinpy.readthedocs.io/en/latest/)
+[![Build Status](https://travis-ci.org/somacdivad/grinpy.svg?branch=master)](https://travis-ci.org/somacdivad/grinpy) [![Build status](https://ci.appveyor.com/api/projects/status/aqqnfhlce26f09xn/branch/master?svg=true)](https://ci.appveyor.com/project/somacdivad/grinpy/branch/master) [![BCH compliance](https://bettercodehub.com/edge/badge/somacdivad/grinpy)](https://bettercodehub.com/) [![codecov](https://codecov.io/gh/somacdivad/grinpy/branch/master/graph/badge.svg)](https://codecov.io/gh/somacdivad/grinpy) [![Documentation Status](https://readthedocs.org/projects/grinpy/badge/)](http://grinpy.readthedocs.io/en/latest/)
 
 # GrinPy
 *A NetworkX extension for calculating graph invariants.*
 
 ### What is it?
 GrinPy is an extension for NetworkX used for calculating graph invariants of
-simple graphs. This branch is for collecting integer programming solutions
-for calculating several of the invariants.
+simple graphs.
 
 NP-hard invariants in this version include:
 
