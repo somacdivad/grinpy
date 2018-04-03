@@ -16,6 +16,7 @@ eggs
 
 # pycache
 __pychache__
+.pytest_cache/
 *.pyc
 
 # docs
@@ -35,4 +36,4 @@ docs/reference/invariants/generated
 /scratch
 
 # virtual environments
-venv/
+/venv
