@@ -36,4 +36,7 @@ docs/reference/invariants/generated
 /scratch
 
 # virtual environments
-/venv
+venv/
+env/
+grinpy-env/
+grinpy-dev/

@@ -1,1 +1,3 @@
--r requirements/default.txt
+networkx==2.1
+numpy==1.14.2
+pulp==1.6.8
