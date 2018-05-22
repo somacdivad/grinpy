@@ -15,9 +15,9 @@ requirements = ['networkx==2.1',
                 'numpy==1.14.2',
                 'pulp==1.6.8']
 
-setup_requirements = ['pytest-runner', ]
+setup_requirements = ['pytest-runner',]
 
-test_requirements = ['pytest', ]
+test_requirements = ['pytest',]
 
 setup(
     author="David Amos",
@@ -37,9 +37,6 @@ setup(
         'Natural Language :: English',
     ],
     description="Graph invariants in Python.",
-    entry_points={
-        'console_scripts': [],
-    },
     install_requires=requirements,
     license="BSD license",
     long_description=readme + '\n\n' + history,
