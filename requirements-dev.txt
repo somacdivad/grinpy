@@ -3,6 +3,7 @@ codecov==2.0.15
 coverage==4.5.1
 flake8==3.5.0
 nb2plots==0.6
+pydocstyle==2.1.1
 pytest==3.4.2
 pytest-cov==2.5.1
 pytest-runner==2.11.1
