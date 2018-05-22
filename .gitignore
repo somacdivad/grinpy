@@ -40,3 +40,6 @@ venv/
 env/
 grinpy-env/
 grinpy-dev/
+dev/
+
+.vscode
