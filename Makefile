@@ -8,4 +8,4 @@ format:
 	black grinpy/
 
 test:
-	pytest -vv --cov .
+	pytest -vv --cov=grinpy/ .
