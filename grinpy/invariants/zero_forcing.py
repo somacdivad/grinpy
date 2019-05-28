@@ -350,7 +350,7 @@ def total_zero_forcing_number(G):
         The total zero forcing number of *G*.
     """
     Z = min_total_zero_forcing_set(G)
-    if Z == None:
+    if Z is None:
         return None
     else:
         return len(min_total_zero_forcing_set(G))
@@ -492,7 +492,7 @@ def connected_k_forcing_number(G, k):
     if k < 1:
         raise ValueError("Expected k to be a positive integer.")
     Z = min_connected_k_forcing_set(G, k)
-    if Z == None:
+    if Z is None:
         return None
     else:
         return len(Z)

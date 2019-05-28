@@ -14,9 +14,10 @@ from grinpy import degree_sequence, number_of_edges
 
 __all__ = ["sub_k_domination_number", "slater", "sub_total_domination_number", "annihilation_number"]
 
+
 # methods
 def sub_k_domination_number(G, k):
-    """Return the sub-k-domination number of the graph.
+    r"""Return the sub-k-domination number of the graph.
 
     The *sub-k-domination number* of a graph G with *n* nodes is defined as the
     smallest positive integer t such that the following relation holds:
@@ -77,7 +78,7 @@ def sub_k_domination_number(G, k):
 
 
 def slater(G):
-    """Return the Slater invariant for the graph.
+    r"""Return the Slater invariant for the graph.
 
     The Slater invariant of a graph G is a lower bound for the domination
     number of a graph defined by:
@@ -125,7 +126,7 @@ def slater(G):
 
 
 def sub_total_domination_number(G):
-    """Return the sub-total domination number of the graph.
+    r"""Return the sub-total domination number of the graph.
 
     The sub-total domination number is defined as:
 
@@ -168,7 +169,7 @@ def sub_total_domination_number(G):
 
 
 def annihilation_number(G):
-    """Return the annihilation number of the graph.
+    r"""Return the annihilation number of the graph.
 
     The annihilation number of a graph G is defined as:
 

@@ -10,7 +10,7 @@
 """Functions for computing power domination related invariants of a graph."""
 
 from grinpy import set_closed_neighborhood
-from grinpy.invariants.zero_forcing import is_zero_forcing_set, is_k_forcing_set
+from grinpy.invariants.zero_forcing import is_k_forcing_set
 from itertools import combinations
 
 __all__ = [

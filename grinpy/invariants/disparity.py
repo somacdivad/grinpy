@@ -125,7 +125,7 @@ def closed_disparity_sequence(G):
 
 
 def CW_disparity(G):
-    """Return the Caro-Wei disparity of the graph.
+    r"""Return the Caro-Wei disparity of the graph.
 
     The *Caro-Wei disparity* of a graph is defined as:
 
@@ -156,7 +156,7 @@ def CW_disparity(G):
 
 
 def closed_CW_disparity(G):
-    """Return the closed Caro-Wei disparity of the graph.
+    r"""Return the closed Caro-Wei disparity of the graph.
 
     The *closed Caro-Wei disparity* of a graph is defined as:
 
@@ -187,7 +187,7 @@ def closed_CW_disparity(G):
 
 
 def inverse_disparity(G):
-    """Return the inverse disparity of the graph.
+    r"""Return the inverse disparity of the graph.
 
     The *inverse disparity* of a graph is defined as:
 
@@ -215,7 +215,7 @@ def inverse_disparity(G):
 
 
 def closed_inverse_disparity(G):
-    """Return the closed inverse disparity of the graph.
+    r"""Return the closed inverse disparity of the graph.
 
     The *closed inverse disparity* of a graph is defined as:
 
@@ -285,7 +285,7 @@ def average_closed_vertex_disparity(G):
 
 
 def k_disparity(G, k):
-    """Return the k-disparity of the graph.
+    r"""Return the k-disparity of the graph.
 
     The *k-disparity* of a graph is defined as:
 
@@ -316,7 +316,7 @@ def k_disparity(G, k):
 
 
 def closed_k_disparity(G, k):
-    """Return the closed k-disparity of the graph.
+    r"""Return the closed k-disparity of the graph.
 
     The *closed k-disparity* of a graph is defined as:
 
@@ -347,7 +347,7 @@ def closed_k_disparity(G, k):
 
 
 def irregularity(G):
-    """Return the irregularity measure of the graph.
+    r"""Return the irregularity measure of the graph.
 
     The *irregularity* of an *n*-vertex graph is defined as:
 

@@ -39,7 +39,7 @@ def residue(G):
 
 
 def k_residue(G, k):
-    """Return the *k-residue* of *G*.
+    r"""Return the *k-residue* of *G*.
 
     The *k-residue* of a graph *G* is defined as follows:
 

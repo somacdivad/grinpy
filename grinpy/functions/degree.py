@@ -12,7 +12,7 @@
 
 import collections
 from grinpy import degree, nodes, number_of_nodes
-from grinpy.functions.neighborhoods import closed_neighborhood, neighborhood
+from grinpy.functions.neighborhoods import closed_neighborhood, neighborhood, set_neighborhood, set_closed_neighborhood
 
 __all__ = [
     "degree_sequence",
