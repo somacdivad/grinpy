@@ -23,7 +23,7 @@ def sub_k_domination_number(G, k):
     smallest positive integer t such that the following relation holds:
 
     .. math::
-        t + \\frac{1}{k}\sum_{i=0}^t d_i \geq n
+        t + \frac{1}{k}\sum_{i=0}^t d_i \geq n
 
     where
 

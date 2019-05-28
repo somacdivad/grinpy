@@ -130,7 +130,7 @@ def CW_disparity(G):
     The *Caro-Wei disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\\frac{1}{1 + disp(v)}
+        \sum_{v \in V(G)}\frac{1}{1 + disp(v)}
 
     where *V(G)* is the set of nodes of *G* and *disp(v)* is the disparity of
     the vertex v.
@@ -161,7 +161,7 @@ def closed_CW_disparity(G):
     The *closed Caro-Wei disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\\frac{1}{1 + cdisp(v)}
+        \sum_{v \in V(G)}\frac{1}{1 + cdisp(v)}
 
     where *V(G)* is the set of nodes of *G* and *cdisp(v)* is the closed
     disparity of the vertex v.
@@ -192,7 +192,7 @@ def inverse_disparity(G):
     The *inverse disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\\frac{1}{disp(v)}
+        \sum_{v \in V(G)}\frac{1}{disp(v)}
 
     where *V(G)* is the set of nodes of *G* and *disp(v)* is the disparity
     of the vertex v.
@@ -220,7 +220,7 @@ def closed_inverse_disparity(G):
     The *closed inverse disparity* of a graph is defined as:
 
     .. math::
-        \sum_{v \in V(G)}\\frac{1}{cdisp(v)}
+        \sum_{v \in V(G)}\frac{1}{cdisp(v)}
 
     where *V(G)* is the set of nodes of *G* and *cdisp(v)* is the closed
     disparity of the vertex v.
@@ -290,7 +290,7 @@ def k_disparity(G, k):
     The *k-disparity* of a graph is defined as:
 
     .. math::
-        \\frac{2}{k(k+1)}\sum_{i=0}^{k-i}(k-i)d_i
+        \frac{2}{k(k+1)}\sum_{i=0}^{k-i}(k-i)d_i
 
     where *k* is a positive integer and *d_i* is the i-th element in the
     disparity sequence, ordered in weakly decreasing order.
@@ -321,7 +321,7 @@ def closed_k_disparity(G, k):
     The *closed k-disparity* of a graph is defined as:
 
     .. math::
-        \\frac{2}{k(k+1)}\sum_{i=0}^{k-1}(k-i)d_i
+        \frac{2}{k(k+1)}\sum_{i=0}^{k-1}(k-i)d_i
 
     where *k* is a positive integer and *d_i* is the i-th element in the
     closed disparity sequence, ordered in weakly decreasing order.
@@ -352,7 +352,7 @@ def irregularity(G):
     The *irregularity* of an *n*-vertex graph is defined as:
 
     .. math::
-        \\frac{2}{n(n+1)}\sum_{i=0}^{n-i}(n-i)d_i
+        \frac{2}{n(n+1)}\sum_{i=0}^{n-i}(n-i)d_i
 
     where *d_i* is the i-th element in the closed disparity sequence, ordered
     in weakly decreasing order.
