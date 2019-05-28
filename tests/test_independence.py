@@ -1,4 +1,4 @@
-from grinpy import grinpy as gp
+import grinpy as gp
 
 
 def test_single_vertex_is_independent_set():

@@ -23,10 +23,9 @@ __email__ = "somacdivad@gmail.com, dvilar@uhd.edu"
 __version__ = "0.2.0"
 
 # import NetworkX dependency
-import networkx
-from networkx import *
+import networkx  # noqa
+from networkx import *  # noqa
 
-# the following are imported orderwise
 import grinpy.classes
 from grinpy.classes import *
 

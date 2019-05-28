@@ -6,3 +6,6 @@ check-formatting:
 
 format:
 	black grinpy/
+
+test:
+	pytest -vv --cov .

@@ -1,4 +1,4 @@
-from grinpy import grinpy as gp
+import grinpy as gp
 
 
 class TestNeighborhoods:
