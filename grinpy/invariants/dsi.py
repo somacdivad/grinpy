@@ -12,11 +12,7 @@
 
 from grinpy import degree_sequence, number_of_edges
 
-__all__ = ['sub_k_domination_number',
-           'slater',
-           'sub_total_domination_number',
-           'annihilation_number',
-           ]
+__all__ = ["sub_k_domination_number", "slater", "sub_total_domination_number", "annihilation_number"]
 
 # methods
 def sub_k_domination_number(G, k):
@@ -66,18 +62,19 @@ def sub_k_domination_number(G, k):
     """
     # check that k is a positive integer
     if not float(k).is_integer():
-        raise TypeError('Expected k to be an integer.')
+        raise TypeError("Expected k to be an integer.")
     k = int(k)
     if k < 1:
-        raise ValueError('Expected k to be a positive integer.')
+        raise ValueError("Expected k to be a positive integer.")
     D = degree_sequence(G)
-    D.sort(reverse = True)
+    D.sort(reverse=True)
     n = len(D)
     for i in range(n + 1):
         if i + (sum(D[:i]) / k) >= n:
             return i
     # if above loop completes, return None
     return None
+
 
 def slater(G):
     """Return the Slater invariant for the graph.
@@ -126,6 +123,7 @@ def slater(G):
     """
     return sub_k_domination_number(G, 1)
 
+
 def sub_total_domination_number(G):
     """Return the sub-total domination number of the graph.
 
@@ -160,13 +158,14 @@ def sub_total_domination_number(G):
     arXiv:1701.07811*, (2017)
     """
     D = degree_sequence(G)
-    D.sort(reverse = True)
+    D.sort(reverse=True)
     n = len(D)
     for i in range(n + 1):
         if sum(D[:i]) >= n:
             return i
     # if above loop completes, return None
     return None
+
 
 def annihilation_number(G):
     """Return the annihilation number of the graph.
@@ -195,10 +194,10 @@ def annihilation_number(G):
         The annihilation number of the graph.
     """
     D = degree_sequence(G)
-    D.sort() # sort in non-decreasing order
+    D.sort()  # sort in non-decreasing order
     n = len(D)
     m = number_of_edges(G)
     # sum over degrees in the sequence until the sum is larger than the number of edges in the graph
-    for i in reversed(range(n+1)):
+    for i in reversed(range(n + 1)):
         if sum(D[:i]) <= m:
             return i

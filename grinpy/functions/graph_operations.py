@@ -11,6 +11,7 @@
 
 from grinpy.functions.neighborhoods import neighborhood
 
+
 def contract_nodes(G, nbunch, new_node=None):
     """ Contract the nodes in nbunch.
 

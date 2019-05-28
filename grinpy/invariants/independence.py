@@ -12,29 +12,18 @@
 # imports
 from itertools import combinations
 
-from pulp import (
-    LpBinary,
-    LpMaximize,
-    LpProblem,
-    LpVariable,
-    lpSum,
-)
+from pulp import LpBinary, LpMaximize, LpProblem, LpVariable, lpSum
 
-from grinpy import (
-    neighborhood,
-    nodes,
-    number_of_nodes,
-    set_neighborhood,
-)
+from grinpy import neighborhood, nodes, number_of_nodes, set_neighborhood
 from grinpy.invariants.dsi import annihilation_number
 
 __all__ = [
-    'independence_number',
-    'is_independent_set',
-    'is_k_independent_set',
-    'k_independence_number',
-    'max_independent_set',
-    'max_k_independent_set',
+    "independence_number",
+    "is_independent_set",
+    "is_k_independent_set",
+    "k_independence_number",
+    "max_independent_set",
+    "max_k_independent_set",
 ]
 
 
@@ -211,11 +200,8 @@ def max_independent_set_ilp(G):
     max_k_independent_set
 
     """
-    prob = LpProblem('min_total_dominating_set', LpMaximize)
-    variables = {
-        node: LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
-        for i, node in enumerate(G.nodes())
-    }
+    prob = LpProblem("min_total_dominating_set", LpMaximize)
+    variables = {node: LpVariable("x{}".format(i + 1), 0, 1, LpBinary) for i, node in enumerate(G.nodes())}
 
     # Set the domination number objective function
     prob += lpSum(variables)
@@ -229,7 +215,7 @@ def max_independent_set_ilp(G):
     return solution_set
 
 
-def max_independent_set(G, method='ilp'):
+def max_independent_set(G, method="ilp"):
     """Return a largest independent set of nodes in *G*.
 
     Parameters
@@ -253,10 +239,7 @@ def max_independent_set(G, method='ilp'):
     max_k_independent_set
 
     """
-    independent_set_func = {
-        'ilp': max_independent_set_ilp,
-        'bf': max_independent_set_bf,
-    }.get(method, None)
+    independent_set_func = {"ilp": max_independent_set_ilp, "bf": max_independent_set_bf}.get(method, None)
 
     if independent_set_func:
         return independent_set_func(G)
@@ -264,7 +247,7 @@ def max_independent_set(G, method='ilp'):
     raise ValueError('Invalid `method` argument "{}".'.format(method))
 
 
-def independence_number(G, method='ilp'):
+def independence_number(G, method="ilp"):
     """Return the independence number of G.
 
     The *independence number* of a graph is the cardinality of a largest

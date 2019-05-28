@@ -12,10 +12,8 @@
 from grinpy import havel_hakimi_process, elimination_sequence
 from grinpy.invariants.independence import independence_number
 
-__all__ = ['residue',
-           'k_residue',
-           'k_residual_index'
-          ]
+__all__ = ["residue", "k_residue", "k_residual_index"]
+
 
 def residue(G):
     """Return the *residue* of *G*.
@@ -38,6 +36,7 @@ def residue(G):
     k_residue, havel_hakimi_process
     """
     return havel_hakimi_process(G).residue()
+
 
 def k_residue(G, k):
     """Return the *k-residue* of *G*.
@@ -67,6 +66,7 @@ def k_residue(G, k):
     """
     E = elimination_sequence(G)
     return sum((k - i) * E.count(i) for i in range(k)) / k
+
 
 def k_residual_index(G):
     """Return the k-residual_index of G.
@@ -99,5 +99,5 @@ def k_residual_index(G):
     """
     k = 1
     while k_residue(G, k) < independence_number(G):
-           k += 1
+        k += 1
     return k

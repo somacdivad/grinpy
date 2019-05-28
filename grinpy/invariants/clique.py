@@ -11,7 +11,8 @@
 
 from grinpy import graph_clique_number
 
-__all__ = ['clique_number']
+__all__ = ["clique_number"]
+
 
 def clique_number(G, cliques=None):
     """Return the clique number of the graph.

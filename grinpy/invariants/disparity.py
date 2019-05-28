@@ -13,20 +13,22 @@
 from grinpy import nodes, number_of_nodes
 from grinpy.functions.degree import closed_neighborhood_degree_list, neighborhood_degree_list
 
-__all__ = ['vertex_disparity',
-           'closed_vertex_disparity',
-           'disparity_sequence',
-           'closed_disparity_sequence',
-           'CW_disparity',
-           'closed_CW_disparity',
-           'inverse_disparity',
-           'closed_inverse_disparity',
-           'average_vertex_disparity',
-           'average_closed_vertex_disparity',
-           'k_disparity',
-           'closed_k_disparity',
-           'irregularity'
-          ]
+__all__ = [
+    "vertex_disparity",
+    "closed_vertex_disparity",
+    "disparity_sequence",
+    "closed_disparity_sequence",
+    "CW_disparity",
+    "closed_CW_disparity",
+    "inverse_disparity",
+    "closed_inverse_disparity",
+    "average_vertex_disparity",
+    "average_closed_vertex_disparity",
+    "k_disparity",
+    "closed_k_disparity",
+    "irregularity",
+]
+
 
 def vertex_disparity(G, v):
     """Return number of distinct degrees of neighbors of v.
@@ -49,9 +51,10 @@ def vertex_disparity(G, v):
     closed_vertex_disparity
     """
     if v not in nodes(G):
-        raise(ValueError)
+        raise (ValueError)
 
     return len(neighborhood_degree_list(G, v))
+
 
 def closed_vertex_disparity(G, v):
     """Return number of distinct degrees of nodes in the closed neighborhood
@@ -76,9 +79,10 @@ def closed_vertex_disparity(G, v):
     vertex_disparity
     """
     if v not in nodes(G):
-        raise(ValueError)
+        raise (ValueError)
 
     return len(closed_neighborhood_degree_list(G, v))
+
 
 def disparity_sequence(G):
     """Return the sequence of disparities of each node in the graph.
@@ -99,6 +103,7 @@ def disparity_sequence(G):
     """
     return [vertex_disparity(G, v) for v in nodes(G)]
 
+
 def closed_disparity_sequence(G):
     """Return the sequence of closed disparities of each node in the graph.
 
@@ -117,6 +122,7 @@ def closed_disparity_sequence(G):
     closed_vertex_disparity, disparity_sequence
     """
     return [closed_vertex_disparity(G, v) for v in nodes(G)]
+
 
 def CW_disparity(G):
     """Return the Caro-Wei disparity of the graph.
@@ -148,6 +154,7 @@ def CW_disparity(G):
     """
     return sum(1 / (1 + x) for x in disparity_sequence(G))
 
+
 def closed_CW_disparity(G):
     """Return the closed Caro-Wei disparity of the graph.
 
@@ -178,6 +185,7 @@ def closed_CW_disparity(G):
     """
     return sum(1 / (1 + x) for x in closed_disparity_sequence(G))
 
+
 def inverse_disparity(G):
     """Return the inverse disparity of the graph.
 
@@ -204,6 +212,7 @@ def inverse_disparity(G):
     CW_disparity, closed_CW_disparity, closed_inverse_disparity
     """
     return sum(1 / x for x in disparity_sequence(G))
+
 
 def closed_inverse_disparity(G):
     """Return the closed inverse disparity of the graph.
@@ -232,6 +241,7 @@ def closed_inverse_disparity(G):
     """
     return sum(1 / x for x in closed_disparity_sequence(G))
 
+
 def average_vertex_disparity(G):
     """Return the average vertex disparity of the graph.
 
@@ -252,6 +262,7 @@ def average_vertex_disparity(G):
     D = disparity_sequence(G)
     return sum(D) / len(D)
 
+
 def average_closed_vertex_disparity(G):
     """Return the average closed vertex disparity of the graph.
 
@@ -271,6 +282,7 @@ def average_closed_vertex_disparity(G):
     """
     D = closed_disparity_sequence(G)
     return sum(D) / len(D)
+
 
 def k_disparity(G, k):
     """Return the k-disparity of the graph.
@@ -298,9 +310,10 @@ def k_disparity(G, k):
     closed_k_disparity
     """
     D = disparity_sequence(G)
-    D.sort(reverse = True)
+    D.sort(reverse=True)
     s = sum((k - i) * D[i] for i in range(k))
-    return (2 * s) / (k * (k+1))
+    return (2 * s) / (k * (k + 1))
+
 
 def closed_k_disparity(G, k):
     """Return the closed k-disparity of the graph.
@@ -328,9 +341,10 @@ def closed_k_disparity(G, k):
     k_disparity
     """
     D = closed_disparity_sequence(G)
-    D.sort(reverse = True)
+    D.sort(reverse=True)
     s = sum((k - i) * D[i] for i in range(k))
     return (2 * s) / (k * (k + 1))
+
 
 def irregularity(G):
     """Return the irregularity measure of the graph.

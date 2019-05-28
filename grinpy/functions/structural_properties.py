@@ -14,11 +14,8 @@ from grinpy import nodes
 from grinpy.functions.neighborhoods import neighborhood
 import itertools
 
-__all__ = ['is_triangle_free',
-           'is_bull_free',
-           'is_claw_free',
-           'is_complete_graph'
-          ]
+__all__ = ["is_triangle_free", "is_bull_free", "is_claw_free", "is_complete_graph"]
+
 
 def is_complete_graph(G):
     """Returns True if *G* is a complete graph, and False otherwise.
@@ -38,6 +35,7 @@ def is_complete_graph(G):
         if not set(neighborhood(G, v)) == V.difference({v}):
             return False
     return True
+
 
 def is_triangle_free(G):
     """Returns True if *G* is triangle-free, and False otherwise.
@@ -69,11 +67,12 @@ def is_triangle_free(G):
 
     # enumerate over all possible combinations of 3 vertices contained in G
     for S in set(itertools.combinations(G.nodes(), 3)):
-          H = G.subgraph(list(S))
-          if gp.is_isomorphic(H, triangle):
-              return False
+        H = G.subgraph(list(S))
+        if gp.is_isomorphic(H, triangle):
+            return False
     # if the above loop completes, the graph is triangle free
     return True
+
 
 def is_bull_free(G):
     """Returns True if *G* is bull-free, and False otherwise.
@@ -99,16 +98,15 @@ def is_bull_free(G):
     True
     """
     # define a bull graph, also known as the graph obtained from the complete graph K_3 by addiing two pendants
-    bull = gp.Graph([(0,1), (0,2), (1,2), (1,3), (2,4)])
+    bull = gp.Graph([(0, 1), (0, 2), (1, 2), (1, 3), (2, 4)])
 
     # enumerate over all possible combinations of 5 vertices contained in G
     for S in set(itertools.combinations(G.nodes(), 5)):
-          H = G.subgraph(list(S))
-          if gp.is_isomorphic(H, bull):
-              return False
+        H = G.subgraph(list(S))
+        if gp.is_isomorphic(H, bull):
+            return False
     # if the above loop completes, the graph is bull-free
     return True
-
 
 
 def is_claw_free(G):
@@ -141,8 +139,8 @@ def is_claw_free(G):
 
     # enumerate over all possible combinations of 4 vertices contained in G
     for S in set(itertools.combinations(G.nodes(), 4)):
-          H = G.subgraph(list(S))
-          if gp.is_isomorphic(H, claw):
-              return False
+        H = G.subgraph(list(S))
+        if gp.is_isomorphic(H, claw):
+            return False
     # if the above loop completes, the graph is claw-free
     return True

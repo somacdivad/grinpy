@@ -12,5 +12,6 @@
 import itertools
 from grinpy import nodes
 
+
 def pairs_of_nodes(G):
     return itertools.combinations(nodes(G), 2)
