@@ -3,12 +3,12 @@ import pytest
 
 class TestZeroForcing():
     def test_non_integral_value_for_k_raises_TypeError_in_is_k_forcing(self):
-        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+        with pytest.raises(TypeError):
             G = gp.star_graph(2)
             gp.is_k_forcing_vertex(G, 1, [1], 1.5)
 
     def test_0_value_for_k_raises_ValueError_in_is_k_forcing(self):
-        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+        with pytest.raises(ValueError):
             G = gp.star_graph(2)
             gp.is_k_forcing_vertex(G, 1, [1], 0)
 
@@ -96,32 +96,32 @@ class TestZeroForcing():
         assert(gp.connected_zero_forcing_number(G) == 4)
 
     def test_non_int_value_for_k_raises_error_in_is_connected_k_forcing(self):
-        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+        with pytest.raises(TypeError):
             G = gp.star_graph(2)
             gp.is_connected_k_forcing_set(G, [0], 1.5)
 
     def test_0_value_for_k_raises_error_in_is_connected_k_forcing(self):
-        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+        with pytest.raises(ValueError):
             G = gp.star_graph(2)
             gp.is_connected_k_forcing_set(G, [0], 0)
 
     def test_non_int_value_for_k_raises_error_in_min_connected_k_forcing(self):
-        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+        with pytest.raises(TypeError):
             G = gp.star_graph(2)
             gp.min_connected_k_forcing_set(G, 1.5)
 
     def test_0_value_for_k_raises_error_in_min_connected_k_forcing(self):
-        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+        with pytest.raises(ValueError):
             G = gp.star_graph(2)
             gp.min_connected_k_forcing_set(G, 0)
 
     def test_non_int_value_for_k_raises_error_in_connected_k_forcing_num(self):
-        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+        with pytest.raises(TypeError):
             G = gp.star_graph(2)
             gp.connected_k_forcing_number(G, 1.5)
 
     def test_0_value_for_k_raises_error_in_connected_k_forcing_num(self):
-        with pytest.raises(ValueError, message="Excepted non-positive value for k to throw ValueError."):
+        with pytest.raises(ValueError):
             G = gp.star_graph(2)
             gp.connected_k_forcing_number(G, 0)
 

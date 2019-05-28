@@ -3,11 +3,11 @@ import pytest
 
 class TestHavelHakimi():
     def test_non_integer_values_raises_TypeError(self):
-        with pytest.raises(TypeError, message="Expected TypeError when passed non-integral values in sequence to HavelHakimi class"):
+        with pytest.raises(TypeError):
             hh = gp.HavelHakimi([3, 3, 1.5, 1])
 
     def test_non_iterable_raises_TypeError(self):
-        with pytest.raises(TypeError, message="Expected TypeError when passed non-iterable argument in HavelHakimi class"):
+        with pytest.raises(TypeError):
             hh = gp.HavelHakimi(0)
 
     def test_havel_hakimi_with_integral_floats(self):

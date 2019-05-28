@@ -4,12 +4,12 @@ import pytest
 
 class TestDSI():
     def test_non_integral_value_for_k_raises_TypeError(self):
-        with pytest.raises(TypeError, message="Excepted non-integral value for k to throw TypeError."):
+        with pytest.raises(TypeError):
             G = gp.star_graph(2)
             gp.sub_k_domination_number(G, 1.5)
 
     def test_zero_value_for_k_raises_ValueError(self):
-        with pytest.raises(ValueError, message="Excepted zero value for k to throw ValueError."):
+        with pytest.raises(ValueError):
             G = gp.star_graph(2)
             gp.sub_k_domination_number(G, 0)
 

@@ -53,7 +53,7 @@ class TestDegree():
         assert(gp.is_regular(G) == False)
 
     def test_non_integral_value_raises_TypeError_is_k_regular(self):
-        with pytest.raises(TypeError, message="Expected TypeError when passed non-integral value for k"):
+        with pytest.raises(TypeError):
             G = gp.trivial_graph()
             gp.is_k_regular(G, 1.5)
 

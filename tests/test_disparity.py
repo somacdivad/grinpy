@@ -26,7 +26,7 @@ class TestDisparity():
 
     def test_vertex_disparity_of_vertex_not_in_graph(self):
         G = self.G
-        with pytest.raises(ValueError, message="Expected ValueError"):
+        with pytest.raises(ValueError):
             gp.vertex_disparity(G, 6)
 
     def test_closed_vertex_disparity(self):
@@ -40,7 +40,7 @@ class TestDisparity():
 
     def test_closed_vertex_disparity_of_vertex_not_in_graph(self):
         G = self.G
-        with pytest.raises(ValueError, message="Expected ValueError"):
+        with pytest.raises(ValueError):
             gp.closed_vertex_disparity(G, 6)
 
     def test_disparity_sequence(self):
