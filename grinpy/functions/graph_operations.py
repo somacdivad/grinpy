@@ -9,6 +9,8 @@
 #          Randy Davila <davilar@uhd.edu>
 """Functions for performing operations on graphs"""
 
+from collections.abc import Iterable
+
 from grinpy.functions.neighborhoods import neighborhood
 
 
@@ -37,10 +39,9 @@ def contract_nodes(G, nbunch, new_node=None):
     This method does not return a value. It alters the graph in place.
     """
     # check if nbunch is an iterable; if not, convert to a list
-    try:
-        _ = (v for v in nbunch)
-    except:
+    if not isinstance(nbunch, Iterable):
         nbunch = [nbunch]
+
     nbunch = [n for n in nbunch if n in G]
     # get all neighbors of nodes in nbunch that are not also in nbunch
     N = set().union(*[neighborhood(G, n) for n in nbunch]).difference(nbunch)

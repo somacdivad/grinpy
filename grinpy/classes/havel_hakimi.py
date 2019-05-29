@@ -10,6 +10,8 @@
 """HavelHakimi class from performing and keeping track of the Havel Hakimi
 Process on a sequence."""
 
+from collections.abc import Iterable
+
 from grinpy.utils import contains_only_zeros
 
 
@@ -24,12 +26,9 @@ class HavelHakimi:
     """
 
     def __init__(self, sequence):
-        # check that sequence is an iterable type
-        try:
-            _ = [x for x in sequence]
-        except:
-            raise TypeError("Expected sequence to be iterable.")
-        # check that the sequence contains only integers
+        if not isinstance(sequence, Iterable):
+            raise TypeError("`sequence` must iterable")
+
         for x in sequence:
             if not float(x).is_integer():
                 raise TypeError("Sequence must contain only integers.")
