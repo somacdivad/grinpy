@@ -1,6 +1,7 @@
 from grinpy.invariants.chromatic import *  # noqa
 from grinpy.invariants.clique import *  # noqa
 from grinpy.invariants.disparity import *  # noqa
+from grinpy.invariants.distance_measures import *  # noqa
 from grinpy.invariants.domination import *  # noqa
 from grinpy.invariants.dsi import *  # noqa
 from grinpy.invariants.independence import *  # noqa
@@ -15,6 +16,7 @@ from grinpy.invariants.zero_forcing import *  # noqa
 import grinpy.invariants.chromatic  # noqa
 import grinpy.invariants.clique  # noqa
 import grinpy.invariants.disparity  # noqa
+import grinpy.invariants.distance_measures  # noqa
 import grinpy.invariants.domination  # noqa
 import grinpy.invariants.dsi  # noqa
 import grinpy.invariants.independence  # noqa

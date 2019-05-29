@@ -10,4 +10,5 @@ Functions
    :maxdepth: 2
 
    degree
+   distance
    neighborhoods

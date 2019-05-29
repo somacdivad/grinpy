@@ -12,6 +12,7 @@ Invariants
    chromatic
    clique
    disparity
+   distance_measures
    domination
    dsi
    independence
