@@ -22,7 +22,7 @@ __all__ = [
     "randic_index",
     "augmented_randic_index",
     "harmonic_index",
-    # "atom_bond_connectivity_index",
+    "atom_bond_connectivity_index",
     # "sum_connectivity_index",
 ]
 
@@ -114,3 +114,38 @@ def harmonic_index(G):
     """
     _degree = functools.partial(nx.degree, G)
     return math.fsum((2 / (_degree(x) + _degree(y)) for x, y in G.edges()))
+
+
+def atom_bond_connectivity_index(G):
+    r"""Returns the atom bond connectivity Index of the graph G.
+
+    The *atom bond connectivity index* of a graph *G* with edge set *E* is defined as the
+    following sum:
+
+    .. math::
+        \sum_{vw \in E} \sqrt(\frac{d_G(v) + d_G(w) - 2)}{(d_G(v)*d_G(w))}}
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    float
+        The atom bond connectivity index of a graph.
+
+    References
+    ----------
+
+    Ivan Gutman, Degree-Based Topological Indices, Croat. Chem. Acta 86 (4)
+    (2013) 351–361. http://dx.doi.org/10.5562/cca2294
+    """
+    _degree = functools.partial(nx.degree, G)
+
+    def _edge_func(n1, n2):
+        a = _degree(n1) + _degree(n2) - 2
+        b = _degree(n1) * _degree(n2)
+        return math.sqrt(a / b)
+
+    return math.fsum((_edge_func(*e) for e in G.edges()))

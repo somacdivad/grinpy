@@ -25,3 +25,11 @@ class TestTopologicalIndices:
     def test_harmonic_index(self, graph, expected_value):
         """Ensure augmented_randic_index returns the expected value for a given graph"""
         assert gp.harmonic_index(graph) == expected_value
+
+    @pytest.mark.parametrize(
+        "graph, expected_value",
+        ((gp.path_graph(2), 0), (gp.cycle_graph(3), 3 * (2 ** 0.5) / 2), (gp.complete_graph(4), 4.0)),
+    )
+    def test_atom_bond_connectivity_index(self, graph, expected_value):
+        """Ensure augmented_randic_index returns the expected value for a given graph"""
+        assert gp.atom_bond_connectivity_index(graph) == expected_value
