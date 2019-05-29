@@ -12,10 +12,8 @@
 import grinpy as gp
 from grinpy.functions.degree import degree_sequence
 
-__all__ = ['is_graphic',
-           'havel_hakimi_process',
-           'elimination_sequence'
-          ]
+__all__ = ["is_graphic", "havel_hakimi_process", "elimination_sequence"]
+
 
 def is_graphic(sequence):
     """Return whether or not the input sequence is graphic.
@@ -37,6 +35,7 @@ def is_graphic(sequence):
     hh = gp.HavelHakimi(sequence)
     return hh.is_graphic()
 
+
 def havel_hakimi_process(G):
     """Return an instance of the HavelHakimi class initialized with the degree
     sequence of the graph.
@@ -57,6 +56,7 @@ def havel_hakimi_process(G):
     HavelHakimi
     """
     return gp.HavelHakimi(degree_sequence(G))
+
 
 def elimination_sequence(G):
     """Return the elimination sequence of the graph.

@@ -11,13 +11,15 @@
 
 from grinpy import neighbors
 
-__all__ = ['neighborhood',
-           'closed_neighborhood',
-           'are_neighbors',
-           'common_neighbors',
-           'set_neighborhood',
-           'set_closed_neighborhood'
-          ]
+__all__ = [
+    "neighborhood",
+    "closed_neighborhood",
+    "are_neighbors",
+    "common_neighbors",
+    "set_neighborhood",
+    "set_closed_neighborhood",
+]
+
 
 def neighborhood(G, v):
     """Return a list of all neighbors of v.
@@ -47,6 +49,7 @@ def neighborhood(G, v):
     """
     return list(neighbors(G, v))
 
+
 def set_neighborhood(G, nodes):
     """Return a list of all neighbors of every node in nodes.
 
@@ -72,6 +75,7 @@ def set_neighborhood(G, nodes):
     for n in nodes:
         N |= set(neighborhood(G, n))
     return list(N)
+
 
 def closed_neighborhood(G, v):
     """Return a list with v and of all neighbors of v.
@@ -101,6 +105,7 @@ def closed_neighborhood(G, v):
     """
     return list(set(neighborhood(G, v)).union([v]))
 
+
 def set_closed_neighborhood(G, nodes):
     """Return a list containing every node in nodes all neighbors their neighbors.
 
@@ -123,7 +128,8 @@ def set_closed_neighborhood(G, nodes):
     """
     # TODO: write unit test
     N = set(set_neighborhood(G, nodes)).union(nodes)
-    return(list(N))
+    return list(N)
+
 
 def are_neighbors(G, u, v):
     """Returns true if u is adjacent to v. Otherwise,
@@ -156,6 +162,7 @@ def are_neighbors(G, u, v):
     False
     """
     return u in neighborhood(G, v)
+
 
 def common_neighbors(G, nodes):
     """Returns a list of all nodes in G that are adjacent to every node in `nodes`.

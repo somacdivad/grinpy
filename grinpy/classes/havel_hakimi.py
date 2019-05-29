@@ -10,7 +10,10 @@
 """HavelHakimi class from performing and keeping track of the Havel Hakimi
 Process on a sequence."""
 
+from collections.abc import Iterable
+
 from grinpy.utils import contains_only_zeros
+
 
 class HavelHakimi:
     """Class for performing and keeping track of the Havel Hakimi process on a
@@ -23,26 +26,23 @@ class HavelHakimi:
     """
 
     def __init__(self, sequence):
-        # check that sequence is an iterable type
-        try:
-            _ = [x for x in sequence]
-        except:
-            raise TypeError('Expected sequence to be iterable.')
-        # check that the sequence contains only integers
+        if not isinstance(sequence, Iterable):
+            raise TypeError("`sequence` must iterable")
+
         for x in sequence:
             if not float(x).is_integer():
-                raise TypeError('Sequence must contain only integers.')
+                raise TypeError("Sequence must contain only integers.")
         # make sure all entries in the sequence are of type int and sort in non-increasing order
         S = [int(x) for x in sequence]
-        S.sort(reverse = True)
-        process_sequence = [list(S)] # keeps track of resulting sequences at each step
-        elim_sequence = [] # keeps track of the elements eliminated at each step
+        S.sort(reverse=True)
+        process_sequence = [list(S)]  # keeps track of resulting sequences at each step
+        elim_sequence = []  # keeps track of the elements eliminated at each step
         while S[0] > 0 and S[0] < len(S):
             # so long as the largest element d of the sequence is positive, remove d from the sequence and subtract 1 from the next d elements
             d = S.pop(0)
             for i in range(d):
                 S[i] = S[i] - 1
-            S.sort(reverse = True)
+            S.sort(reverse=True)
             # append the resulting sequence to the process sequence
             process_sequence.append(list(S))
             # append the removed element to the elimination sequence
@@ -52,7 +52,7 @@ class HavelHakimi:
             elim_sequence.extend(S)
         # set class attributes
         self.process = process_sequence
-        self.eliminationSequence =  elim_sequence
+        self.eliminationSequence = elim_sequence
 
     def depth(self):
         """Return the depth of the Havel Hakimi process.

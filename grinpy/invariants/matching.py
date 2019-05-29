@@ -11,26 +11,11 @@
 
 from itertools import combinations
 
-from pulp import (
-    LpBinary,
-    LpMaximize,
-    LpProblem,
-    lpSum,
-    LpVariable,
-)
+from pulp import LpBinary, LpMaximize, LpProblem, lpSum, LpVariable
 
-from grinpy import (
-    edges,
-    is_matching,
-    is_maximal_matching,
-    number_of_edges,
-)
+from grinpy import edges, is_matching, is_maximal_matching, number_of_edges
 
-__all__ = [
-    'matching_number',
-    'min_maximal_matching',
-    'min_maximal_matching_number'
-]
+__all__ = ["matching_number", "min_maximal_matching", "min_maximal_matching_number"]
 
 
 def max_matching_bf(G):
@@ -93,21 +78,15 @@ def max_matching_ilp(G):
     max_matching
 
     """
-    prob = LpProblem('min_total_dominating_set', LpMaximize)
-    variables = {
-        edge: LpVariable('x{}'.format(i+1), 0, 1, LpBinary)
-        for i, edge in enumerate(G.edges())
-    }
+    prob = LpProblem("min_total_dominating_set", LpMaximize)
+    variables = {edge: LpVariable("x{}".format(i + 1), 0, 1, LpBinary) for i, edge in enumerate(G.edges())}
 
     # Set the maximum matching objective function
     prob += lpSum(variables)
 
     # Set constraints
     for node in G.nodes():
-        incident_edges = [
-            variables[edge]
-            for edge in variables if node in edge
-        ]
+        incident_edges = [variables[edge] for edge in variables if node in edge]
         prob += sum(incident_edges) <= 1
 
     prob.solve()
@@ -115,7 +94,7 @@ def max_matching_ilp(G):
     return solution_set
 
 
-def max_matching(G, method='ilp'):
+def max_matching(G, method="ilp"):
     """Return a largest matching in *G*.
 
     Parameters
@@ -138,10 +117,7 @@ def max_matching(G, method='ilp'):
     max_matching
 
     """
-    max_matching_func = {
-        'bf': max_matching_bf,
-        'ilp': max_matching_ilp,
-    }.get(method, None)
+    max_matching_func = {"bf": max_matching_bf, "ilp": max_matching_ilp}.get(method, None)
 
     if max_matching_func:
         return max_matching_func(G)
@@ -149,7 +125,7 @@ def max_matching(G, method='ilp'):
     raise ValueError('Invalid `method` argument "{}"'.format(method))
 
 
-def matching_number(G, method='ilp'):
+def matching_number(G, method="ilp"):
     """Return the matching number of G.
 
     The *matching number* of a graph G is the cardinality of a maximum

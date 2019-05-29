@@ -12,23 +12,25 @@
 
 import collections
 from grinpy import degree, nodes, number_of_nodes
-from grinpy.functions.neighborhoods import closed_neighborhood, neighborhood
+from grinpy.functions.neighborhoods import closed_neighborhood, neighborhood, set_neighborhood, set_closed_neighborhood
 
-__all__ = ['degree_sequence',
-           'min_degree',
-           'max_degree',
-           'average_degree',
-           'number_of_nodes_of_degree_k',
-           'number_of_degree_one_nodes',
-           'number_of_min_degree_nodes',
-           'number_of_max_degree_nodes',
-           'neighborhood_degree_list',
-           'closed_neighborhood_degree_list',
-           'is_regular',
-           'is_k_regular',
-           'is_sub_cubic',
-           'is_cubic'
-          ]
+__all__ = [
+    "degree_sequence",
+    "min_degree",
+    "max_degree",
+    "average_degree",
+    "number_of_nodes_of_degree_k",
+    "number_of_degree_one_nodes",
+    "number_of_min_degree_nodes",
+    "number_of_max_degree_nodes",
+    "neighborhood_degree_list",
+    "closed_neighborhood_degree_list",
+    "is_regular",
+    "is_k_regular",
+    "is_sub_cubic",
+    "is_cubic",
+]
+
 
 def degree_sequence(G):
     """Return the degree sequence of G.
@@ -53,6 +55,7 @@ def degree_sequence(G):
     [1, 2, 1]
     """
     return [degree(G, v) for v in nodes(G)]
+
 
 def min_degree(G):
     """Return the minimum degree of G.
@@ -80,6 +83,7 @@ def min_degree(G):
     D.sort()
     return D[0]
 
+
 def max_degree(G):
     """Return the maximum degree of G.
 
@@ -103,8 +107,9 @@ def max_degree(G):
     2
     """
     D = degree_sequence(G)
-    D.sort(reverse = True)
+    D.sort(reverse=True)
     return D[0]
+
 
 def average_degree(G):
     """Return the average degree of G.
@@ -129,6 +134,7 @@ def average_degree(G):
     1.5
     """
     return sum(degree_sequence(G)) / number_of_nodes(G)
+
 
 def number_of_nodes_of_degree_k(G, k):
     """Return the number of nodes of the graph with degree equal to k.
@@ -158,6 +164,7 @@ def number_of_nodes_of_degree_k(G, k):
     """
     return sum(1 for v in nodes(G) if degree(G, v) == k)
 
+
 def number_of_degree_one_nodes(G):
     """Return the number of nodes of the graph with degree equal to 1.
 
@@ -185,6 +192,7 @@ def number_of_degree_one_nodes(G):
     2
     """
     return number_of_nodes_of_degree_k(G, 1)
+
 
 def number_of_min_degree_nodes(G):
     """Return the number of nodes of the graph with degree equal to the minimum
@@ -214,6 +222,7 @@ def number_of_min_degree_nodes(G):
     """
     return number_of_nodes_of_degree_k(G, min_degree(G))
 
+
 def number_of_max_degree_nodes(G):
     """Return the number of nodes of the graph with degree equal to the maximum
     degree of the graph.
@@ -241,6 +250,7 @@ def number_of_max_degree_nodes(G):
     1
     """
     return number_of_nodes_of_degree_k(G, max_degree(G))
+
 
 def neighborhood_degree_list(G, nbunch):
     """Return a list of the unique degrees of all neighbors of nodes in
@@ -276,6 +286,7 @@ def neighborhood_degree_list(G, nbunch):
     else:
         return list(set(degree(G, u) for u in neighborhood(G, nbunch)))
 
+
 def closed_neighborhood_degree_list(G, nbunch):
     """Return a list of the unique degrees of all nodes in the closed
     neighborhood of the nodes in `nbunch`.
@@ -310,6 +321,7 @@ def closed_neighborhood_degree_list(G, nbunch):
     else:
         return list(set(degree(G, u) for u in closed_neighborhood(G, nbunch)))
 
+
 def is_regular(G):
     """ Return True if G is regular, and False otherwise.
 
@@ -326,6 +338,7 @@ def is_regular(G):
         True if regular, false otherwise.
     """
     return min_degree(G) == max_degree(G)
+
 
 def is_k_regular(G, k):
     """ Return True if the graph is regular of degree k and False otherwise.
@@ -347,12 +360,13 @@ def is_k_regular(G, k):
     """
     # check that k is an integer
     if not float(k).is_integer():
-        raise TypeError('Expected k to be an integer.')
+        raise TypeError("Expected k to be an integer.")
     k = int(k)
     for v in nodes(G):
         if not degree(G, v) == k:
             return False
     return True
+
 
 def is_sub_cubic(G):
     """ Return True if *G* sub-cubic, and False otherwise.
@@ -370,6 +384,7 @@ def is_sub_cubic(G):
         True if *G* is sub-cubic, False otherwise.
     """
     return max_degree(G) <= 3
+
 
 def is_cubic(G):
     """ Return True if *G* is cubic, and False otherwise.

@@ -12,27 +12,15 @@
 import itertools
 
 import numpy as np
-from pulp import (
-    LpBinary,
-    LpMinimize,
-    LpProblem,
-    LpVariable,
-    lpSum,
-)
+from pulp import LpBinary, LpMinimize, LpProblem, LpVariable, lpSum
 
 from grinpy import is_connected
 from grinpy.functions.graph_operations import contract_nodes
-from grinpy.functions.neighborhoods import (
-    are_neighbors,
-    common_neighbors
-)
+from grinpy.functions.neighborhoods import are_neighbors, common_neighbors
 from grinpy.functions.structural_properties import is_complete_graph
 from grinpy.utils.combinations import pairs_of_nodes
 
-__all__ = [
-    'chromatic_number',
-    'min_proper_coloring',
-]
+__all__ = ["chromatic_number", "min_proper_coloring"]
 
 
 def min_proper_coloring_ilp(G):
@@ -85,17 +73,10 @@ def min_proper_coloring_ilp(G):
     min_proper_coloring
 
     """
-    prob = LpProblem('min_proper_coloring', LpMinimize)
-    colors = {
-        i: LpVariable('x_{}'.format(i), 0, 1, LpBinary)
-        for i in range(G.order())
-    }
+    prob = LpProblem("min_proper_coloring", LpMinimize)
+    colors = {i: LpVariable("x_{}".format(i), 0, 1, LpBinary) for i in range(G.order())}
     node_colors = {
-        node: [
-            LpVariable('c_{}_{}'.format(node, i), 0, 1, LpBinary)
-            for i in range(G.order())
-        ]
-        for node in G.nodes()
+        node: [LpVariable("c_{}_{}".format(node, i), 0, 1, LpBinary) for i in range(G.order())] for node in G.nodes()
     }
 
     # Set the min proper coloring objective function
@@ -112,13 +93,7 @@ def min_proper_coloring_ilp(G):
         prob += node_colors[node][i] <= colors[i]
 
     prob.solve()
-    solution_set = {
-        color: [
-            node
-            for node in node_colors if node_colors[node][color].value() == 1
-        ]
-        for color in colors
-    }
+    solution_set = {color: [node for node in node_colors if node_colors[node][color].value() == 1] for color in colors}
     return solution_set
 
 
@@ -208,15 +183,13 @@ def chromatic_number_ram_rama(G):
 
     """
     if not is_connected(G):
-        raise TypeError('Invalid graph: not connected')
+        raise TypeError("Invalid graph: not connected")
 
     if is_complete_graph(G):
         return G.order()
 
     # get list of pairs of non neighbors in G
-    N = [
-        list(p)
-        for p in pairs_of_nodes(G) if not are_neighbors(G, p[0], p[1])]
+    N = [list(p) for p in pairs_of_nodes(G) if not are_neighbors(G, p[0], p[1])]
 
     # get a pair of non neighbors who have the most common neighbors
     num_common_neighbors = list(map(lambda p: len(common_neighbors(G, p)), N))
@@ -228,7 +201,7 @@ def chromatic_number_ram_rama(G):
     return chromatic_number(H)
 
 
-def chromatic_number(G, method='ilp'):
+def chromatic_number(G, method="ilp"):
     """Return the chromatic number of G.
 
     The *chromatic number* of a graph G is the size of a mininum
@@ -255,10 +228,7 @@ def chromatic_number(G, method='ilp'):
     max_matching
 
     """
-    chromatic_number_func = {
-        'ram-rama': chromatic_number_ram_rama,
-        'ilp': chromatic_number_ilp,
-    }.get(method, None)
+    chromatic_number_func = {"ram-rama": chromatic_number_ram_rama, "ilp": chromatic_number_ilp}.get(method, None)
 
     if chromatic_number_func:
         return chromatic_number_func(G)

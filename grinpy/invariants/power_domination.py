@@ -10,16 +10,18 @@
 """Functions for computing power domination related invariants of a graph."""
 
 from grinpy import set_closed_neighborhood
-from grinpy.invariants.zero_forcing import is_zero_forcing_set, is_k_forcing_set
+from grinpy.invariants.zero_forcing import is_k_forcing_set
 from itertools import combinations
 
-__all__ = ['is_k_power_dominating_set',
-           'min_k_power_dominating_set',
-           'k_power_domination_number',
-           'is_power_dominating_set',
-           'min_power_dominating_set',
-           'power_domination_number'
-           ]
+__all__ = [
+    "is_k_power_dominating_set",
+    "min_k_power_dominating_set",
+    "k_power_domination_number",
+    "is_power_dominating_set",
+    "min_power_dominating_set",
+    "power_domination_number",
+]
+
 
 def is_k_power_dominating_set(G, nodes, k):
     """Return whether or not the nodes in `nodes` comprise a k-power dominating
@@ -44,6 +46,7 @@ def is_k_power_dominating_set(G, nodes, k):
     """
     return is_k_forcing_set(G, set_closed_neighborhood(G, nodes), k)
 
+
 def min_k_power_dominating_set(G, k):
     """Return a smallest k-power dominating set of nodes in *G*.
 
@@ -64,6 +67,7 @@ def min_k_power_dominating_set(G, k):
             if is_k_power_dominating_set(G, S, k):
                 return list(S)
 
+
 def k_power_domination_number(G, k):
     """Return the k-power domination number of *G*.
 
@@ -78,6 +82,7 @@ def k_power_domination_number(G, k):
         The k-power domination number of *G*.
     """
     return len(min_k_power_dominating_set(G, k))
+
 
 def is_power_dominating_set(G, nodes):
     """Return whether or not the nodes in `nodes` comprise a power dominating
@@ -99,6 +104,7 @@ def is_power_dominating_set(G, nodes):
     """
     return is_k_power_dominating_set(G, nodes, 1)
 
+
 def min_power_dominating_set(G):
     """Return a smallest power dominating set of nodes in *G*.
 
@@ -115,6 +121,7 @@ def min_power_dominating_set(G):
         A list of nodes in a smallest power dominating set in *G*.
     """
     return min_k_power_dominating_set(G, 1)
+
 
 def power_domination_number(G):
     """Return the power domination number of *G*.

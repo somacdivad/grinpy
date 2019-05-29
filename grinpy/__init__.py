@@ -8,23 +8,29 @@
 # Authors: David Amos <somacdivad@gmail.com>
 #          Randy Davila <davilar@uhd.edu>
 
+"""Top-level package for GrinPy."""
+
 # check Python version
 import sys
+
 if sys.version_info[:2] < (3, 4):
     m = "Python 3.4 or later is required for GrinPy (%d.%d detected)."
     raise ImportError(m % sys.version_info[:2])
 del sys
 
+__author__ = """David Amos, Randy Davila"""
+__email__ = "somacdivad@gmail.com, dvilar@uhd.edu"
+__version__ = "0.2.0"
+
 # import NetworkX dependency
-import networkx
-from networkx import *
+import networkx  # noqa
+from networkx import *  # noqa
 
-# the following are imported orderwise
-import grinpy.classes
-from grinpy.classes import *
+import grinpy.classes  # noqa
+from grinpy.classes import *  # noqa
 
-import grinpy.functions
-from grinpy.functions import *
+import grinpy.functions  # noqa
+from grinpy.functions import *  # noqa
 
-import grinpy.invariants
-from grinpy.invariants import *
+import grinpy.invariants  # noqa
+from grinpy.invariants import *  # noqa
