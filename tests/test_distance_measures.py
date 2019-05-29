@@ -11,8 +11,8 @@ class TestDistanceMeasures:
             (gp.cycle_graph(4), 4),
             (gp.cycle_graph(5), 5),
             (gp.path_graph(3), 4),
-            (gp.path_graph(4), 5),
-            (gp.path_graph(5), 6),
+            (gp.path_graph(4), 6),
+            (gp.path_graph(5), 8),
         ),
     )
     def test_triameter(self, graph, expected_value):
