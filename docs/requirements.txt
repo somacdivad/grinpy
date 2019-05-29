@@ -1,1 +1,3 @@
--r ../requirements/doc.txt
+nb2plots==0.6
+sphinx==2.0.1
+sphinx_rtd_theme==0.4.3
