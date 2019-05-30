@@ -93,6 +93,17 @@ jobs:
             . venv/bin/activate
             codecov -t=$CODECOV_TOKEN
 
+      - run:
+          name: build html docs
+          command: |
+            . venv/bin/activate
+            cd docs
+            make html
+
+      - store_artifacts:
+          path: docs/_build
+          destination: docs
+
 workflows:
   version: 2
   build:
