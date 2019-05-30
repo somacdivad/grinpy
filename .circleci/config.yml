@@ -63,6 +63,9 @@ jobs:
   docs:
     docker:
       - image: koppor/texlive
+      - image: circleci/python:3.6.1
+
+    working_directory: ~/repo
 
     steps:
       - checkout
