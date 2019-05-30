@@ -7,7 +7,7 @@
 GrinPy is an extension for NetworkX used for calculating graph invariants of
 simple graphs.
 
-NP-hard invariants in this version include:
+NP-hard invariants included are:
 
 * Chromatic number
 * Clique number
@@ -30,6 +30,7 @@ Other invariants included are:
 * Residue
 * Slater number
 * Sub-*k*-domination number
+* Topological indices, like the Randić and Zagreb indices
 
 In addition to the graph invariants listed above, we have included some
 simple checks for structural properties of a graph:
@@ -41,7 +42,7 @@ simple checks for structural properties of a graph:
 ### How do I use it?
 Full documentation is available at [https://grinpy.rtfd.io](https://grinpy.rtfd.io).
 
-You can install Grinpy from the command line with `pip`:
+You can install GrinPy from the command line with `pip`:
 
 ```
 pip install grinpy
