@@ -138,6 +138,11 @@ jobs:
             - doc-dependencies-
 
       - run:
+          name: install python3-venv
+          command: |
+            apt-get install python3-venv
+
+      - run:
           name: install dependencies
           command: |
             python3 -m venv venv
