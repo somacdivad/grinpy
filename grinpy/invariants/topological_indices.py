@@ -198,7 +198,7 @@ def first_zagreb_index(G):
     Remarkably, this sum is equiavlent to the following:
 
     .. math::
-        \sum{vw \in E} d_G(v) + d_G(w)
+        \sum_{vw \in E} d_G(v) + d_G(w)
 
     where *E* is the edge set of *G*.
 
@@ -229,7 +229,7 @@ def second_zagreb_index(G):
     following sum:
 
     .. math::
-        \sum{vw \in E} d_G(v) \times d_G(w)
+        \sum_{vw \in E} d_G(v) \times d_G(w)
 
     Parameters
     ----------
