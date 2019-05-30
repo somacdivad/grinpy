@@ -11,4 +11,5 @@ Functions
 
    degree
    distance
+   graph_operations
    neighborhoods

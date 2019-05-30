@@ -49,6 +49,7 @@ Documentation
 -------------
 
 .. only:: html
+
    :Release: |version|
    :Date: |today|
 

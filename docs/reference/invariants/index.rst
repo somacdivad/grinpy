@@ -1,7 +1,7 @@
 .. _invariants:
 
 Invariants
-*********
+**********
 
    :Release: |release|
    :Date: |today|
