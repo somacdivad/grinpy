@@ -124,3 +124,7 @@ dmypy.json
 .pyre/
 
 .vscode
+
+docs/reference/classes/generated/
+docs/reference/functions/generated/
+docs/reference/invariants/generated/
