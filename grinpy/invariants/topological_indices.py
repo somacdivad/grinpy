@@ -34,9 +34,9 @@ def _topological_index(G, func):
 
 
 def randic_index(G):
-    r"""Returns the Randic Index of the graph G.
+    r"""Returns the Randić Index of the graph ``G``.
 
-    The *Randic index* of a graph *G* with edge set *E* is defined as the
+    The *Randić index* of a graph *G* with edge set *E* is defined as the
     following sum:
 
     .. math::
@@ -50,7 +50,7 @@ def randic_index(G):
     Returns
     -------
     float
-        The Randic Index of a graph.
+        The Randić Index of a ``G``.
 
     References
     ----------
@@ -63,9 +63,9 @@ def randic_index(G):
 
 
 def augmented_randic_index(G):
-    r"""Returns the augmented Randic Index of the graph G.
+    r"""Returns the augmented Randić Index of the graph ``G``.
 
-    The *augmented-Randic index* of a graph G with edge set *E* is defined as the
+    The *augmented Randić index* of a graph G with edge set *E* is defined as the
     following sum
 
     .. math::
@@ -79,20 +79,22 @@ def augmented_randic_index(G):
     Returns
     -------
     float
-        The augmented Randic index of a graph.
+        The augmented Randic index of ``G``.
 
     References
     ----------
 
     Ivan Gutman, Degree-Based Topological Indices, Croat. Chem. Acta 86 (4)
     (2013) 351–361. http://dx.doi.org/10.5562/cca2294
+
+    *Note*: The above reference appears to be wrong. Help with the correct reference is greatly appreciated.
     """
     _degree = functools.partial(nx.degree, G)
     return _topological_index(G, func=lambda x, y: 1 / max(_degree(x), _degree(y)))
 
 
 def harmonic_index(G):
-    r"""Returns the Harmonic Index of the graph G.
+    r"""Returns the Harmonic Index of the graph ``G``.
 
     The *harmonic index* of a graph *G* with edge set *E* is defined as the
     following sum:
@@ -110,7 +112,7 @@ def harmonic_index(G):
     Returns
     -------
     float
-        The harmonic index of *G*.
+        The harmonic index of ``G``.
 
     References
     ----------
@@ -123,7 +125,7 @@ def harmonic_index(G):
 
 
 def atom_bond_connectivity_index(G):
-    r"""Returns the atom bond connectivity Index of the graph G.
+    r"""Returns the atom bond connectivity Index of the graph ``G``.
 
     The *atom bond connectivity index* of a graph *G* with edge set *E* is defined as the
     following sum:
@@ -139,7 +141,7 @@ def atom_bond_connectivity_index(G):
     Returns
     -------
     float
-        The atom bond connectivity index of a graph.
+        The atom bond connectivity index of ``G``.
 
     References
     ----------
@@ -154,7 +156,7 @@ def atom_bond_connectivity_index(G):
 
 
 def sum_connectivity_index(G):
-    r"""Returns the sum connectivity Index of the graph G.
+    r"""Returns the sum connectivity index of the graph ``G``.
 
     The *sum connectivity index* of a graph *G* with edge set *E* is defined as the
     following sum:
@@ -170,7 +172,7 @@ def sum_connectivity_index(G):
     Returns
     -------
     float
-        The sum connectivity index of *G*.
+        The sum connectivity index of ``G``.
 
     References
     ----------
