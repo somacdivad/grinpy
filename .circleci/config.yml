@@ -25,7 +25,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt -r requirements_dev.txt
+            pip install -r requirements.txt -r requirements_dev.txt -r docs/requirements.txt
 
       - save_cache:
           paths:
@@ -59,3 +59,35 @@ jobs:
           command: |
             . venv/bin/activate
             codecov -t=$CODECOV_TOKEN
+
+  docs:
+    docker:
+      - image: circleci/python:3.6.1
+
+    steps:
+      - run:
+          name: lint docs
+          command: |
+            . venv/bin/activate
+            doc8 docs/
+
+      - run:
+          name: build docs
+          command: |
+            . venv/bin/activate
+            cd docs/
+            make latexpdf
+
+      - store_artifacts:
+          path: _build/latex/GrinPy.pdf
+          destination: docs/GrinPy_Docs.pdf
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+      - docs:
+          requires:
+            - build
+
