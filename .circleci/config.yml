@@ -63,7 +63,7 @@ jobs:
   docs:
     docker:
       - image: circleci/python:3
-      - image: koppor/texlive
+      - image: danteev/texlive
 
     working_directory: ~/repo
 
