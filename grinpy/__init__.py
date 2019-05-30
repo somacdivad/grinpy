@@ -19,8 +19,8 @@ if sys.version_info[:2] < (3, 4):
 del sys
 
 __author__ = """David Amos, Randy Davila"""
-__email__ = "somacdivad@gmail.com, dvilar@uhd.edu"
-__version__ = "19.30a0"
+__email__ = "somacdivad@gmail.com, davilar@uhd.edu"
+__version__ = "19.30a1"
 
 # import NetworkX dependency
 import networkx  # noqa
