@@ -10,7 +10,8 @@
 
 """Top-level package for GrinPy."""
 
-# check Python version
+from __future__ import absolute_import
+
 import sys
 
 if sys.version_info[:2] < (3, 4):
@@ -26,8 +27,11 @@ __version__ = "19.30a1"
 import networkx  # noqa
 from networkx import *  # noqa
 
-from .classes import *  # noqa
+import grinpy.classes  # noqa
+from grinpy.classes import *  # noqa
 
-from .functions import *  # noqa
+import grinpy.functions  # noqa
+from grinpy.functions import *  # noqa
 
-from .invariants import *  # noqa
+import grinpy.invariants  # noqa
+from grinpy.invariants import *  # noqa
