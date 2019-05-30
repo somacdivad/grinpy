@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3
 
     working_directory: ~/repo
 
@@ -62,8 +62,8 @@ jobs:
 
   docs:
     docker:
+      - image: circleci/python:3
       - image: koppor/texlive
-      - image: circleci/python:3.6.1
 
     working_directory: ~/repo
 
@@ -73,7 +73,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - doc-dependencies-{{ checksum "requirements.txt" }}
+            - doc-dependencies-{{ checksum "docs/requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - doc-dependencies-
 
