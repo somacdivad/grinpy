@@ -82,6 +82,7 @@ def generalized_randic_index(G, k):
         An undirected graph.
 
     k : float
+        Exponent parameter for generalized Randić index.
 
     Returns
     -------

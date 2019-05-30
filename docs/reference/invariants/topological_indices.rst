@@ -8,6 +8,7 @@ Topological Indices
   :toctree: generated/
 
   randic_index
+  generalized_randic_index
   augmented_randic_index
   harmonic_index
   atom_bond_connectivity_index
