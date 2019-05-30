@@ -62,9 +62,29 @@ jobs:
 
   docs:
     docker:
-      - image: circleci/python:3.6.1
+      - image: koppor/texlive
 
     steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - doc-dependencies-{{ checksum "requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - doc-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r docs/requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: doc-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: lint docs
           command: |
