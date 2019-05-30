@@ -125,6 +125,6 @@ dmypy.json
 
 .vscode
 
-# docs/reference/classes/generated/
-# docs/reference/functions/generated/
-# docs/reference/invariants/generated/
+docs/reference/classes/generated/
+docs/reference/functions/generated/
+docs/reference/invariants/generated/
