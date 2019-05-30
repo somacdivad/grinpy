@@ -20,7 +20,7 @@ del sys
 
 __author__ = """David Amos, Randy Davila"""
 __email__ = "somacdivad@gmail.com, dvilar@uhd.edu"
-__version__ = "0.2.0"
+__version__ = "19.30a0"
 
 # import NetworkX dependency
 import networkx  # noqa
