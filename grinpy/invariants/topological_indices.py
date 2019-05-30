@@ -27,6 +27,12 @@ __all__ = [
 ]
 
 
+def _topological_index(G, func):
+    """Return the topological index of ``G`` determined by ``func``"""
+
+    return math.fsum(func(*edge) for edge in G.edges())
+
+
 def randic_index(G):
     r"""Returns the Randic Index of the graph G.
 
@@ -53,7 +59,7 @@ def randic_index(G):
     (2013) 351–361. http://dx.doi.org/10.5562/cca2294
     """
     _degree = functools.partial(nx.degree, G)
-    return math.fsum(((_degree(e[0]) * _degree(e[1])) ** -0.5 for e in G.edges()))
+    return _topological_index(G, func=lambda x, y: 1 / math.sqrt(_degree(x) * _degree(y)))
 
 
 def augmented_randic_index(G):
@@ -82,7 +88,7 @@ def augmented_randic_index(G):
     (2013) 351–361. http://dx.doi.org/10.5562/cca2294
     """
     _degree = functools.partial(nx.degree, G)
-    return math.fsum((max(_degree(x), _degree(y)) ** -1 for x, y in G.edges()))
+    return _topological_index(G, func=lambda x, y: 1 / max(_degree(x), _degree(y)))
 
 
 def harmonic_index(G):
@@ -113,7 +119,7 @@ def harmonic_index(G):
     (2013) 351–361. http://dx.doi.org/10.5562/cca2294
     """
     _degree = functools.partial(nx.degree, G)
-    return math.fsum((2 / (_degree(x) + _degree(y)) for x, y in G.edges()))
+    return _topological_index(G, func=lambda x, y: 2 / (_degree(x) + _degree(y)))
 
 
 def atom_bond_connectivity_index(G):
@@ -142,13 +148,9 @@ def atom_bond_connectivity_index(G):
     (2013) 351–361. http://dx.doi.org/10.5562/cca2294
     """
     _degree = functools.partial(nx.degree, G)
-
-    def _edge_func(n1, n2):
-        a = _degree(n1) + _degree(n2) - 2
-        b = _degree(n1) * _degree(n2)
-        return math.sqrt(a / b)
-
-    return math.fsum((_edge_func(*e) for e in G.edges()))
+    return _topological_index(
+        G, func=lambda x, y: math.sqrt((_degree(x) + _degree(y) - 2) / (_degree(x) * _degree(y)))
+    )
 
 
 def sum_connectivity_index(G):
@@ -176,9 +178,5 @@ def sum_connectivity_index(G):
     Ivan Gutman, Degree-Based Topological Indices, Croat. Chem. Acta 86 (4)
     (2013) 351–361. http://dx.doi.org/10.5562/cca2294
     """
-
-    def _edge_func(n1, n2):
-        _degree = functools.partial(nx.degree, G)
-        return 1 / math.sqrt(_degree(n1) + _degree(n2))
-
-    return math.fsum(_edge_func(*e) for e in G.edges())
+    _degree = functools.partial(nx.degree, G)
+    return _topological_index(G, func=lambda x, y: 1 / math.sqrt(_degree(x) + _degree(y)))
