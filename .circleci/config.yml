@@ -168,10 +168,10 @@ workflows:
       - build
           requires:
             -lint
-      - lint-docs:
+      - lint-docs
           requires:
             - build
-      - build-docs:
+      - build-docs
           requires:
             - lint-docs
 
