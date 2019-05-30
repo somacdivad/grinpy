@@ -24,6 +24,7 @@ __all__ = [
     "harmonic_index",
     "atom_bond_connectivity_index",
     "sum_connectivity_index",
+    "first_zagreb_index",
 ]
 
 
@@ -182,3 +183,39 @@ def sum_connectivity_index(G):
     """
     _degree = functools.partial(nx.degree, G)
     return _topological_index(G, func=lambda x, y: 1 / math.sqrt(_degree(x) + _degree(y)))
+
+
+def first_zagreb_index(G):
+    r"""Returns the first Zagreb index of the graph ``G``.
+
+    The *first Zagreb index* of a graph *G* with edge set *V* is defined as the
+    following sum:
+
+    .. math::
+        \sum_{v \in E} d_G(v)^{2}
+
+    Remarkably, this sum is equiavlent to the following:
+
+    .. math::
+        \sum{vw \in E} d_G(v) + d_G(w)
+
+    where *E* is the edge set of *G*.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    Returns
+    -------
+    float
+        The first Zagreb index of ``G``.
+
+    References
+    ----------
+
+    Ivan Gutman, Degree-Based Topological Indices, Croat. Chem. Acta 86 (4)
+    (2013) 351–361. http://dx.doi.org/10.5562/cca2294
+    """
+    _degree = functools.partial(nx.degree, G)
+    return _topological_index(G, func=lambda x, y: _degree(x) + _degree(y))
