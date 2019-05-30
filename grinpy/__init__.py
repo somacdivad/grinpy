@@ -26,11 +26,8 @@ __version__ = "19.30a0"
 import networkx  # noqa
 from networkx import *  # noqa
 
-import grinpy.classes  # noqa
-from grinpy.classes import *  # noqa
+from .classes import *  # noqa
 
-import grinpy.functions  # noqa
-from grinpy.functions import *  # noqa
+from .functions import *  # noqa
 
-import grinpy.invariants  # noqa
-from grinpy.invariants import *  # noqa
+from .invariants import *  # noqa
