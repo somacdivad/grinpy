@@ -13,8 +13,8 @@ provides the following extensions:
 -  extended functional interface for graph properties
 -  calculation of NP-hard invariants such as: independence number, domination
    number and zero forcing number
--  calculation of several invariants that are known to be related to the NP-hard
-   invariants, such as the residue, the annihilation number and the
+-  calculation of several invariants that are known to be related to the
+   NP-hard invariants, such as the residue, the annihilation number and the
    sub-domination number
 
 Our goal is to provide the most comprehensive list of invariants. We will be
@@ -49,6 +49,7 @@ Documentation
 -------------
 
 .. only:: html
+
    :Release: |version|
    :Date: |today|
 

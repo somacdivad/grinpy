@@ -19,7 +19,8 @@ For this example we will create a cycle of order 5.
   >>> import grinpy as gp
   >>> G = gp.cycle_graph(5)
 
-In order to compute the independence number of the cycle, we simply call the `independence_number` method on the graph:
+In order to compute the independence number of the cycle, we simply call the
+``independence_number()`` function on the graph:
 
 .. nbplot::
 
