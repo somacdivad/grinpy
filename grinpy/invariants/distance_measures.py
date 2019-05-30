@@ -20,6 +20,7 @@ def triameter(G):
 
     The *triameter* of a connected graph G with vertex set *V* is defined as the
     following maximum value
+
     .. math::
         \max\{d(v,w) + d(w,z) + d(v,z): v,w,z \in V: \}
 
