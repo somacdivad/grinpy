@@ -40,7 +40,7 @@ def randic_index(G):
     following sum:
 
     .. math::
-        \sum_{vw \in E} \frac{1}{\sqrt(d_G(v)*d_G(w))}
+        \sum_{vw \in E} \frac{1}{\sqrt{d_G(v) \times d_G(w)}}
 
     Parameters
     ----------
@@ -131,7 +131,7 @@ def atom_bond_connectivity_index(G):
     following sum:
 
     .. math::
-        \sum_{vw \in E} \sqrt(\frac{d_G(v) + d_G(w) - 2)}{(d_G(v)*d_G(w))}}
+        \sum_{vw \in E} \sqrt{\frac{d_G(v) + d_G(w) - 2)}{d_G(v) \times d_G(w)}}
 
     Parameters
     ----------
@@ -162,7 +162,7 @@ def sum_connectivity_index(G):
     following sum:
 
     .. math::
-        \sum_{vw \in E} \frac{1}{\sqrt(d_G(v) + d_G(w))}
+        \sum_{vw \in E} \frac{1}{\sqrt{d_G(v) + d_G(w)}}
 
     Parameters
     ----------
