@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#    Copyright (C) 2017 by
+#    Copyright (C) 2017-2019 by
 #    David Amos <somacdivad@gmail.com>
 #    Randy Davila <davilar@uhd.edu>
 #    BSD license.

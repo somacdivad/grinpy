@@ -68,6 +68,6 @@ useful for professional research and for graph theory education.
 ### License
 Released under the 3-Clause BSD license (see `LICENSE.txt`):
 
-    Copyright (C) 2017 GrinPy Developers
-    David Amos <amosd2@tamu.edu>
+    Copyright (C) 2017-2019 GrinPy Developers
+    David Amos <somacdivad@gmail.com>
     Randy Davila <davilar@uhd.edu>
