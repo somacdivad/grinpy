@@ -14,14 +14,14 @@ from __future__ import absolute_import
 
 import sys
 
-if sys.version_info[:2] < (3, 4):
+if sys.version_info[:2] < (3, 5):
     m = "Python 3.4 or later is required for GrinPy (%d.%d detected)."
     raise ImportError(m % sys.version_info[:2])
 del sys
 
 __author__ = """David Amos, Randy Davila"""
 __email__ = "somacdivad@gmail.com, davilar@uhd.edu"
-__version__ = "19.30a1"
+__version__ = "19.30a2"
 
 # import NetworkX dependency
 import networkx  # noqa
