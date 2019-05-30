@@ -19,4 +19,5 @@ Invariants
    matching
    power_domination
    residue
+   topological_indices
    zero_forcing

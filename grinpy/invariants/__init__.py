@@ -8,6 +8,7 @@ from grinpy.invariants.independence import *  # noqa
 from grinpy.invariants.matching import *  # noqa
 from grinpy.invariants.power_domination import *  # noqa
 from grinpy.invariants.residue import *  # noqa
+from grinpy.invariants.topological_indices import *  # noqa
 from grinpy.invariants.vertex_cover import *  # noqa
 from grinpy.invariants.zero_forcing import *  # noqa
 
@@ -23,6 +24,7 @@ import grinpy.invariants.independence  # noqa
 import grinpy.invariants.matching  # noqa
 import grinpy.invariants.power_domination  # noqa
 import grinpy.invariants.residue  # noqa
+import grinpy.invariants.topological_indices  # noqa
 import grinpy.invariants.vertex_cover  # noqa
 import grinpy.invariants.zero_forcing  # noqa
 
