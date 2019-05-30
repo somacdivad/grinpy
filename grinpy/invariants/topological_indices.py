@@ -20,6 +20,7 @@ import networkx as nx
 
 __all__ = [
     "randic_index",
+    "generalized_randic_index",
     "augmented_randic_index",
     "harmonic_index",
     "atom_bond_connectivity_index",
@@ -62,6 +63,39 @@ def randic_index(G):
     """
     _degree = functools.partial(nx.degree, G)
     return _topological_index(G, func=lambda x, y: 1 / math.sqrt(_degree(x) * _degree(y)))
+
+
+def generalized_randic_index(G, k):
+    r"""Returns the generalized Randić Index of the graph ``G``.
+
+    The *generalized Randić index* of a graph *G* with edge set *E* is defined as the
+    following sum:
+
+    .. math::
+        \sum_{vw \in E} \big(d_G(v) \times d_G(w)\big)^{k}
+
+    where `k` is some real number.
+
+    Parameters
+    ----------
+    G : NetworkX graph
+        An undirected graph.
+
+    k : float
+
+    Returns
+    -------
+    float
+        The generalized Randić Index of a ``G``.
+
+    References
+    ----------
+
+    Ivan Gutman, Degree-Based Topological Indices, Croat. Chem. Acta 86 (4)
+    (2013) 351–361. http://dx.doi.org/10.5562/cca2294
+    """
+    _degree = functools.partial(nx.degree, G)
+    return _topological_index(G, func=lambda x, y: pow(_degree(x) * _degree(y), k))
 
 
 def augmented_randic_index(G):
