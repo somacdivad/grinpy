@@ -50,3 +50,10 @@ class TestTopologicalIndices:
     def test_first_zagreb_index(self, graph, expected_value):
         """Ensure augmented_randic_index returns the expected value for a given graph"""
         assert gp.first_zagreb_index(graph) == expected_value
+
+    @pytest.mark.parametrize(
+        "graph, expected_value", ((gp.path_graph(2), 1.0), (gp.cycle_graph(3), 12.0), (gp.complete_graph(4), 54.0))
+    )
+    def test_second_zagreb_index(self, graph, expected_value):
+        """Ensure augmented_randic_index returns the expected value for a given graph"""
+        assert gp.second_zagreb_index(graph) == expected_value
