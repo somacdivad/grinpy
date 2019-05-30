@@ -167,7 +167,7 @@ workflows:
       - lint
       - build:
           requires:
-            -lint
+            - lint
       - lint-docs:
           requires:
             - build
