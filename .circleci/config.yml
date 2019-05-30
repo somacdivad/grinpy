@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  lint:
     docker:
       - image: circleci/python:3
 
@@ -16,7 +16,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}-{{ checksum "requirements_dev.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
@@ -25,12 +25,12 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt -r requirements_dev.txt -r docs/requirements.txt
+            pip install -r requirements.txt -r requirements_dev.txt
 
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "requirements.txt" }}-{{ checksum "requirements_dev.txt" }}
 
       - run:
           name: run linter
@@ -43,6 +43,33 @@ jobs:
           command: |
             . venv/bin/activate
             make check-formatting
+  build:
+    docker:
+      - image: circleci/python:3
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}-{{ checksum "requirements_dev.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt -r requirements_dev.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}-{{ checksum "requirements_dev.txt" }}
 
       - run:
           name: run tests
@@ -60,9 +87,42 @@ jobs:
             . venv/bin/activate
             codecov -t=$CODECOV_TOKEN
 
-  docs:
+  lint-docs:
     docker:
       - image: circleci/python:3
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - doc-dependencies-{{ checksum "docs/requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - doc-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r docs/requirements.txt
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: doc-dependencies-{{ checksum "docs/requirements.txt" }}
+
+      - run:
+          name: lint docs
+          command: |
+            . venv/bin/activate
+            doc8 docs/
+
+  build-docs:
+    docker:
       - image: danteev/texlive
 
     working_directory: ~/repo
@@ -88,11 +148,6 @@ jobs:
           paths:
             - ./venv
           key: doc-dependencies-{{ checksum "requirements.txt" }}
-      - run:
-          name: lint docs
-          command: |
-            . venv/bin/activate
-            doc8 docs/
 
       - run:
           name: build docs
@@ -109,8 +164,14 @@ workflows:
   version: 2
   build:
     jobs:
+      - lint
       - build
-      - docs:
+          requires:
+            -lint
+      - lint-docs:
           requires:
             - build
+      - build-docs:
+          requires:
+            - lint-docs
 
