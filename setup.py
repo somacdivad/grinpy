@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 from setuptools.command.install import install
 import sys
 
-VERSION = "19.5a0"
+VERSION = "19.7a0"
 
 with open("README.md") as readme_file:
     readme = readme_file.read()
