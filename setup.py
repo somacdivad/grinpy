@@ -13,9 +13,6 @@ VERSION = "19.7a0"
 with open("README.md") as readme_file:
     readme = readme_file.read()
 
-with open("HISTORY.md") as history_file:
-    history = history_file.read()
-
 requirements = ["networkx>=2.1", "numpy>=1.14.2", "pulp>=1.6.8"]
 
 setup_requirements = ["pytest-runner"]
