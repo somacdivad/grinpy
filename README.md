@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/somacdivad/grinpy.svg?style=svg)](https://circleci.com/gh/somacdivad/grinpy) [![Documentation Status](https://readthedocs.org/projects/grinpy/badge/)](http://grinpy.readthedocs.io/en/latest/) [![BCH compliance](https://bettercodehub.com/edge/badge/somacdivad/grinpy)](https://bettercodehub.com/) [![codecov](https://codecov.io/gh/somacdivad/grinpy/branch/master/graph/badge.svg)](https://codecov.io/gh/somacdivad/grinpy)  [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black) [![PyPI version](https://badge.fury.io/py/grinpy.svg)](https://badge.fury.io/py/grinpy)
 
 # GrinPy
-*A NetworkX extension for calculating graph invariants.*
+*A NetworkX extension for calculating **gr**aph **in**variants in **py**thon.*
 
 ### What is it?
 GrinPy is an extension for NetworkX used for calculating graph invariants of
