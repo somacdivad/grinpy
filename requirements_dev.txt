@@ -1,6 +1,6 @@
 black==19.3b0
 bumpversion==0.5.3
-codecov==2.0.15
+codecov==2.0.16
 coverage==4.5.3
 flake8==3.7.7
 pydocstyle==3.0.0
